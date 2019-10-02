@@ -24,7 +24,7 @@ while not done:
                 pos[1] -= 10
             if event.key == pygame.K_s:
                 pos[1] += 10
-    pos[1] +=1
+    #pos[1] +=1
 
 
 
