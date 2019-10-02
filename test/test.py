@@ -6,6 +6,7 @@ done = False
 pos = [400,50]
 #pygame.key.set_repeat(0)
 background_image = pygame.image.load("course.png").convert()
+background_image = pygame.image.load("test/course.png").convert()
 while not done:
     events = pygame.event.get()
     screen.fill((255,255,255))
