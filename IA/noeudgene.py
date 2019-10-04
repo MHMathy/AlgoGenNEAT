@@ -8,3 +8,6 @@ class NoeudGene:
 
     def get_id():
         return id
+
+    def copy_noeud(self):
+        return NoeudGene()j
