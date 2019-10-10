@@ -16,7 +16,7 @@ class Voiture:
 
         angleCapt = 0
         for i in range(0,7):
-            self.listCapt.append(Capteur(angleCapt + self.angle, self.pos))
+            self.listCapt.append(Capteur(angleCapt))
             angleCapt += 45
 
     def accelerer(self):
@@ -49,6 +49,8 @@ class Voiture:
         self.pos = (self.pos[0] + dx*self.vitesse, self.pos[1] - dy*self.vitesse)
         self.retour_neutre()
 
+        Capteur.PosActuVoiture = self.pos
+        Capteur.AngleVoiture = self.angle
         for i in range(0,7):
             self.listCapt[i].checkMur()
 
@@ -57,5 +59,11 @@ class Voiture:
     
     def getAngle(self):
         return self.angle
+
+    def getDistRetourCapt(self):
+        listTmp = [0,0,0,0,0,0,0,0]
+        for i in range(7):
+            listTmp[i] = self.listCapt[i].getDistCapteur()
+        return listTmp
 
 

@@ -6,28 +6,30 @@ from Capteur.capteur import Capteur
 
 
 def main():
-    pygame.init()
-    mainClock = pygame.time.Clock()
+    pygame.init() #initialisation sdl
+    mainClock = pygame.time.Clock() #initialisation timer
 
     WHITE = 250,250,250
     rect2 = pygame.rect = (100,100,50,50)
     WINDOWWIDTH = 1000
     WINDOWHEIGHT = 650
 
-    thing = pygame.image.load('images/car.png')
+    #gestion images pygames
+    thing = pygame.image.load('images/car.png') 
     circuit = pygame.image.load('images/course.png')
     circuit = pygame.transform.scale(circuit,(1000,650))
     screen = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
     pygame.display.set_caption('Teh test')
-    testt = pygame.surfarray.pixels2d(circuit)
+  
 
     gauche = False
     droite = False
     accel = False
     frein = False
 
-    v = Voiture(100,100)
+    v = Voiture(250,150)
 
+    #event clavier
     while True:
         rect2 = pygame.rect = (100,100,50,50)
         if gauche == True:
@@ -51,6 +53,9 @@ def main():
                     accel = True
                 if event.key == ord('s'):
                     frein = True
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
             if event.type == KEYUP:
                 if event.key == ord('q'):
                     gauche = False
