@@ -1,4 +1,4 @@
-from noeudgene import NoeudGene
+jfrom noeudgene import NoeudGene
 from connectiongene import ConnectionGene
 import random
 
@@ -8,6 +8,10 @@ class Genome:
         self.__listNoeuds = []
         self.__numInnovation = 0
 
+    def init_Innovation(self):
+        tmp = self.__listConnections.copy()
+        tmp.reverse()
+        self.__numInnovation = tmp[0].__numInnovation
 
     def new_numInnovation():
         self.__numInnovation += 1
@@ -29,6 +33,9 @@ class Genome:
         for noeud in self.__listNoeuds:
             if noeud.get_id() == id:
                 return noeud
+
+    def get_numInnovation():
+        return self.__numInnovation
 
 
     def ajout_connec_mutation(self):
@@ -58,7 +65,7 @@ class Genome:
 
         #break
 
-        new_connec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),poids,True,innovation) #incrémenter de 1 l'innovatino et garder la trace
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),poids,True,self.new_numInnovation()) #incrémenter de 1 l'innovatino et garder la trace
 
         #if inverse == False:
             #new_connec = ConnectionGene(noeud[0],noeud[1],poids,True,innovation) #incrémenter de 1 l'innovatino et garder la trace
@@ -75,17 +82,34 @@ class Genome:
 
         connec.deactive()
 
-        newnoeud = NoeudGene("hidden",len(__listNoeuds))
+        newNoeud = NoeudGene("hidden",len(__listNoeuds))
 
-        co_in_new = ConnectionGene(noeudin.get_id(),newnoeud.get_id(),1,True,0)
-        co_new_out = ConnectionGene(newnoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,0)
+        coInNew = ConnectionGene(noeudin.get_id(),newnoeud.get_id(),1,True,self.new_numInnovation())
+        coNewOut = ConnectionGene(newnoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,self.new_numInnovation())
 
         ajout_noeud(newnoeud)
 
-        ajout_connec(co_in_new)
+        ajout_connec(c)
         ajout_connec(co_new_out)
 
-    def melange_genome(genParent1,genParent2):
+    def melange_genome(self,genParent1,genParent2):
+
+        newGenome = Genome()
 
         for noeudp1 in genParent1.get_listNoeuds():
-            if noeudp1 in genParent2.get_listNoeuds():
+            newGenome.ajout_noeud(noeudp1.copy_noeud())
+
+        for i in range genParent1.get_numInnovation():
+            connectemp = []
+            for connecp1 in genParent1.get_listConnections():
+                if connecp1.get_innovation()==i:
+                    connectemp.append(connecp1.copy_connec())
+            for connecp2 in genParent2.get_listConnections():
+                if connecp2.get_innovation()==i:
+                    connectemp.append(connecp2.copy_connec())
+            if len(connectemp)==0:
+                continue
+            else:
+                newGenome.ajout_connec(random.choice(connectemp)
+
+        return newGenome

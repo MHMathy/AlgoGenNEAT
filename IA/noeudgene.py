@@ -3,11 +3,11 @@ class NoeudGene:
         self.__type=type
         self.__id=id
 
-    def get_type():
-        return type
+    def get_type(self):
+        return self.__type
 
-    def get_id():
-        return id
+    def get_id(self):
+        return self.__id
 
     def copy_noeud(self):
-        return NoeudGene()j
+        return NoeudGene(self.__type,self.__id)
