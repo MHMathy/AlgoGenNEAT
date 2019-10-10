@@ -4,7 +4,8 @@ from pygame.locals import *
 from Voiture.voiture import Voiture
 
 
-#
+#cd Documents/L3/LifProjet/mathymartinet/
+
 
 def main():
     pygame.init()
