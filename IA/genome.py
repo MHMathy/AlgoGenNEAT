@@ -1,4 +1,4 @@
-jfrom noeudgene import NoeudGene
+from noeudgene import NoeudGene
 from connectiongene import ConnectionGene
 import random
 
@@ -13,7 +13,7 @@ class Genome:
         tmp.reverse()
         self.__numInnovation = tmp[0].__numInnovation
 
-    def new_numInnovation():
+    def new_numInnovation(self):
         self.__numInnovation += 1
         return self.__numInnovation
 
@@ -39,7 +39,11 @@ class Genome:
 
 
     def ajout_connec_mutation(self):
-        noeud = random.sample(self.__listNoeuds,k=2) #noeud tiré au hazard
+        noeud = []
+        while True:
+            noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
+            if noeud[0].get_type() != noeud[1].get_type():
+                break
 
         inverse = False
 
@@ -56,7 +60,7 @@ class Genome:
 
         connecExist = False
         for connec in self.__listConnections:
-            if connec.__noeudin == noeud[0].get_id() and connec.__noeudout == noeud[1].get_id():
+            if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
                 connecExist = True
                 break
 
@@ -65,15 +69,15 @@ class Genome:
 
         #break
 
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),poids,True,self.new_numInnovation()) #incrémenter de 1 l'innovatino et garder la trace
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,self.new_numInnovation()) #incrementer de 1 l'innovatino et garder la trace
 
         #if inverse == False:
-            #new_connec = ConnectionGene(noeud[0],noeud[1],poids,True,innovation) #incrémenter de 1 l'innovatino et garder la trace
+            #new_connec = ConnectionGene(noeud[0],noeud[1],poids,True,innovation) #incrementer de 1 l'innovatino et garder la trace
 
         #if inverse == True:
             #new_connec = ConnectionGene(noeud[1],noeud[0],poids,True,innovation)
 
-        ajout_connec(new_connec)
+        self.ajout_connec(newConnec)
 
     def ajout_noeud_mutation(self):
         connec = random.choice(self.__listConnections)
@@ -87,10 +91,10 @@ class Genome:
         coInNew = ConnectionGene(noeudin.get_id(),newnoeud.get_id(),1,True,self.new_numInnovation())
         coNewOut = ConnectionGene(newnoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,self.new_numInnovation())
 
-        ajout_noeud(newnoeud)
+        self.ajout_noeud(newnoeud)
 
-        ajout_connec(c)
-        ajout_connec(co_new_out)
+        self.ajout_connec(c)
+        self.ajout_connec(co_new_out)
 
     def melange_genome(self,genParent1,genParent2):
 
@@ -99,7 +103,7 @@ class Genome:
         for noeudp1 in genParent1.get_listNoeuds():
             newGenome.ajout_noeud(noeudp1.copy_noeud())
 
-        for i in range genParent1.get_numInnovation():
+        for i in range(0,genParent1.get_numInnovation()):
             connectemp = []
             for connecp1 in genParent1.get_listConnections():
                 if connecp1.get_innovation()==i:
@@ -110,6 +114,6 @@ class Genome:
             if len(connectemp)==0:
                 continue
             else:
-                newGenome.ajout_connec(random.choice(connectemp)
+                newGenome.ajout_connec(random.choice(connectemp))
 
         return newGenome

@@ -6,22 +6,22 @@ class ConnectionGene:
         self.__actif = actif
         self.__innovation = innovation
 
-    def deactive():
+    def deactive(self):
         self.__actif = False
 
-    def get_noeudin():
+    def get_noeudin(self):
         return self.__noeudin
 
-    def get_noeudout():
+    def get_noeudout(self):
         return self.__noeudout
 
-    def get_poids():
+    def get_poids(self):
         return self.__poids
 
     def get_actif(self):
         return self.__actif
 
-    def get_innovation():
+    def get_innovation(self):
         return self.__innovation
 
     def copy_connec(self):
