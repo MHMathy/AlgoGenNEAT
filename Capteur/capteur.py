@@ -2,8 +2,6 @@ import pygame
 import math
 import Voiture.voiture
 
-
-
 class Capteur:
     circuit = pygame.image.load("./images/course.png")
     circuit = pygame.transform.scale(circuit,(1000,650))
@@ -39,9 +37,7 @@ class Capteur:
         
         self.DistMur = math.sqrt((x-self.PosActuVoiture[0]) * (x-self.PosActuVoiture[0])
                                  + (y-self.PosActuVoiture[1]) * (y-self.PosActuVoiture[1])) 
-
                             
-
     def getDistCapteur(self): #retourne la distance d'un capteur par rapport au mur le plus proche
         return self.DistMur
 

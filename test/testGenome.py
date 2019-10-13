@@ -2,9 +2,9 @@ import pygame
 import sys
 sys.path.append('../')
 
-from mathymartinet.IA.genome import Genome
-from mathymartinet.IA.noeudgene import NoeudGene
-from mathymartinet.IA.connectiongene import ConnectionGene
+from IA.genome import Genome
+from IA.noeudgene import NoeudGene
+from IA.connectiongene import ConnectionGene
 
 class AfficheGenome:
 
@@ -30,7 +30,7 @@ class AfficheGenome:
         #print(self.posnoeud)
 
 
-    def draw_noeud(self):
+    def draw_noeud(self,surf):
         tmpL = self.genome.get_listNoeuds()
         color = (0,0,0)
         for i in range(0,len(tmpL)):
@@ -40,20 +40,18 @@ class AfficheGenome:
                 color = (0,0,255)
             elif(tmpL[i].get_type()=="output"):
                 color = (255,0,0)
-            pygame.draw.circle(screen,color,(self.posnoeud[i]),20)
+            pygame.draw.circle(surf,color,(self.posnoeud[i]),20)
 
-    def draw_connec(self):
+    def draw_connec(self,surf):
         tmpL = self.genome.get_listConnections()
         for c in tmpL:
-            pygame.draw.line(screen,(0,0,0),self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1])
+            pygame.draw.line(surf,(0,0,0),self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1])
 
 
 
-
-pygame.init()
+"""pygame.init()
 screen = pygame.display.set_mode((800, 600))
-done = False
-screen.fill([0,0,0])
+screen.fill([255,255,255])
 mainClock = pygame.time.Clock()
 
 G = Genome()
@@ -74,19 +72,19 @@ for i in range(0,4):
 AG = AfficheGenome(G)
 AG.set_posNoeud()
 
-while not done:
-    events = pygame.event.get()
-    screen.fill((255,255,255))
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            done = True
+            pygame.quit()
+            sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q:
-                done = True
-            #if event.key == pygame.K_q:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
     AG.draw_noeud()
     AG.draw_connec()
     pygame.display.flip()
     mainClock.tick(30)
 pygame.quit()
 sys.exit()
+"""

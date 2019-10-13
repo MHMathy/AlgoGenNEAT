@@ -1,5 +1,5 @@
-from noeudgene import NoeudGene
-from connectiongene import ConnectionGene
+from .noeudgene import NoeudGene
+from .connectiongene import ConnectionGene
 import random
 
 class Genome:
@@ -56,7 +56,7 @@ class Genome:
         elif noeud[0].get_type() == 'output' and noeud[1].get_type() == 'input':
             inverse = True
 
-        noeud.sort(reverse=inverse)
+        #noeud.sort(reverse=inverse)
 
         connecExist = False
         for connec in self.__listConnections:
