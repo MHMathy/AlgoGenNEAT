@@ -32,7 +32,7 @@ class AfficheGenome:
         #print(self.posnoeud)
 
 
-    def draw_noeud(self,surf):
+    def draw_noeud(self):
         tmpL = self.genome.get_listNoeuds()
         color = (0,0,0)
         for i in range(0,len(tmpL)):
@@ -43,6 +43,7 @@ class AfficheGenome:
             elif tmpL[i].get_type()=="output":
                 color = (255,0,0)
             pygame.draw.circle(screen,color,(self.posnoeud[i]),20)
+
     def draw_line_co(self,inn, outn):
         dX = outn[0] - inn[0]
         dY = outn[1] - inn[1]
@@ -51,12 +52,14 @@ class AfficheGenome:
         udX = dX / Len
         udY = dY / Len
         end = [outn[0]-15 * udX, outn[1]-15 * udY]
-
+        end = list(map(lambda x: int(x),end))
+        print(end)
         pygame.draw.line(screen,(0,0,0),inn,end,2)
+
         pygame.draw.circle(screen,(0,0,0),[end[0],end[1]],5)
 
 
-    def draw_connec(self,surf):
+    def draw_connec(self):
         tmpL = self.genome.get_listConnections()
         for c in tmpL:
             #print("in",self.genome.get_noeud(c.get_noeudin()).get_type())
@@ -96,7 +99,7 @@ AG = AfficheGenome(G)
 AG.set_posNoeud()
 AG.draw_noeud()
 AG.draw_connec()
-
+done = False
 while not done:
 
 
