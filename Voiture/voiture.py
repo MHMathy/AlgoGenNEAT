@@ -7,7 +7,7 @@ from Capteur.capteur import Capteur
 
 
 class Voiture:
-    def __init__(self,posx=0,posy=0,angle=0,volant=0,vitesse=0):
+    def __init__(self,posx=0,posy=0,angle=0,volant=0,vitesse=0): #initialisation de la voiture
         self.pos = [posx,posy]
         self.angle = angle
         self.volant = volant
@@ -15,21 +15,21 @@ class Voiture:
         self.listCapt = []
 
         angleCapt = 0
-        for i in range(0,7):
+        for i in range(0,7): #disposition des capteurs dans une liste selon le sens trigonometrique
             self.listCapt.append(Capteur(angleCapt))
             angleCapt += 45
 
-    def accelerer(self):
+    def accelerer(self): #augmente la vitesse
         self.vitesse += 1.5
 
-    def freiner(self):
+    def freiner(self): #reduit la vitesse
         self.vitesse -= 1.2
 
-    def tourne_gauche(self):
+    def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
         if self.volant<10:
             self.volant += 1
 
-    def tourne_droite(self):
+    def tourne_droite(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à droite
         if self.volant>-10:
             self.volant -= 1
 
@@ -42,7 +42,7 @@ class Voiture:
         if self.volant!=0:
                 self.volant += (-0.5*self.volant)/abs(self.volant)
 
-    def update(self):
+    def update(self): #met à jour les paramètres de la voiture (et ses capteurs)
         self.angle += self.volant
         dx = math.cos(math.radians(self.angle))
         dy = math.sin(math.radians(self.angle))
@@ -54,13 +54,13 @@ class Voiture:
         for i in range(0,7):
             self.listCapt[i].checkMur()
 
-    def getPos(self):
+    def getPos(self): #renvoie la position de la voiture
         return self.pos
     
-    def getAngle(self):
+    def getAngle(self): #renvoie l'angle d'inclinaison de la voiture
         return self.angle
 
-    def getDistRetourCapt(self):
+    def getDistRetourCapt(self): #renvoie une liste comportant la distance de chaque capteurs par rapport au mur le plus proche
         listTmp = [0,0,0,0,0,0,0,0]
         for i in range(7):
             listTmp[i] = self.listCapt[i].getDistCapteur()
