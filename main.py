@@ -1,7 +1,9 @@
-from classeMain.ClasseMain import Main
+import pygame, sys
+from pygame.locals import *
 
-def main():
-    main = Main()
-    main.execution()
+from IA.genome import Genome
+from Voiture.voiture import Voiture
+from Capteur.capteur import Capteur
 
-main()
+
+#cd Documents/L3/LifProjet/mathymartinet/

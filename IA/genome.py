@@ -6,16 +6,6 @@ class Genome:
     def __init__(self):
         self.__listConnections = []
         self.__listNoeuds = []
-        self.__numInnovation = 0
-
-    def init_Innovation(self):
-        tmp = self.__listConnections.copy()
-        tmp.reverse()
-        self.__numInnovation = tmp[0].__numInnovation
-
-    def new_numInnovation(self):
-        self.__numInnovation += 1
-        return self.__numInnovation
 
     def ajout_connec(self,connection):
         self.__listConnections.append(connection)
@@ -34,29 +24,39 @@ class Genome:
             if noeud.get_id() == id:
                 return noeud
 
-    def get_numInnovation():
-        return self.__numInnovation
+    def get_numInnovation(self):
+        if not self.__listConnections:
+            return 0
+        else:
+            return self.__listConnections[-1].get_innovation()
+
+    def get_idNoeudFin(self):
+        if not self.__listNoeuds:
+            return 0
+        else:
+            return self.__listNoeuds[-1].get_id()
 
 
     def ajout_connec_mutation(self):
         noeud = []
         while True:
             noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
-            if noeud[0].get_type() != noeud[1].get_type():
+            if not(noeud[0].get_type() == noeud[1].get_type() and (noeud[0].get_type() == "input" or noeud[0].get_type() == "output")):
                 break
 
         inverse = False
 
         #if (noeud[0].get_type() == 'hidden' and noeud[1].get_type() == 'input') or (noeud[0].get_type() == 'output' and noeud[1].get_type() == 'hidden') or (noeud[0].get_type() == 'output' and noeud[1].get_type() == 'input'):
 
-        if noeud[0].get_type() == 'hidden' and noeud[1].get_type() == 'input':
+        if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
             inverse = True
-        elif noeud[0].get_type() == 'output' and noeud[1].get_type() == 'hidden':
+        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "hidden":
             inverse = True
-        elif noeud[0].get_type() == 'output' and noeud[1].get_type() == 'input':
+        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
             inverse = True
 
-        #noeud.sort(reverse=inverse)
+        if inverse:
+            noeud.reverse()
 
         connecExist = False
         for connec in self.__listConnections:
@@ -69,7 +69,7 @@ class Genome:
 
         #break
 
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,self.new_numInnovation()) #incrementer de 1 l'innovatino et garder la trace
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,self.get_numInnovation()+1) #incrementer de 1 l'innovatino et garder la trace
 
         #if inverse == False:
             #new_connec = ConnectionGene(noeud[0],noeud[1],poids,True,innovation) #incrementer de 1 l'innovatino et garder la trace
@@ -81,20 +81,20 @@ class Genome:
 
     def ajout_noeud_mutation(self):
         connec = random.choice(self.__listConnections)
-        noeudin = get_noeud(connec.__noeudin)
-        noeudout = get_noeud(connec.__noeudout)
+        noeudin = self.get_noeud(connec.get_noeudin())
+        noeudout = self.get_noeud(connec.get_noeudout())
 
         connec.deactive()
 
-        newNoeud = NoeudGene("hidden",len(__listNoeuds))
+        newNoeud = NoeudGene("hidden",self.get_idNoeudFin()+1)
 
-        coInNew = ConnectionGene(noeudin.get_id(),newnoeud.get_id(),1,True,self.new_numInnovation())
-        coNewOut = ConnectionGene(newnoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,self.new_numInnovation())
+        coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,self.get_numInnovation()+1)
+        coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,self.get_numInnovation()+2)
 
-        self.ajout_noeud(newnoeud)
+        self.ajout_noeud(newNoeud)
 
-        self.ajout_connec(c)
-        self.ajout_connec(co_new_out)
+        self.ajout_connec(coInNew)
+        self.ajout_connec(coNewOut)
 
     def melange_genome(self,genParent1,genParent2):
 
