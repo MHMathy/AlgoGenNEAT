@@ -32,7 +32,7 @@ class AfficheGenome:
         #print(self.posnoeud)
 
 
-    def draw_noeud(self):
+    def draw_noeud(self,surf):
         tmpL = self.genome.get_listNoeuds()
         color = (0,0,0)
         for i in range(0,len(tmpL)):
@@ -56,7 +56,7 @@ class AfficheGenome:
         pygame.draw.circle(screen,(0,0,0),[end[0],end[1]],5)
 
 
-    def draw_connec(self):
+    def draw_connec(self,surf):
         tmpL = self.genome.get_listConnections()
         for c in tmpL:
             #print("in",self.genome.get_noeud(c.get_noeudin()).get_type())
@@ -67,11 +67,9 @@ class AfficheGenome:
 
 
 
-
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-done = False
-screen.fill([0,0,0])
+screen.fill([255,255,255])
 mainClock = pygame.time.Clock()
 
 G = Genome()
@@ -105,7 +103,8 @@ while not done:
     AG = AfficheGenome(G)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            done = True
+            pygame.quit()
+            sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 done = True

@@ -1,7 +1,7 @@
 import math
 
 import sys
-sys.path.append('../')
+
 
 from Capteur.capteur import Capteur
 
