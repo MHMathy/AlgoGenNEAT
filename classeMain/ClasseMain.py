@@ -1,11 +1,13 @@
 import pygame,sys
 from pygame.locals import *
 
-from Voiture.voiture import Voiture
-from test.testGenome import AfficheGenome
+sys.path.append('./')
+
+from afficheGenome.afficheGenome import AfficheGenome
 from IA.genome import Genome
 from IA.noeudgene import NoeudGene
 from IA.connectiongene import ConnectionGene
+from Voiture.voiture import Voiture
 
 
 class Main:
@@ -29,6 +31,8 @@ class Main:
 
         self.G = Genome()
         self.l = []
+        self.AG = AfficheGenome(self.G)
+        
 
         #load images
         self.ImVoiture = pygame.image.load('images/car.png')
@@ -63,11 +67,13 @@ class Main:
 
         for i in range(0,4):
             self.G.ajout_connec_mutation()
-            AG = AfficheGenome(self.G)
-            AG.set_posNoeud()
-            AG.draw_noeud(self.surf)
-            AG.draw_connec(self.surf)
-            self.surf.set_alpha(200)
+        self.AG = AfficheGenome(self.G)
+        self.AG.set_posNoeud()
+        self.AG.draw_noeud(self.surf)
+        self.AG.draw_connec(self.surf)
+        self.surf.set_alpha(200)
+
+
 
     def draw(self): #affichage permanent
 
@@ -111,6 +117,12 @@ class Main:
                     self.quitter()                
                 if event.key == K_ESCAPE and self.BoolAffResNeuro == True:
                         self.BoolAffResNeuro = False
+             #   if event.key == K_m:
+              #      self.surf.fill((255,255,255))
+               #     self.G.ajout_noeud_mutation()
+                #    self.AG.set_posNoeud()
+                 #   self.AG.draw_noeud(self.surf)
+                   #  self.AG.draw_connec(self.surf)
             elif event.type == KEYUP:
                 if event.key == ord('q'):
                     self.gauche = False

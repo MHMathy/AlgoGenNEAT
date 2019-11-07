@@ -19,7 +19,9 @@ class AfficheGenome:
         posInn = [100,100]
         posHidn = [300,130]
         posOutn = [500,170]
+        self.posNoeud = []
         tmpL = self.genome.get_listNoeuds()
+
         for i in range(0,len(tmpL)):
             if tmpL[i].get_type()=="input":
                 self.posnoeud.append(posInn)
@@ -33,7 +35,7 @@ class AfficheGenome:
         #print(self.posnoeud)
 
 
-    def draw_noeud(self):
+    def draw_noeud(self, surf):
         tmpL = self.genome.get_listNoeuds()
         color = (0,0,0)
         for i in range(0,len(tmpL)):
@@ -43,30 +45,31 @@ class AfficheGenome:
                 color = (0,0,255)
             elif tmpL[i].get_type()=="output":
                 color = (255,0,0)
-            pygame.draw.circle(screen,color,(self.posnoeud[i]),20)
+            pygame.draw.circle(surf,color,(self.posnoeud[i]),20)
 
-    def draw_line_co(self,inn, outn):
+    def draw_line_co(self,inn, outn, surf):
         dX = outn[0] - inn[0]
         dY = outn[1] - inn[1]
         Len = math.sqrt(dX* dX + dY * dY)
-
         udX = dX / Len
         udY = dY / Len
         end = [outn[0]-15 * udX, outn[1]-15 * udY]
         end = list(map(lambda x: int(x),end))
-        print(end)
-        pygame.draw.line(screen,(0,0,0),inn,end,2)
+        #print(end)
+        pygame.draw.line(surf,(0,0,0),inn,end,2)
 
-        pygame.draw.circle(screen,(0,0,0),[end[0],end[1]],5)
+        pygame.draw.circle(surf,(0,0,0),[end[0],end[1]],5)
 
 
-    def draw_connec(self):
+    def draw_connec(self, surf):
         tmpL = self.genome.get_listConnections()
+        #print(self.posnoeud)
         for c in tmpL:
             #print("in",self.genome.get_noeud(c.get_noeudin()).get_type())
             #print("out",self.genome.get_noeud(c.get_noeudout()).get_type())
-            print(c.get_actif())
+            #print(c.get_actif())
             if c.get_actif()==True:
+                self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1], surf)
                 self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1])
 
 
