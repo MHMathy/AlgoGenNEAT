@@ -4,7 +4,7 @@ from .innovation import Innovation
 import random
 
 
-
+# classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
 class Genome:
 
     PROBA_MUTATION = 80
@@ -12,41 +12,52 @@ class Genome:
     DISTANCE_C1 = 1
     DISTANCE_C2 = 1
     DISTANCE_C3 = 1
+
     ino = Innovation()
 
     def __init__(self,innovationG):
         self.__listConnections = []
         self.__listNoeuds = []
 
+    # ajouter une connection à la liste de connection
     def ajout_connec(self,connection):
         self.__listConnections.append(connection)
 
+    # ajouter un noeud à la liste de noeud
     def ajout_noeud(self,noeud):
         self.__listNoeuds.append(noeud)
 
+    # retourne la liste de noeud
     def get_listNoeuds(self):
         return self.__listNoeuds
 
+    # retourne la liste de connections
     def get_listConnections(self):
         return self.__listConnections
 
+    # retourne un noeud à partir de son numero id
     def get_noeud(self,id):
         for noeud in self.__listNoeuds:
             if noeud.get_id() == id:
                 return noeud
 
-    def get_numInnovation(self):
-        if not self.__listConnections:
-            return 0
-        else:
-            return self.__listConnections[-1].get_innovation()
+    # retourne le numero d'innovation max de la liste de connection
+    def get_maxNumInnovation(self):
+        maxinno = 0
+        for connec in self.__listConnections:
+            if connec.get_innovation>maxinno:
+                maxinno=connec.get_innovation()
+        return maxinno
 
+    # a supprimer?
+    # retourne le numero d'innovation max des noeuds
     def get_idNoeudFin(self):
         if not self.__listNoeuds:
             return 0
         else:
             return self.__listNoeuds[-1].get_id()
 
+    # modifie la valeur
     def connec_mutation(self):
         for connec in self.__listConnections:
             if (random.randint(1,100)<PROBA_MUTATION):
@@ -130,13 +141,11 @@ class Genome:
 
         return newGenome
 
-        @staticmethod
+    @staticmethod
+    def count_moyen_exces_disjoint(genome1,genome2):
 
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
+    @staticmethod
+    def calc_distance_compatibilite(genome1,genome2):
+        (m,e,d) = count_moyen_exces_disjoint(genome1,genome2)
 
-        @staticmethod
-        def count_match_exces_disjoint(genome1,genome2):
-
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
+        return (DISTANCE_C1*e/1)+ (DISTANCE_C2*d/1) + DISTANCE_C3*m
