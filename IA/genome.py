@@ -102,6 +102,7 @@ class Genome:
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
 
+    #fonction qui renvoie le poids moyen entre 2 connections, le nombre d'exces et le nombre de disjoint
     @staticmethod
     def count_match_exces_disjoint(genParent1, genParent2):
         matchParents = 0
