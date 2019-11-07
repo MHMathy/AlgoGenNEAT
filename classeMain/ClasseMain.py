@@ -25,6 +25,10 @@ class Main:
         self.frein = False
         self.v = Voiture(250,150)
         self.police = pygame.font.Font('BradBunR.ttf', 20)
+        self.BoolAffResNeuro = False
+
+        self.G = Genome()
+        self.l = []
 
         #load images
         self.ImVoiture = pygame.image.load('images/car.png')
@@ -44,16 +48,42 @@ class Main:
         #definition rect
         self.rectBtn = pygame.Rect((1000,550),(250,100))
 
+        #init du reseau neuronne test
+        self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
+        self.surf.fill(self.WHITE)
+
+        self.l.append(NoeudGene("input", 1))
+        self.l.append(NoeudGene("input", 2))
+        self.l.append(NoeudGene("output", 3))
+        self.l.append(NoeudGene("output", 4))
+        self.l.append(NoeudGene("input", 5))
+                
+        for n in self.l:
+            self.G.ajout_noeud(n)
+
+        for i in range(0,4):
+            self.G.ajout_connec_mutation()
+            AG = AfficheGenome(self.G)
+            AG.set_posNoeud()
+            AG.draw_noeud(self.surf)
+            AG.draw_connec(self.surf)
+            self.surf.set_alpha(200)
+
     def draw(self): #affichage permanent
 
         ImVoiture = pygame.transform.rotozoom(self.ImVoiture,self.v.angle,0.05)
 
         self.screen.blit(self.circuit,(0,0))
-        self.screen.blit(ImVoiture, self.v.pos)
         self.screen.blit(self.imageBtn,self.rectBtn)
+        self.screen.blit(ImVoiture, self.v.pos)
+
+        if self.BoolAffResNeuro == True:
+            self.screen.blit(self.surf,(0,0))
+            
+
         pygame.display.update()
 
-    def quitter(self):
+    def quitter(self): #quitte la sdl et ferme la fenetre python
         pygame.quit()
         sys.exit()
 
@@ -77,8 +107,10 @@ class Main:
                     self.accel = True
                 if event.key == ord('s'):
                     self.frein = True
-                if event.key == K_ESCAPE:
-                    self.quitter()
+                if event.key == K_ESCAPE and self.BoolAffResNeuro == False:
+                    self.quitter()                
+                if event.key == K_ESCAPE and self.BoolAffResNeuro == True:
+                        self.BoolAffResNeuro = False
             elif event.type == KEYUP:
                 if event.key == ord('q'):
                     self.gauche = False
@@ -87,42 +119,11 @@ class Main:
                 if event.key == ord('z'):
                     self.accel = False
                 if event.key == ord('s'):
-                    self.frein = False  
+                    self.frein = False 
+
             elif event.type == MOUSEBUTTONDOWN and event.button == 1:
                 if self.rectBtn.collidepoint(event.pos):
-                    done = False
-                    surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
-                    surf.fill(self.WHITE)
-                    G = Genome()
-                    l = []
-                    l.append(NoeudGene("input", 1))
-                    l.append(NoeudGene("input", 2))
-                    l.append(NoeudGene("output", 3))
-                    l.append(NoeudGene("output", 4))
-                    l.append(NoeudGene("input", 5))
-                
-                    for n in l:
-                        G.ajout_noeud(n)
-
-                    for i in range(0,4):
-                        G.ajout_connec_mutation()
-
-                    AG = AfficheGenome(G)
-                    AG.set_posNoeud()
-                    AG.draw_noeud(surf)
-                    AG.draw_connec(surf)
-                    surf.set_alpha(5)
-                    while not done:
-                        self.screen.blit(surf,(0,0))
-                        pygame.display.flip()
-                        
-                        for event in pygame.event.get():
-                            if event.type == KEYDOWN:
-                                if event.key == K_ESCAPE:
-                                    done = True
-                            if event.type == QUIT:
-                                self.quitter()
-
+                    self.BoolAffResNeuro = True
 
     def actionsVoiture(self):
         if self.gauche == True:
@@ -137,9 +138,9 @@ class Main:
     def boucle(self):
         while True:
             self.actionsVoiture()
-            self.gestionEvent()
             self.v.update()
             self.draw()
+            self.gestionEvent()
             self.mainClock.tick(30)
         
     def execution(self):
