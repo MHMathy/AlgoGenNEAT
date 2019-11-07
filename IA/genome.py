@@ -117,3 +117,54 @@ class Genome:
                 newGenome.ajout_connec(random.choice(connectemp))
 
         return newGenome
+
+    @staticmethod
+    def testRegression():
+    
+        print("initialisation du genome")
+        G = Genome()
+        if G.get_listNoeuds() != [] or G.get_listConnections() != []:
+            print("echec de l'initialisation du genome") 
+            return -1
+        print("initialisation reussie")
+
+        l = []
+
+        l.append(NoeudGene("input", 1))
+        l.append(NoeudGene("output",2))
+
+        for ind in l:
+            G.ajout_noeud(ind)
+        
+        if len(G.get_listNoeuds()) != 2: 
+            print("probleme lors de l'ajout d'un noeud")
+            return -1
+        print("tous les noeuds ont ete ajoute")
+
+        for i in range(0,1):
+            G.ajout_connec_mutation()
+
+        if len(G.get_listConnections()) != 1:
+            print("probleme lors de la creation de la connection entre les deux noeuds")
+            return -1
+        print("la connection a ete ajoute")
+
+        G.ajout_noeud_mutation()
+
+        if len(G.get_listConnections()) != 3 or len(G.get_listNoeuds()) != 3:
+            print("erreur lors de l'ajout d'un noeud de mutation")
+            print("taille listConnections:", len(G.get_listConnections()), " devrait etre egale a 3")
+            print("taille listNoeuds: ", len(G.get_listNoeuds()), "devrait etre egale a 3")
+            return -1
+        print("le noeud de mutation a ete ajoute")
+        print("fin du test de regression, passe avec succes")
+
+Genome.testRegression()
+
+        
+
+
+
+
+
+        
