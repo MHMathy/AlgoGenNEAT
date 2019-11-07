@@ -7,6 +7,7 @@ sys.path.append('./')
 from IA.genome import Genome
 from IA.noeudgene import NoeudGene
 from IA.connectiongene import ConnectionGene
+from IA.innovation import Innovation
 
 class AfficheGenome:
 
@@ -69,3 +70,60 @@ class AfficheGenome:
             #print(c.get_actif())
             if c.get_actif()==True:
                 self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1], surf)
+                self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1])
+
+
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+screen.fill([255,255,255])
+mainClock = pygame.time.Clock()
+ino = Innovation
+G = Genome(ino)
+
+l = []
+l.append(NoeudGene("input", 1))
+l.append(NoeudGene("input", 2))
+l.append(NoeudGene("output", 3))
+l.append(NoeudGene("output", 4))
+l.append(NoeudGene("input", 5))
+for n in l:
+    G.ajout_noeud(n)
+
+
+for i in range(0,4):
+    G.ajout_connec_mutation()
+
+
+
+
+screen.fill((255,255,255))
+
+AG = AfficheGenome(G)
+AG.set_posNoeud()
+AG.draw_noeud()
+AG.draw_connec()
+done = False
+while not done:
+
+
+    AG = AfficheGenome(G)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                done = True
+            if event.key == pygame.K_m:
+                screen.fill((255,255,255))
+                G.ajout_noeud_mutation()
+                AG.set_posNoeud()
+                AG.draw_noeud()
+                AG.draw_connec()
+            #if event.key == pygame.K_q:
+
+    pygame.display.update()
+    mainClock.tick(30)
+pygame.quit()
+sys.exit()

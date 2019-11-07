@@ -1,9 +1,20 @@
 from .noeudgene import NoeudGene
 from .connectiongene import ConnectionGene
+from .innovation import Innovation
 import random
 
+
+
 class Genome:
-    def __init__(self):
+
+    PROBA_MUTATION = 80
+    PROBA_MUTATION_COEF = 90
+    DISTANCE_C1 = 1
+    DISTANCE_C2 = 1
+    DISTANCE_C3 = 1
+    ino = Innovation()
+
+    def __init__(self,innovationG):
         self.__listConnections = []
         self.__listNoeuds = []
 
@@ -36,6 +47,13 @@ class Genome:
         else:
             return self.__listNoeuds[-1].get_id()
 
+    def connec_mutation(self):
+        for connec in self.__listConnections:
+            if (random.randint(1,100)<PROBA_MUTATION):
+                if(random.randint(1,100)<PROBA_MUTATION_COEF):
+                    connec.set_poids(connec.get_poids()*random.uniform(-2,2))
+                else:
+                    connec.set_poids(random.uniform(-2,2))
 
     def ajout_connec_mutation(self):
         noeud = []
@@ -45,8 +63,6 @@ class Genome:
                 break
 
         inverse = False
-
-        #if (noeud[0].get_type() == 'hidden' and noeud[1].get_type() == 'input') or (noeud[0].get_type() == 'output' and noeud[1].get_type() == 'hidden') or (noeud[0].get_type() == 'output' and noeud[1].get_type() == 'input'):
 
         if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
             inverse = True
@@ -67,15 +83,7 @@ class Genome:
         if connecExist == True:
             return
 
-        #break
-
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,self.get_numInnovation()+1) #incrementer de 1 l'innovatino et garder la trace
-
-        #if inverse == False:
-            #new_connec = ConnectionGene(noeud[0],noeud[1],poids,True,innovation) #incrementer de 1 l'innovatino et garder la trace
-
-        #if inverse == True:
-            #new_connec = ConnectionGene(noeud[1],noeud[0],poids,True,innovation)
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id())) #incrementer de 1 l'innovatino et garder la trace
 
         self.ajout_connec(newConnec)
 
@@ -86,25 +94,29 @@ class Genome:
 
         connec.deactive()
 
-        newNoeud = NoeudGene("hidden",self.get_idNoeudFin()+1)
+        newNoeud = NoeudGene("hidden",ino.get_new_innovation_noeud())
 
-        coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,self.get_numInnovation()+1)
-        coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,self.get_numInnovation()+2)
+        coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
+        coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
 
         self.ajout_noeud(newNoeud)
 
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
 
-    def melange_genome(self,genParent1,genParent2):
-
+    @staticmethod
+    def melange_genome(genParent1,genParent2):
+        #+vite si copie et pop
         newGenome = Genome()
+        noeudtemp = []
+        connectemp = []
+        fini = False
+        while not fini:
+            for noeudp1 in genParent1.get_listNoeuds():
+                newGenome.ajout_noeud(noeudp1.copy_noeud())
 
-        for noeudp1 in genParent1.get_listNoeuds():
-            newGenome.ajout_noeud(noeudp1.copy_noeud())
+        while not fini:
 
-        for i in range(0,genParent1.get_numInnovation()):
-            connectemp = []
             for connecp1 in genParent1.get_listConnections():
                 if connecp1.get_innovation()==i:
                     connectemp.append(connecp1.copy_connec())
@@ -158,13 +170,16 @@ class Genome:
             return -1
         print("le noeud de mutation a ete ajoute")
         print("fin du test de regression, passe avec succes")
+        
+        @staticmethod
+
+        @staticmethod
+        def calc_distance_compatibilite(genome1,genome2):
+
+        @staticmethod
+        def count_match_exces_disjoint(genome1,genome2):
+
+        @staticmethod
+        def calc_distance_compatibilite(genome1,genome2):
 
 Genome.testRegression()
-
-        
-
-
-
-
-
-        
