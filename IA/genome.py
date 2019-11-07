@@ -3,11 +3,8 @@ from .connectiongene import ConnectionGene
 from .innovation import Innovation
 import random
 
-<<<<<<< HEAD
 
 # classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
-=======
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d
 class Genome:
 
     PROBA_MUTATION = 80
@@ -130,7 +127,7 @@ class Genome:
         MaxInnovationParent2 = genParent2.get_maxNumInnovation()
 
         #on recupere le numero d'innovation max entre les deux precedents
-        MaxInno = max(MaxInnovationParent1, MaxInnovationParent2)  
+        MaxInno = max(MaxInnovationParent1, MaxInnovationParent2)
 
         #on initialise deux listes contenant que des 0
         ListeGenParent1 = [0] * MaxInnovationParent1
@@ -144,15 +141,15 @@ class Genome:
         for i in genParent2.get_listConnections() :
             ListeGenParent2[i.get_innovation() - 1] = i
 
-        #on incremente les differentes variables selon les places des numeros d'innovation dans les listes    
+        #on incremente les differentes variables selon les places des numeros d'innovation dans les listes
         for i in range (0, MaxInno):
             if ListeGenParent1[i].get_innovation() == ListeGenParent2[i].get_innovation():
                 matchParents += 1
                 moyennePoids += abs(ListeGenParent1[i].get_poids() - ListeGenParent2[i].get_poids())
-            
+
             elif ListeGenParent1[i].get_innovation() == 0 and ListeGenParent2[i].get_innovation() != 0 and i < MaxInnovationParent1:
                 disjoint += 1
-            
+
             elif ListeGenParent1[i].get_innovation() =! 0 and ListeGenParent2[i].get_innovation() == 0:
                 disjoint += 1
 
@@ -189,15 +186,12 @@ class Genome:
         return newGenome
 
     @staticmethod
-<<<<<<< HEAD
-    def count_moyen_exces_disjoint(genome1,genome2):
-=======
     def testRegression():
-    
+
         print("initialisation du genome")
         G = Genome()
         if G.get_listNoeuds() != [] or G.get_listConnections() != []:
-            print("echec de l'initialisation du genome") 
+            print("echec de l'initialisation du genome")
             return -1
         print("initialisation reussie")
 
@@ -208,8 +202,8 @@ class Genome:
 
         for ind in l:
             G.ajout_noeud(ind)
-        
-        if len(G.get_listNoeuds()) != 2: 
+
+        if len(G.get_listNoeuds()) != 2:
             print("probleme lors de l'ajout d'un noeud")
             return -1
         print("tous les noeuds ont ete ajoute")
@@ -231,22 +225,11 @@ class Genome:
             return -1
         print("le noeud de mutation a ete ajoute")
         print("fin du test de regression, passe avec succes")
-        
-        @staticmethod
 
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d
 
     @staticmethod
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = count_moyen_exces_disjoint(genome1,genome2)
-
-<<<<<<< HEAD
         return (DISTANCE_C1*e/1)+ (DISTANCE_C2*d/1) + DISTANCE_C3*m
-=======
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
 
 Genome.testRegression()
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d
