@@ -7,6 +7,7 @@ sys.path.append('./')
 from IA.genome import Genome
 from IA.noeudgene import NoeudGene
 from IA.connectiongene import ConnectionGene
+from IA.innovation import Innovation
 
 class AfficheGenome:
 
@@ -74,8 +75,8 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 screen.fill([255,255,255])
 mainClock = pygame.time.Clock()
-
-G = Genome()
+ino = Innovation
+G = Genome(ino)
 
 l = []
 l.append(NoeudGene("input", 1))

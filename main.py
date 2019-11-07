@@ -7,3 +7,10 @@ from Capteur.capteur import Capteur
 
 
 #cd Documents/L3/LifProjet/mathymartinet/
+
+
+def main():
+    main = Main()
+    main.execution()
+
+main()
