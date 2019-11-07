@@ -3,8 +3,6 @@ from .connectiongene import ConnectionGene
 from .innovation import Innovation
 import random
 
-
-
 class Genome:
 
     PROBA_MUTATION = 80
@@ -103,6 +101,50 @@ class Genome:
 
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
+
+    @staticmethod
+    def count_match_exces_disjoint(genParent1, genParent2):
+        matchParents = 0
+        exces = 0
+        disjoint = 0
+        moyennePoids = 0
+
+        # on trouve le numero d'innovation max de chaque parent
+        MaxInnovationParent1 = genParent1.get_maxNumInnovation()
+        MaxInnovationParent2 = genParent2.get_maxNumInnovation()
+
+        #on recupere le numero d'innovation max entre les deux precedents
+        MaxInno = max(MaxInnovationParent1, MaxInnovationParent2)  
+
+        #on initialise deux listes contenant que des 0
+        ListeGenParent1 = [0] * MaxInnovationParent1
+        ListeGenParent2 = [0] * MaxInnovationParent2
+
+        #on trie les numeros d'innovation dans la liste par ordre croissant, en laissant la valeur 0
+        #en cas d'absence de connection
+        for i in genParent1.get_listConnections():
+            ListeGenParent1[i.get_innovation() - 1] = i
+
+        for i in genParent2.get_listConnections() :
+            ListeGenParent2[i.get_innovation() - 1] = i
+
+        #on incremente les differentes variables selon les places des numeros d'innovation dans les listes    
+        for i in range (0, MaxInno):
+            if ListeGenParent1[i].get_innovation() == ListeGenParent2[i].get_innovation():
+                matchParents += 1
+                moyennePoids += abs(ListeGenParent1[i].get_poids() - ListeGenParent2[i].get_poids())
+            
+            elif ListeGenParent1[i].get_innovation() == 0 and ListeGenParent2[i].get_innovation() != 0 and i < MaxInnovationParent1:
+                disjoint += 1
+            
+            elif ListeGenParent1[i].get_innovation() =! 0 and ListeGenParent2[i].get_innovation() == 0:
+                disjoint += 1
+
+            elif ListeGenParent2[i].get_innovation() == i and i > MaxInnovationParent1 :
+                exces += 1
+
+        moyennePoids /= matchParents
+        return moyennePoids,exces,disjoint
 
     @staticmethod
     def melange_genome(genParent1,genParent2):
