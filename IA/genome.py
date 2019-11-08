@@ -1,6 +1,6 @@
-from .noeudgene import NoeudGene
-from .connectiongene import ConnectionGene
-from .innovation import Innovation
+from noeudgene import NoeudGene
+from connectiongene import ConnectionGene
+from innovation import Innovation
 import random
 
 
@@ -15,7 +15,7 @@ class Genome:
 
     ino = Innovation()
 
-    def __init__(self,innovationG):
+    def __init__(self):
         self.__listConnections = []
         self.__listNoeuds = []
 
@@ -94,7 +94,8 @@ class Genome:
         if connecExist == True:
             return
 
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id())) #incrementer de 1 l'innovatino et garder la trace
+        #incrementer de 1 l'innovation et garder la trace
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
 
         self.ajout_connec(newConnec)
 
@@ -105,7 +106,7 @@ class Genome:
 
         connec.deactive()
 
-        newNoeud = NoeudGene("hidden",ino.get_new_innovation_noeud())
+        newNoeud = NoeudGene("hidden",Genome.ino.get_new_innovation_noeud())
 
         coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
         coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
@@ -115,6 +116,7 @@ class Genome:
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
 
+    #fonction qui renvoie le poids moyen des connections, le nombre d'exces et le nombre de disjoints
     @staticmethod
     def count_match_exces_disjoint(genParent1, genParent2):
         matchParents = 0
@@ -122,7 +124,7 @@ class Genome:
         disjoint = 0
         moyennePoids = 0
 
-        # on trouve le numero d'innovation max de chaque parent
+        #on trouve le numero d'innovation max de chaque parent
         MaxInnovationParent1 = genParent1.get_maxNumInnovation()
         MaxInnovationParent2 = genParent2.get_maxNumInnovation()
 
