@@ -1,13 +1,10 @@
-from .noeudgene import NoeudGene
-from .connectiongene import ConnectionGene
-from .innovation import Innovation
+from noeudgene import NoeudGene
+from connectiongene import ConnectionGene
+from innovation import Innovation
 import random
 
-<<<<<<< HEAD
 
 # classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
-=======
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d
 class Genome:
 
     PROBA_MUTATION = 80
@@ -18,7 +15,7 @@ class Genome:
 
     ino = Innovation()
 
-    def __init__(self,innovationG):
+    def __init__(self):
         self.__listConnections = []
         self.__listNoeuds = []
 
@@ -97,7 +94,8 @@ class Genome:
         if connecExist == True:
             return
 
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id())) #incrementer de 1 l'innovatino et garder la trace
+        #incrementer de 1 l'innovation et garder la trace
+        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
 
         self.ajout_connec(newConnec)
 
@@ -108,7 +106,7 @@ class Genome:
 
         connec.deactive()
 
-        newNoeud = NoeudGene("hidden",ino.get_new_innovation_noeud())
+        newNoeud = NoeudGene("hidden",Genome.ino.get_new_innovation_noeud())
 
         coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
         coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
@@ -118,7 +116,7 @@ class Genome:
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
 
-    #fonction qui renvoie le poids moyen entre 2 connections, le nombre d'exces et le nombre de disjoint
+    #fonction qui renvoie le poids moyen des connections, le nombre d'exces et le nombre de disjoints
     @staticmethod
     def count_match_exces_disjoint(genParent1, genParent2):
         matchParents = 0
@@ -126,7 +124,7 @@ class Genome:
         disjoint = 0
         moyennePoids = 0
 
-        # on trouve le numero d'innovation max de chaque parent
+        #on trouve le numero d'innovation max de chaque parent
         MaxInnovationParent1 = genParent1.get_maxNumInnovation()
         MaxInnovationParent2 = genParent2.get_maxNumInnovation()
 
@@ -154,7 +152,7 @@ class Genome:
             elif ListeGenParent1[i].get_innovation() == 0 and ListeGenParent2[i].get_innovation() != 0 and i < MaxInnovationParent1:
                 disjoint += 1
             
-            elif ListeGenParent1[i].get_innovation() =! 0 and ListeGenParent2[i].get_innovation() == 0:
+            elif ListeGenParent1[i].get_innovation() != 0 and ListeGenParent2[i].get_innovation() == 0:
                 disjoint += 1
 
             elif ListeGenParent2[i].get_innovation() == i and i > MaxInnovationParent1 :
@@ -189,10 +187,7 @@ class Genome:
 
         return newGenome
 
-    @staticmethod
-<<<<<<< HEAD
-    def count_moyen_exces_disjoint(genome1,genome2):
-=======
+
     def testRegression():
     
         print("initialisation du genome")
@@ -233,21 +228,20 @@ class Genome:
         print("le noeud de mutation a ete ajoute")
         print("fin du test de regression, passe avec succes")
         
-        @staticmethod
+    @staticmethod
 
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d
+    @staticmethod
+    def calc_distance_compatibilite(genome1,genome2):
+        return
 
     @staticmethod
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = count_moyen_exces_disjoint(genome1,genome2)
 
-<<<<<<< HEAD
         return (DISTANCE_C1*e/1)+ (DISTANCE_C2*d/1) + DISTANCE_C3*m
-=======
-        @staticmethod
-        def calc_distance_compatibilite(genome1,genome2):
+        
+    @staticmethod
+    def calc_distance_compatibilite(genome1,genome2):
+        return
 
 Genome.testRegression()
->>>>>>> f7c669f4e290f86728530282ee2d2b4bf0ee2f4d

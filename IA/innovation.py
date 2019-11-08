@@ -5,13 +5,13 @@ class Innovation:
     @classmethod
     def get_new_innovation_noeud(cls):
         Innovation.nbNoeud+=1
-        return nbNoeud
+        return Innovation.nbNoeud
 
     @classmethod
     def get_new_innovation_connec(cls,nIn,nOut):
-        for c in listC:
+        for c in Innovation.listC:
             if c==[nIn,nOut]:
-                return listC.index([nIn,nOut])+1
+                return Innovation.listC.index([nIn,nOut])+1
 
         Innovation.listC.append([nIn,nOut])
-        return len(listC)
+        return len(Innovation.listC)
