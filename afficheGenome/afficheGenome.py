@@ -70,7 +70,7 @@ class AfficheGenome:
             #print(c.get_actif())
             if c.get_actif()==True:
                 self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1], surf)
-                self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1])
+                self.draw_line_co(self.posnoeud[c.get_noeudin()-1],self.posnoeud[c.get_noeudout()-1], surf)
 
 
 
@@ -78,8 +78,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 screen.fill([255,255,255])
 mainClock = pygame.time.Clock()
-ino = Innovation
-G = Genome(ino)
+G = Genome()
 
 l = []
 l.append(NoeudGene("input", 1))
@@ -101,8 +100,8 @@ screen.fill((255,255,255))
 
 AG = AfficheGenome(G)
 AG.set_posNoeud()
-AG.draw_noeud()
-AG.draw_connec()
+AG.draw_noeud(surf)
+AG.draw_connec(surf)
 done = False
 while not done:
 
