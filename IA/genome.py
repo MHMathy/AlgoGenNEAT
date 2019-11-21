@@ -5,6 +5,7 @@ import random
 
 
 # classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
+## classe qui gere les noeuronnes sous forme de liste de noeuds et liste de connections
 class Genome:
 
     PROBA_MUTATION = 80
@@ -13,39 +14,50 @@ class Genome:
     DISTANCE_C2 = 0.3
     DISTANCE_C3 = 0.3
 
-
+    ## constructeur qui initialise les deux listes de la classe comme etant des listes vides
     def __init__(self):
         self.__listConnections = []
         self.__listNoeuds = []
 
     # ajouter une connection à la liste de connection
+    ## fonction qui ajoute une connection dans la liste
+    # @param connection Connection a ajoute dans la liste
     def ajout_connec(self,connection):
         self.__listConnections.append(connection)
 
     # ajouter un noeud à la liste de noeud
+    ## fonction qui ajoute un noeud dans la liste
+    # @param noeud Noeud a ajoute dans la liste
     def ajout_noeud(self,noeud):
         self.__listNoeuds.append(noeud)
 
     # retourne la liste de noeud
+    ## fonction qui retourne la liste des noeuds du genome
     def get_listNoeuds(self):
         return self.__listNoeuds
 
     # retourne la liste de connections
+    ## fonction qui retourne la liste des connections du genome
     def get_listConnections(self):
         return self.__listConnections
 
     # retourne un noeud à partir de son numero id
+    ## fonction qui retourne un noeud en fonction de son ID
+    # @param id ID du noeud a chercher
     def get_noeud(self,id):
         for noeud in self.__listNoeuds:
             if noeud.get_id() == id:
                 return noeud
 
+    ## fonction qui retourne une connection en fonction de son ID
+    # @param id ID de la connection a chercher
     def get_connection(self,id):
         for connec in self.__listConnections:
             if connec.get_innovation() == id:
                 return connec
 
     # retourne le numero d'innovation max de la liste de connection
+    ## fonction qui retourne le numero d'innovation le plus elever dans la liste
     def get_maxNumInnovation(self):
         maxinno = 0
         for connec in self.__listConnections:
@@ -53,12 +65,15 @@ class Genome:
                 maxinno=connec.get_innovation()
         return maxinno
 
+    ## fonction qui remplace une connection dans la liste
+    # @param newConnec Connection qui remplacera la precedente dans la liste
     def remplace_connec(self,newConnec):
         for connec in self.__listConnections:
             if connec.get_innovation() == newConnec.get_innovation():
                 connec = newConnec
 
     # modifie la valeur
+    ## fonction qui gere la mutation d'une connection
     def connec_mutation(self):
         for connec in self.__listConnections:
             if (random.randint(1,100)<Genome.PROBA_MUTATION):
@@ -67,6 +82,7 @@ class Genome:
                 else:
                     connec.set_poids(random.uniform(-2,2))
 
+    ## fonction qui ajoute une connection a une mutation
     def ajout_connec_mutation(self):
         noeud = []
         while True:
@@ -93,11 +109,34 @@ class Genome:
                     connecExist = True
             if connecExist == False:
                 break
+
+        inverse = False
+
+        if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
+            inverse = True
+        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "hidden":
+            inverse = True
+        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
+            inverse = True
+
+        if inverse:
+            noeud.reverse()
+
+        connecExist = False
+        for connec in self.__listConnections:
+            if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
+                connecExist = True
+                break
+
+        if connecExist == True:
+            return
+
         #incrementer de 1 l'innovation et garder la trace
         newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
 
         self.ajout_connec(newConnec)
 
+    ## fonction qui ajoute un noeud a une mutation
     def ajout_noeud_mutation(self):
         connec = random.choice(self.__listConnections)
         noeudin = self.get_noeud(connec.get_noeudin())
@@ -115,6 +154,9 @@ class Genome:
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
 
+    ## fonction qui renvoie une genome qui est le melange de deux autres genomes
+    # @param genParent1 1er parent du genome qui sera retourne
+    # @param genParent2 2eme parent du genome qui sera retourne
     @staticmethod
     def melange_genome(genParent1,genParent2):
         #+vite si copie et pop
@@ -149,6 +191,9 @@ class Genome:
         return newGenome
 
     #fonction qui renvoie le poids moyen des connections, le nombre d'exces et le nombre de disjoints
+    ## fonction qui renvoie le poids moyen des connections, le nombres de noeuds en exces et le nombres de noeuds "decaler" dans la liste entre les deux parents
+    # @param genParent1 1er genome a evaluer
+    # @param genParent2 2eme genome a evaluer
     @staticmethod
     def count_moyenne_exces_disjoint(genParent1, genParent2):
         matchParents = 0
@@ -193,12 +238,15 @@ class Genome:
         moyennePoids /= matchParents
         return moyennePoids,exces,disjoint
 
+    ## fonction qui calcule la compatibilite entre deux genomes
+    # @param genome1 premier genome a evaluer
+    # @param genome2 deuxieme genome a evaluer
     @staticmethod
-    def calc_distance_compatibilite(genome1,genome2,C1=DISTANCE_C1,C2=DISTANCE_C2,C3=DISTANCE_C3):
+    def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
-        return (C1*e/1)+ (C2*d/1) + C3*m
+        return (Genome.DISTANCE_C1*e/1)+ (Genome.DISTANCE_C2*d/1) + Genome.DISTANCE_C3*m
 
-
+    ## fonction qui teste les differentes fonctions de la classe
     @staticmethod
     def testRegression():
 
