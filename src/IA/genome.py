@@ -13,11 +13,31 @@ class Genome:
     DISTANCE_C1 = 0.3
     DISTANCE_C2 = 0.3
     DISTANCE_C3 = 0.3
+    DEFAULT_N_CONNEC = 6
 
     ## constructeur qui initialise les deux listes de la classe comme etant des listes vides
     def __init__(self):
         self.__listConnections = []
         self.__listNoeuds = []
+
+    @classmethod
+    def default(self):
+        l = []
+        g = Genome()
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        for n in l:
+            g.ajout_noeud(n)
+
+        for i in range(0,Genome.DEFAULT_N_CONNEC):
+            g.ajout_connec_mutation()
 
     # ajouter une connection à la liste de connection
     ## fonction qui ajoute une connection dans la liste
