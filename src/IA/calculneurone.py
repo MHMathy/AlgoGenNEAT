@@ -45,9 +45,10 @@ class CalculNeurone:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
                 #tmp += 1 #bias
                 self.listValeur[k] = CalculNeurone.sigmoid(tmp)
+                print(k,":",tmp)
             else:
                 continue
-        print("val:",self.listValeur)
+        #print("val:",self.listValeur)
 
     @staticmethod
     def calcCoucheNoeud(index,liste):
@@ -56,7 +57,7 @@ class CalculNeurone:
         else:
             tmp = []
             for pair in liste[index]:
-                print(pair)
+                #print(pair)
                 tmp.append(CalculNeurone.calcCoucheNoeud(pair[0],liste))
             return 1+max(tmp)
 
