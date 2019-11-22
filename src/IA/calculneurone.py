@@ -1,6 +1,6 @@
-from genome import Genome
-from noeudgene import NoeudGene
-from innovation import Innovation
+from .genome import Genome
+from .noeudgene import NoeudGene
+from .innovation import Innovation
 from collections import OrderedDict
 import operator
 import math
@@ -8,10 +8,13 @@ import math
 
 
 class CalculNeurone:
+    
     def __init__(self,genome):
         self.genome = genome
         self.listLien = {}
         self.listValeur = {}
+        self.setlistLien()
+        
 
     def setlistLien(self):
         for noeud in self.genome.get_listNoeuds():
@@ -23,10 +26,11 @@ class CalculNeurone:
                 self.listLien.update({str(connec.get_noeudout()):[]})
             self.listLien[str(connec.get_noeudout())].append([str(connec.get_noeudin()),connec.get_poids()])
 
-        print (self.listLien)
+       # print (self.listLien)
         tmp = dict(self.listLien)
         for key in tmp:
             tmp[key] = self.calcCoucheNoeud(key,self.listLien)
+            print(key)
 
         tmp = sorted(tmp.items(), key=operator.itemgetter(1))
         for k in OrderedDict(tmp):
@@ -34,9 +38,23 @@ class CalculNeurone:
 
 
     def calcValeurNoeud(self,inputVal):
+        """ self.listValeur['1'] = inputVal["vitesse"]
+        self.listValeur['2'] = inputVal["angle"]
+        self.listValeur['3'] = inputVal["capteur0"]
+        self.listValeur['4'] = inputVal["capteur45"]
+        self.listValeur['5'] = inputVal["capteur315"]
+        self.listValeur['6'] = inputVal["capteur90"]
+        self.listValeur['7'] = inputVal["capteur270"]
+        self.listValeur['8'] = inputVal["capteur135"]
+        self.listValeur['9'] = inputVal["capteur225"]
+        self.listValeur['10'] = inputVal["capteur180"]"""
+        
         self.listValeur['1'] = inputVal["vitesse"]
         self.listValeur['2'] = inputVal["angle"]
-        self.listValeur['3'] = inputVal["c_0"]
+        self.listValeur['3'] = inputVal["capteur0"]
+        self.listValeur['4'] = inputVal["capteur45"]
+        self.listValeur['5'] = inputVal["capteur315"]
+
         tmp = 0
         for k in OrderedDict(self.listValeur):
             tmp = 0
@@ -108,4 +126,4 @@ class CalculNeurone:
 
         cn.setlistLien()
         cn.calcValeurNoeud(val)
-CalculNeurone.testRegression()
+#CalculNeurone.testRegression()

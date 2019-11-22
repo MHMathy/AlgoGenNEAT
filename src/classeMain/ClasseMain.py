@@ -8,13 +8,12 @@ from IA.genome import Genome
 from IA.noeudgene import NoeudGene
 from IA.connectiongene import ConnectionGene
 from Voiture.voiture import Voiture
+from IA.innovation import Innovation
 
 ## class Main qui gere les evenements SDL et l'execution globale du programme
 class Main:
-
     ## constructeur qui initialise les differentes variables de la classe
     def __init__(self):
-
         pygame.init() #init sdl
         self.mainClock = pygame.time.Clock() #init timer
 
@@ -26,19 +25,18 @@ class Main:
         self.droite = False
         self.accel = False
         self.frein = False
-        self.v = Voiture(182,130)
-        self.police = pygame.font.Font('BradBunR.ttf', 20)
+        self.G = Genome()
+        self.v = Voiture(self.G,182,130)
         self.BoolAffResNeuro = False
 
-        self.G = Genome()
         self.l = []
         #self.AG = AfficheGenome(self.G)
 
 
         #load images
-        self.ImVoiture = pygame.image.load('images/car.png')
-        self.circuit = pygame.image.load('images/course.png')
-        self.imageBtn = pygame.image.load('images/BtnVoirNeurones.png')
+        self.ImVoiture = pygame.image.load('../data/car.png')
+        self.circuit = pygame.image.load('../data/course.png')
+        self.imageBtn = pygame.image.load('../data/BtnVoirNeurones.png')
 
         #transformations CONSTANTES d'images
         self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDTH*4/5),self.WINDOWHEIGHT))
@@ -165,6 +163,10 @@ class Main:
 
     ## fonction qui permet l'execution globale du programme
     def execution(self):
-        self.__init__()
         self.boucle()
         self.quitter()
+
+    
+        
+
+        

@@ -1,6 +1,6 @@
-from noeudgene import NoeudGene
-from connectiongene import ConnectionGene
-from innovation import Innovation
+from .noeudgene import NoeudGene
+from .connectiongene import ConnectionGene
+from .innovation import Innovation
 import random
 
 

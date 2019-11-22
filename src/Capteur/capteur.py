@@ -5,7 +5,7 @@ import Voiture.voiture
 ## classe Capteur qui calcul la distance par rapport au mur le plus proche
 class Capteur:
     ## on reiinitialise un circuit, pour verifier les positions
-    circuit = pygame.image.load("./images/course.png")
+    circuit = pygame.image.load("../data/course.png")
     circuit = pygame.transform.scale(circuit,(1000,650))
 
     ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs
