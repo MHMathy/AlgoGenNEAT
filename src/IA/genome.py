@@ -39,6 +39,8 @@ class Genome:
         for i in range(0,Genome.DEFAULT_N_CONNEC):
             g.ajout_connec_mutation()
 
+        return g
+
     # ajouter une connection à la liste de connection
     ## fonction qui ajoute une connection dans la liste
     # @param connection Connection a ajoute dans la liste

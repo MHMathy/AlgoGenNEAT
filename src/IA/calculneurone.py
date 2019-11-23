@@ -8,7 +8,7 @@ import math
 
 
 class CalculNeurone:
-    
+
     def __init__(self,genome):
         self.genome = genome
         self.listLien = {}
@@ -30,7 +30,6 @@ class CalculNeurone:
         tmp = dict(self.listLien)
         for key in tmp:
             tmp[key] = self.calcCoucheNoeud(key,self.listLien)
-            print(key)
 
         tmp = sorted(tmp.items(), key=operator.itemgetter(1))
         for k in OrderedDict(tmp):
@@ -63,7 +62,7 @@ class CalculNeurone:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
                 #tmp += 1 #bias
                 self.listValeur[k] = CalculNeurone.sigmoid(tmp)
-                print(k,":",tmp)
+                #print(k,":",self.listValeur[k])
             else:
                 continue
         #print("val:",self.listValeur)
