@@ -34,16 +34,31 @@ class rectModifierVariables:
     # @param ind : valeur permettant d'identifier la variable a modifer
     def ValiderNouvelleValeur(self, ind):
 
-        if self.__valeur[-1] == '.': self.__valeur += str(0)
+        if ind == 5: self.__valeur = int(self.__valeur)
+        else : self.__valeur = float(self.__valeur)
 
-        self.__valeur = float(self.__valeur)
+        if ind == 0:
+            Genome.PROBA_MUTATION = self.getValeur()
+            Main.listeConstantes["proba_mut"] = self.getValeur()
 
-        if ind == 0: Genome.PROBA_MUTATION = self.getValeur()
-        elif ind == 1: Genome.PROBA_MUTATION_COEF = self.getValeur()
-        elif ind == 2: Genome.DISTANCE_C1 = self.getValeur()
-        elif ind == 3: Genome.DISTANCE_C2 = self.getValeur()
-        elif ind == 4: Genome.DISTANCE_C3 = self.getValeur()
-        elif ind == 5: Genome.DEFAULT_N_CONNEC = int(self.getValeur())
+        elif ind == 1:
+            Genome.PROBA_MUTATION_COEF = self.getValeur()
+            Main.listeConstantes["proba_mut_coef"] = self.getValeur()
+
+        elif ind == 2:
+            Genome.DISTANCE_C1 = self.getValeur()
+            Main.listeConstantes["C1"] = self.getValeur()
+        elif ind == 3:
+            Genome.DISTANCE_C2 = self.getValeur()
+            Main.listeConstantes["C2"] = self.getValeur()
+
+        elif ind == 4:
+            Genome.DISTANCE_C3 = self.getValeur()
+            Main.listeConstantes["C3"] = self.getValeur()
+
+        elif ind == 5:
+            Genome.DEFAULT_N_CONNEC = int(self.getValeur())
+            Main.listeConstantes["default_connec"] = self.getValeur()
 
     ## renvoie l'etat du rectant
     def getEtat(self):
@@ -67,6 +82,13 @@ class rectModifierVariables:
 
 ## class Main qui gere les evenements SDL et l'execution globale du programme
 class Main:
+    listeConstantes = {"proba_mut": Genome.PROBA_MUTATION,
+                       "proba_mut_coef": Genome.PROBA_MUTATION_COEF,
+                       "C1": Genome.DISTANCE_C1,
+                       "C2": Genome.DISTANCE_C2,
+                       "C3": Genome.DISTANCE_C3,
+                       "default_connec": Genome.DEFAULT_N_CONNEC}
+
     ## constructeur qui initialise les differentes variables de la classe
     def __init__(self):
         pygame.init() #init sdl
@@ -83,9 +105,9 @@ class Main:
         self.G = Genome.default()
         self.v = Voiture(self.G,182,130)
         self.BoolAffResNeuro = False
-        
-        self.l = []
-        #self.AG = AfficheGenome(self.G)
+        self.__reset = False
+        self.deroulement = True
+        self.pause = False
 
         self.listRect = []
 
@@ -94,7 +116,7 @@ class Main:
         self.circuit = pygame.image.load('../data/course.png')
         self.imageBtn = pygame.image.load('../data/BtnVoirNeurones.png')
 
-        self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 19)
+        self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 23)
 
         #transformations CONSTANTES d'images
         self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDTH*4/5),self.WINDOWHEIGHT))
@@ -108,6 +130,8 @@ class Main:
 
         #definition rect
         self.rectBtn = pygame.Rect((1000,550),(250,100))
+        self.rectReset = pygame.Rect((1100,500), (250,50))
+        self.rectPause = pygame.Rect((1100,450), (250,50))
 
         self.listRect.append(rectModifierVariables((1005,0), "Proba_mutation : ", Genome.PROBA_MUTATION, self.police))
         self.listRect.append(rectModifierVariables((1005, 55), "Proba_mutation_coef : ", Genome.PROBA_MUTATION_COEF, self.police))
@@ -120,24 +144,8 @@ class Main:
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
 
-        self.l.append(NoeudGene("input", 1))
-        self.l.append(NoeudGene("input", 2))
-        self.l.append(NoeudGene("output", 3))
-        self.l.append(NoeudGene("output", 4))
-        self.l.append(NoeudGene("input", 5))
-
-        for n in self.l:
-            self.G.ajout_noeud(n)
-
-
-    """    for i in range(0,4):
-            self.G.ajout_connec_mutation()
-        self.AG = AfficheGenome(self.G)
-        self.AG.set_posNoeud()
-        self.AG.draw_noeud(self.surf)
-        self.AG.draw_connec(self.surf)
-        self.surf.set_alpha(200)"""
-
+    def getReset(self):
+        return self.__reset()
 
     # fonction qui gere les affichages permanents (circuit, voiture, boutons,..)
     def draw(self): #affichage permanent
@@ -150,7 +158,8 @@ class Main:
         self.screen.blit(self.imageBtn,self.rectBtn)
 
         for i in range(len(self.listRect)):
-            pygame.draw.rect(self.screen,(0,0,0), self.listRect[i].getRect())
+            if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())
+            else: pygame.draw.rect(self.screen,(0,0,0), self.listRect[i].getRect())
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
         self.screen.blit(ImVoiture, self.v.pos)
@@ -161,6 +170,8 @@ class Main:
         if self.BoolAffResNeuro == True:
             self.screen.blit(self.surf,(0,0))
 
+        self.screen.blit(self.police.render("Reset", True, (255,255,255)),self.rectReset)
+        self.screen.blit(self.police.render("Pause", True, (255,255,255)),self.rectPause)
 
         pygame.display.update()
 
@@ -190,12 +201,6 @@ class Main:
                     self.quitter()
                 if event.key == K_ESCAPE and self.BoolAffResNeuro == True:
                         self.BoolAffResNeuro = False
-             #   if event.key == K_m:
-              #      self.surf.fill((255,255,255))
-               #     self.G.ajout_noeud_mutation()
-                #    self.AG.set_posNoeud()
-                 #   self.AG.draw_noeud(self.surf)
-                   #  self.AG.draw_connec(self.surf)
 
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True and (event.key == K_KP0 or event.key == K_0):
@@ -258,8 +263,16 @@ class Main:
 
                     if self.listRect[i].getRect().collidepoint(event.pos):                    
                         self.listRect[i].setEtat()
+                    
+                if self.rectReset.collidepoint(event.pos):
+                    self.__reset = True
 
+                if self.rectPause.collidepoint(event.pos) and self.pause == False:
+                    self.pause = True
 
+                elif self.rectPause.collidepoint(event.pos) and self.pause == True:
+                    self.pause = False
+                
     ## fonction qui actionnent la voiture en fonction des evenements
     def actionsVoiture(self):
         if self.gauche == True:
@@ -274,21 +287,29 @@ class Main:
     ## boucle qui gere en permanence les fonctions principales du programme
     def boucle(self):
         while True:
-            self.actionsVoiture()
-            self.v.update()
+            
             self.draw()
             self.gestionEvent()
-            self.mainClock.tick(30)
+
+            if self.pause == False:
+                self.actionsVoiture()
+                self.v.update()               
+                self.mainClock.tick(30)
+
+            if self.__reset == True:
+                Main.resetAvecNewConst()
+                Main.__init__(self)
 
     ## fonction qui permet l'execution globale du programme
     def execution(self):
         self.boucle()
         self.quitter()
 
-    
-# modif variables genomes
-# un rect par btn 
-# 10 variables
-# classe bouton(pos)
-# setEtat(actif ou non)
-# affichage valeur en temps réelle
+    @classmethod
+    def resetAvecNewConst(cls):
+        Genome.PROBA_MUTATION = Main.listeConstantes["proba_mut"]
+        Genome.PROBA_MUTATION_COEF = Main.listeConstantes["proba_mut_coef"]
+        Genome.DISTANCE_C1 = Main.listeConstantes["C1"]
+        Genome.DISTANCE_C1 = Main.listeConstantes["C2"]
+        Genome.DISTANCE_C1 = Main.listeConstantes["C3"]
+        Genome.DEFAULT_N_CONNEC = Main.listeConstantes["default_connec"]

@@ -8,14 +8,14 @@ import math
 
 
 class CalculNeurone:
-
+    
     def __init__(self,genome):
         self.genome = genome
         self.listLien = {}
         self.listValeur = {}
         self.setlistLien()
-        
 
+        
     def setlistLien(self):
         for noeud in self.genome.get_listNoeuds():
             self.listLien.update({str(noeud.get_id()):[]})

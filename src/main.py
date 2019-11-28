@@ -10,7 +10,9 @@ from classeMain.ClasseMain import Main
 
 ## initialisation d'un main, et lancement de son execution
 def main():
+
     main = Main()
     main.execution()
+
 
 main()
