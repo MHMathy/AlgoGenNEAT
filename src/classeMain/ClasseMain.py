@@ -151,6 +151,10 @@ class Main:
     def draw(self): #affichage permanent
 
         ImVoiture = pygame.transform.rotozoom(self.ImVoiture,self.v.angle,0.05)
+        posRectImVoiture = ImVoiture.get_rect().center
+
+        #ImVoiture = pygame.transform.scale(self.ImVoiture, (50,25))
+        #ImVoiture = pygame.transform.rotate(ImVoiture, self.v.angle)
 
         listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
 
@@ -162,7 +166,10 @@ class Main:
             else: pygame.draw.rect(self.screen,(0,0,0), self.listRect[i].getRect())
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
-        self.screen.blit(ImVoiture, self.v.pos)
+        x = self.v.pos[0]-posRectImVoiture[0]
+        y = self.v.pos[1]-posRectImVoiture[1]
+
+        self.screen.blit(ImVoiture, (x,y))
 
         for capt in listeCapteursCircuit:
             pygame.draw.circle(self.screen, (255,0,0), capt, 3)
@@ -173,6 +180,8 @@ class Main:
         self.screen.blit(self.police.render("Reset", True, (255,255,255)),self.rectReset)
         self.screen.blit(self.police.render("Pause", True, (255,255,255)),self.rectPause)
 
+        #draw.rect(self.screen,(255,0,0),self.v.pos, (ImVoiture.get_width(), ImVoiture.get_height()))
+        pygame.draw.circle(self.screen, (0,255,0),( int(self.v.pos[0]), int(self.v.pos[1])) , 4)
         pygame.display.update()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
