@@ -43,7 +43,7 @@ class ConnectionGene:
         self.__poids = min(2,max(-2,value))
 
     ## desactive une connectione
-    def deactive(self):
+    def desactive(self):
         self.__actif = False
 
     ## renvoie la copie d'une connection
