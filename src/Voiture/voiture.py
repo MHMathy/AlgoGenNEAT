@@ -2,6 +2,8 @@ import math
 import sys
 import time
 from Capteur.capteur import Capteur
+from IA.genome import Genome
+from IA.calculneurone import CalculNeurone
 
 
 
@@ -13,8 +15,7 @@ class Voiture:
     listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
 
     ## constructeur de la classe qui initialise toutes les variables d'une voiture
-    def __init__(self,posx=0,posy=0,angle=0,volant=0,vitesse=0): #initialisation de la voiture
-
+    def __init__(self, genome, posx=0,posy=0,angle=0,volant=0,vitesse=0): #initialisation de la voiture
         ## position de la voiture
         self.pos = [posx,posy]
 
@@ -50,6 +51,10 @@ class Voiture:
 
         ## distance par rapport au prochain capteur circuit
         self.distCapteurSuivant = 0
+
+        self.genome = genome
+
+        self.calcNeuro = CalculNeurone(self.genome)
 
         angleCapt = 0
         for i in range(0,8): #disposition des capteurs dans une liste selon le sens trigonometrique
@@ -113,6 +118,9 @@ class Voiture:
 
             else: self.capteurCourant += 1
 
+        self.calcNeuro.setlistLien()
+        self.calcNeuro.calcValeurNoeud(self.getValeursPourReseau())
+
 
     ## fonction qui retourne la position de la voiture
     def getPos(self): #renvoie la position de la voiture
@@ -155,9 +163,9 @@ class Voiture:
                  "angle":self.angle,
                  "capteur0":self.listCapt[0].getDistCapteur(),
                  "capteur45":self.listCapt[1].getDistCapteur(),
-                 "capteur225":self.listCapt[5].getDistCapteur(),
+                 "capteur315":self.listCapt[7].getDistCapteur(),
                  "capteur90":self.listCapt[2].getDistCapteur(),
                  "capteur270":self.listCapt[6].getDistCapteur(),
                  "capteur135":self.listCapt[3].getDistCapteur(),
-                 "capteur315":self.listCapt[7].getDistCapteur(),
+                 "capteur225":self.listCapt[5].getDistCapteur(),
                  "capteur180":self.listCapt[4].getDistCapteur() }
