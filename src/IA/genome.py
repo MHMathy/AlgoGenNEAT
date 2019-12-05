@@ -10,9 +10,9 @@ class Genome:
 
     PROBA_MUTATION = 80
     PROBA_MUTATION_COEF = 90
-    DISTANCE_C1 = 0.3
-    DISTANCE_C2 = 0.3
-    DISTANCE_C3 = 0.3
+    DISTANCE_C1 = 1
+    DISTANCE_C2 = 1
+    DISTANCE_C3 = 0.4
     DEFAULT_N_CONNEC = 6
 
     ## constructeur qui initialise les deux listes de la classe comme etant des listes vides
@@ -20,19 +20,46 @@ class Genome:
         self.__listConnections = []
         self.__listNoeuds = []
 
-    @classmethod
-    def default(self):
+    @staticmethod
+    def default():
         l = []
         g = Genome()
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        for n in l:
+            g.ajout_noeud(n)
+
+        for i in range(0,Genome.DEFAULT_N_CONNEC):
+            g.ajout_connec_mutation()
+
+        return g
+
+    @staticmethod
+    def default_mini():
+        l = []
+        g = Genome()
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+
         for n in l:
             g.ajout_noeud(n)
 
@@ -107,56 +134,38 @@ class Genome:
     ## fonction qui ajoute une connection a une mutation
     def ajout_connec_mutation(self):
         noeud = []
-        while True:
+        connecExist = True
+        essai = 0
+        maxEssai = 100
+        succes = False
+        while essai<=maxEssai and succes==False:
+            essai += 1
             while True:
                 noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
                 if not(noeud[0].get_type() == noeud[1].get_type() and (noeud[0].get_type() == "input" or noeud[0].get_type() == "output")):
                     break
 
-            inverse = False
-
-            if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
-                inverse = True
-            elif noeud[0].get_type() == "output" and noeud[1].get_type() == "hidden":
-                inverse = True
-            elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
-                inverse = True
-
-            if inverse:
-                noeud.reverse()
-
-            connecExist = False
             for connec in self.__listConnections:
                 if (connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id()) or (connec.get_noeudin() == noeud[1].get_id() and connec.get_noeudout() == noeud[0].get_id()):
-                    connecExist = True
-            if connecExist == False:
-                break
+                    continue #Si la connection exist deja
 
-        inverse = False
+            if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
+                noeud.reverse()
+            elif noeud[0].get_type() == "output" and noeud[1].get_type() == "hidden":
+                noeud.reverse()
+            elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
+                noeud.reverse()
 
-        if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
-            inverse = True
-        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "hidden":
-            inverse = True
-        elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
-            inverse = True
 
-        if inverse:
-            noeud.reverse()
 
-        connecExist = False
-        for connec in self.__listConnections:
-            if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
-                connecExist = True
-                break
+            newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
+            self.ajout_connec(newConnec)
+            succes = True
 
-        if connecExist == True:
-            return
+        if succes == False:
+            print("Ajout de connection impossible")
 
-        #incrementer de 1 l'innovation et garder la trace
-        newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
 
-        self.ajout_connec(newConnec)
 
     ## fonction qui ajoute un noeud a une mutation
     def ajout_noeud_mutation(self):
@@ -164,7 +173,7 @@ class Genome:
         noeudin = self.get_noeud(connec.get_noeudin())
         noeudout = self.get_noeud(connec.get_noeudout())
 
-        connec.deactive()
+        connec.desactive()
 
         newNoeud = NoeudGene("hidden",Innovation.get_new_innovation_noeud())
 
