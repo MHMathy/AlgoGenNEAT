@@ -9,6 +9,7 @@ qu'est-ce qu'il y a dans le rapport
 
 """
 TAILLE_POPULATION = 10
+DUREE_CYCLE_EN_S = 60
 
 DISTANCE_MIN_ESPECE = 5
 PROBA_MUTATION_GENOME = 50
@@ -31,6 +32,7 @@ class Global:
 
     Cons = {
         "TAILLE_POPULATION": 10,
+        "DUREE_CYCLE_EN_S" = 60,
 
         "DISTANCE_MIN_ESPECE": 5,
         "PROBA_MUTATION_GENOME": 50,
@@ -42,7 +44,7 @@ class Global:
         "DISTANCE_C1": 1,
         "DISTANCE_C2": 1,
         "DISTANCE_C3": 0.4,
-        "DEFAULT_N_CONNEC": 6
+        "DEFAULT_N_CONNEC": 6,
 
         "COEF_EXPO": 1
        }
@@ -57,9 +59,10 @@ class Global:
 
         self.listMeilleurScore = []
 
-    def demarreProgramme(self,population):
-
+    def demarreProgramme(self,population,durree):
+        self.listMeilleurScore.clear()
         Global.Cons["TAILLE_POPULATION"] = population
+        Global.Cons["durree"] =
         self.generateurGenome = Generation(Genome.default_mini())
         self.listeVoiture = [voiture(Genome.default_mini(),190,110)]*population
         for v in self.listeVoiture:
@@ -85,7 +88,8 @@ class Global:
         self.dureeCycle = int((time.time() - self.debutCycle)*1000)
 
         for v in self.listeVoiture:
-            v.update(self.dureeCycle)
+            if v.vivant == True
+                v.update(self.dureeCycle)
 
 
     def fin_cycle(self):
@@ -95,6 +99,16 @@ class Global:
 
         self.listMeilleurScore.append(max(self.dictGenScore;values()))
         self.listeVoiture.clear()
+
+    def arreterCourse(self):
+        arret = True
+        for v in self.listeVoiture:
+            if v.vivant == True:
+                arret = False
+
+        if self.dureeCycle > Global.Cons.get("DUREE_CYCLE_EN_S"):
+            arret = True
+
 
     @classmethod
     def get_listConstantes(cls):

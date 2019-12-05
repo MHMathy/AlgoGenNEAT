@@ -37,6 +37,9 @@ class Voiture:
         ## temps de vie de la voiture
         self.dureeVie = 0
 
+        ## etat vivant
+        self.vivant = True
+
         ## capteur circuit auquel est actuellement la voiture
         self.capteurCourant = 0
 
@@ -92,51 +95,55 @@ class Voiture:
 
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
-
-        valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau())
-
-        if valSortie.get("accelerer")>0.5:
-            self.accelerer()
-
-        if valSortie.get("freiner")>0.5:
-            self.freiner()
-
-        if valSortie.get("tourneG")>0.5:
-            self.tourne_gauche()
-
-        if valSortie.get("tourneD")>0.5:
-            self.tourne_droite()
-
-        self.angle += self.volant
-        dx = math.cos(math.radians(self.angle))
-        dy = math.sin(math.radians(self.angle))
-        self.pos = (self.pos[0] + dx*self.vitesse, self.pos[1] - dy*self.vitesse)
-        self.retour_neutre()
-
-        Capteur.PosActuVoiture = self.pos
-        Capteur.AngleVoiture = self.angle
         for i in range(0,8):
             self.listCapt[i].checkMur()
+        self.checkCollisionMur()
+        if self.vivant == True:
+            valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau())
 
-        self.dureeVie = duree
+            if valSortie.get("accelerer")>0.5:
+                self.accelerer()
+
+            if valSortie.get("freiner")>0.5:
+                self.freiner()
+
+            if valSortie.get("tourneG")>0.5:
+                self.tourne_gauche()
+
+            if valSortie.get("tourneD")>0.5:
+                self.tourne_droite()
+
+            self.angle += self.volant
+            dx = math.cos(math.radians(self.angle))
+            dy = math.sin(math.radians(self.angle))
+            self.pos = (self.pos[0] + dx*self.vitesse, self.pos[1] - dy*self.vitesse)
+            self.retour_neutre()
+
+            Capteur.PosActuVoiture = self.pos
+            Capteur.AngleVoiture = self.angle
 
 
-        if self.capteurCourant != 7:
-            self.capteurSuivant = self.capteurCourant + 1
-        else: capteurSuivant = 0
-
-        self.distCapteurCourant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurCourant])
-        self.distCapteurSuivant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
-
-        if self.distCapteurCourant > 50 and self.distCapteurSuivant < 50:
-            if self.capteurCourant == 7:
-                self.capteurCourant = 0
-
-            else: self.capteurCourant += 1
+            self.dureeVie = duree
 
 
+            if self.capteurCourant != 7:
+                self.capteurSuivant = self.capteurCourant + 1
+            else:
+                self.capteurSuivant = 0
+
+            self.distCapteurCourant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurCourant])
+            self.distCapteurSuivant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
+
+            if self.distCapteurCourant > 50 and self.distCapteurSuivant < 50:
+                if self.capteurCourant == 7:
+                    self.capteurCourant = 0
+
+                else: self.capteurCourant += 1
 
 
+
+    def meurt(self):
+        self.vivant = False
 
     ## fonction qui retourne la position de la voiture
     def getPos(self): #renvoie la position de la voiture
@@ -185,3 +192,9 @@ class Voiture:
                  "capteur135":self.listCapt[3].getDistCapteur(),
                  "capteur225":self.listCapt[5].getDistCapteur(),
                  "capteur180":self.listCapt[4].getDistCapteur() }
+
+    def checkCollisionMur(self):
+        listeTmp = self.getDistRetourCapt()
+
+        if ((listeTmp.index(min(listeTmp)) in [1,2,3,5,6,7]) and min(listeTmp) < 11) or ((listeTmp.index(min(listeTmp)) in [0,4]) and min(listeTmp) < 20):
+            self.meurt()
