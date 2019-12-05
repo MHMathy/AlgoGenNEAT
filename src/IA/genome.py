@@ -24,6 +24,32 @@ class Genome:
     def default():
         l = []
         g = Genome()
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        for n in l:
+            g.ajout_noeud(n)
+
+        for i in range(0,Genome.DEFAULT_N_CONNEC):
+            g.ajout_connec_mutation()
+
+        return g
+
+    @staticmethod
+    def default_mini():
+        l = []
+        g = Genome()
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))

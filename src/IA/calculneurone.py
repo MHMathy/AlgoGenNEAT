@@ -8,14 +8,14 @@ import math
 
 
 class CalculNeurone:
-    
+
     def __init__(self,genome):
         self.genome = genome
         self.listLien = {}
         self.listValeur = {}
         self.setlistLien()
 
-        
+
     def setlistLien(self):
         for noeud in self.genome.get_listNoeuds():
             self.listLien.update({str(noeud.get_id()):[]})
@@ -37,22 +37,24 @@ class CalculNeurone:
 
 
     def calcValeurNoeud(self,inputVal):
-        """ self.listValeur['1'] = inputVal["vitesse"]
-        self.listValeur['2'] = inputVal["angle"]
-        self.listValeur['3'] = inputVal["capteur0"]
-        self.listValeur['4'] = inputVal["capteur45"]
-        self.listValeur['5'] = inputVal["capteur315"]
-        self.listValeur['6'] = inputVal["capteur90"]
-        self.listValeur['7'] = inputVal["capteur270"]
-        self.listValeur['8'] = inputVal["capteur135"]
-        self.listValeur['9'] = inputVal["capteur225"]
-        self.listValeur['10'] = inputVal["capteur180"]"""
-        
-        self.listValeur['1'] = inputVal["vitesse"]
-        self.listValeur['2'] = inputVal["angle"]
-        self.listValeur['3'] = inputVal["capteur0"]
-        self.listValeur['4'] = inputVal["capteur45"]
-        self.listValeur['5'] = inputVal["capteur315"]
+        """
+        self.listValeur['5'] = inputVal["vitesse"]
+        self.listValeur['6'] = inputVal["angle"]
+        self.listValeur['7'] = inputVal["capteur0"]
+        self.listValeur['8'] = inputVal["capteur45"]
+        self.listValeur['9'] = inputVal["capteur315"]
+        self.listValeur['10'] = inputVal["capteur90"]
+        self.listValeur['11'] = inputVal["capteur270"]
+        self.listValeur['12'] = inputVal["capteur135"]
+        self.listValeur['13'] = inputVal["capteur225"]
+        self.listValeur['14'] = inputVal["capteur180"]
+        """
+
+        self.listValeur['5'] = inputVal["vitesse"]
+        self.listValeur['6'] = inputVal["angle"]
+        self.listValeur['7'] = inputVal["capteur0"]
+        self.listValeur['8'] = inputVal["capteur45"]
+        self.listValeur['9'] = inputVal["capteur315"]
 
         tmp = 0
         for k in OrderedDict(self.listValeur):
@@ -65,7 +67,9 @@ class CalculNeurone:
                 #print(k,":",self.listValeur[k])
             else:
                 continue
-        #print("val:",self.listValeur)
+            
+        return {"accelerer":self.listValeur['1'],"freiner":self.listValeur['2'],"tourneG":self.listValeur['3'],"tourneD":self.listValeur['4']}
+
 
     @staticmethod
     def calcCoucheNoeud(index,liste):

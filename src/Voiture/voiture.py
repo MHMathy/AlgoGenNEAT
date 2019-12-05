@@ -32,7 +32,7 @@ class Voiture:
         self.listCapt = []
 
         ## instant auquel la voiture a ete cree
-        self.debutTemps = time.time()
+
 
         ## temps de vie de la voiture
         self.dureeVie = 0
@@ -55,6 +55,7 @@ class Voiture:
         self.genome = genome
 
         self.calcNeuro = CalculNeurone(self.genome)
+        self.calcNeuro.setlistLien()
 
         angleCapt = 0
         for i in range(0,8): #disposition des capteurs dans une liste selon le sens trigonometrique
@@ -90,7 +91,22 @@ class Voiture:
                 self.volant += (-0.5*self.volant)/abs(self.volant)
 
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
-    def update(self): #met à jour les paramètres de la voiture (et ses capteurs)
+    def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
+
+        valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau())
+
+        if valSortie.get("accelerer")>0.5:
+            self.accelerer()
+
+        if valSortie.get("freiner")>0.5:
+            self.freiner()
+
+        if valSortie.get("tourneG")>0.5:
+            self.tourne_gauche()
+
+        if valSortie.get("tourneD")>0.5:
+            self.tourne_droite()
+
         self.angle += self.volant
         dx = math.cos(math.radians(self.angle))
         dy = math.sin(math.radians(self.angle))
@@ -102,7 +118,7 @@ class Voiture:
         for i in range(0,8):
             self.listCapt[i].checkMur()
 
-        self.dureeVie = int((time.time() - self.debutTemps)*1000)
+        self.dureeVie = duree
 
 
         if self.capteurCourant != 7:
@@ -118,8 +134,8 @@ class Voiture:
 
             else: self.capteurCourant += 1
 
-        self.calcNeuro.setlistLien()
-        self.calcNeuro.calcValeurNoeud(self.getValeursPourReseau())
+
+
 
 
     ## fonction qui retourne la position de la voiture
@@ -158,7 +174,7 @@ class Voiture:
         return math.sqrt(math.pow(ptA[0]-ptB[0],2)+math.pow(ptA[1]-ptB[1],2))
 
     ## fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes
-    def getValeursPourReseau(self):
+    def get_valeurs_pour_reseau(self):
         return { "vitesse":self.vitesse,
                  "angle":self.angle,
                  "capteur0":self.listCapt[0].getDistCapteur(),
