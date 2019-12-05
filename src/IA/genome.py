@@ -1,19 +1,13 @@
 from .noeudgene import NoeudGene
 from .connectiongene import ConnectionGene
 from .innovation import Innovation
+from Global.global import Global
 import random
 
 
 # classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
 ## classe qui gere les noeuronnes sous forme de liste de noeuds et liste de connections
 class Genome:
-
-    PROBA_MUTATION = 80
-    PROBA_MUTATION_COEF = 90
-    DISTANCE_C1 = 1
-    DISTANCE_C2 = 1
-    DISTANCE_C3 = 0.4
-    DEFAULT_N_CONNEC = 6
 
     ## constructeur qui initialise les deux listes de la classe comme etant des listes vides
     def __init__(self):
@@ -41,7 +35,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,Genome.DEFAULT_N_CONNEC):
+        for i in range(0,Global.Cons.get("DEFAULT_N_CONNEC):
             g.ajout_connec_mutation()
 
         return g
@@ -63,7 +57,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,Genome.DEFAULT_N_CONNEC):
+        for i in range(0,Global.Cons.get("DEFAULT_N_CONNEC"):
             g.ajout_connec_mutation()
 
         return g
@@ -125,8 +119,8 @@ class Genome:
     ## fonction qui gere la mutation d'une connection
     def connec_mutation(self):
         for connec in self.__listConnections:
-            if (random.randint(1,100)<Genome.PROBA_MUTATION):
-                if(random.randint(1,100)<Genome.PROBA_MUTATION_COEF):
+            if (random.randint(1,100)<Global.Cons.get("PROBA_MUTATION"):
+                if(random.randint(1,100)<Global.Cons.get("PROBA_MUTATION_COEF"):
                     connec.set_poids(connec.get_poids()*random.uniform(-2,2))
                 else:
                     connec.set_poids(random.uniform(-2,2))
@@ -275,7 +269,7 @@ class Genome:
     @staticmethod
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
-        return (Genome.DISTANCE_C1*e/1)+ (Genome.DISTANCE_C2*d/1) + Genome.DISTANCE_C3*m
+        return (Global.Cons.get("DISTANCE_C1")*e/1)+ (Global.Cons.get("DISTANCE_C2")*d/1) + Global.Cons.get("DISTANCE_C3")*m
 
     ## fonction qui teste les differentes fonctions de la classe
     @staticmethod

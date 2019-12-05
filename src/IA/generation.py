@@ -1,16 +1,10 @@
 from genome import Genome
+from Globa:
 import random
 
 class Generation:
-    DISTANCE_MIN = 5
-    TAILLE_POPULATION = 10
-    PROBA_MUTATION_GENOME = 50
-    PROBA_AJOUT_CONNEC_GENOME = 10
-    PROBA_AJOUT_NOEUD_GENOME = 10
-
-
-    def __init__ (self,population,genomeDefault):
-        self.taillePopulation = population
+    def __init__ (self,genomeDefault):
+        self.taillePopulation = Global.Cons.get("TAILLE_POPULATION")
 
         self.lienGenomeEspece = {}
         self.lienGenomeAptitude = {}
@@ -24,7 +18,7 @@ class Generation:
         self.maxAptitude = 0
 
 
-    def evaluer(self):
+    def evaluer(self,dictScore):
 
         #Reinitialiser les dictionnaires
         for e in self.listEspeces:
@@ -42,7 +36,7 @@ class Generation:
             for e in self.listEspeces:
                 #Si le genome est proche de la mascotte d'une espèce, on l'ajoute à l'espèce
 
-                if Genome.calc_distance_compatibilite(g,e.mascotte)<Generation.DISTANCE_MIN:
+                if Genome.calc_distance_compatibilite(g,e.mascotte)<Global.Cons.get("DISTANCE_MIN_ESPECE"):
                     e.membres.append(g)
                     self.lienGenomeEspece.update({g:e})
                     trouveEspece = True
@@ -64,7 +58,7 @@ class Generation:
         #Evaluer les genomes et assigner les aptitudes
         for g in self.listGenomes:
             e = self.lienGenomeEspece.get(g)
-            score = self.evaluer_Genome(g)
+            score = dictScore.get(g)
 
             scoreAjuster = score/len(e.membres)
             e.ajout_aptitude_ajuster(scoreAjuster)
@@ -91,19 +85,22 @@ class Generation:
             else:
                 gfils = Genome.melange_genome(g2,g1)
 
-            if (random.randint(1,100)<Generation.PROBA_MUTATION_GENOME):
+            if (random.randint(1,100)<Global.Cons.get("PROBA_MUTATION_GENOME"):
                 gfils.connec_mutation()
 
-            if (random.randint(1,100)<Generation.PROBA_AJOUT_CONNEC_GENOME):
+            if (random.randint(1,100)<Global.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
                 gfils.ajout_connec_mutation()
 
-            if (random.randint(1,100)<Generation.PROBA_AJOUT_NOEUD_GENOME):
+            if (random.randint(1,100)<Global.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
                 gfils.ajout_noeud_mutation()
 
             self.nextGenGenome.append(gfils)
 
         self.listGenomes = list(self.nextGenGenome)
         self.nextGenGenome.clear()
+
+    def get_listGenomes(self):
+        return self.listGenomes
 
 
     def get_random_espece(self):
@@ -185,4 +182,4 @@ class testGeneration(Generation):
             gen.evaluer()
             print("Generation: ", i,"  Aptitude max: ",gen.get_aptitude_max(),"  Nombre especes: ",gen.get_nb_espece())
 
-testGeneration.testRegression()
+#testGeneration.testRegression()

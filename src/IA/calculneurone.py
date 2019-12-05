@@ -1,6 +1,7 @@
 from .genome import Genome
 from .noeudgene import NoeudGene
 from .innovation import Innovation
+from Global.global import Global
 from collections import OrderedDict
 import operator
 import math
@@ -67,7 +68,7 @@ class CalculNeurone:
                 #print(k,":",self.listValeur[k])
             else:
                 continue
-            
+
         return {"accelerer":self.listValeur['1'],"freiner":self.listValeur['2'],"tourneG":self.listValeur['3'],"tourneD":self.listValeur['4']}
 
 
@@ -84,7 +85,7 @@ class CalculNeurone:
 
     @staticmethod
     def sigmoid(x):
-      return 1/(1 + math.exp(-x))
+      return 1/(1 + Global.Cons.get("COEF_EXPO")*math.exp(-round(x,5)))
 
     @staticmethod
     def testRegression():
