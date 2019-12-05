@@ -50,15 +50,16 @@ class Genome:
     def default_mini():
         l = []
         g = Genome()
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+
         for n in l:
             g.ajout_noeud(n)
 
