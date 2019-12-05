@@ -58,8 +58,9 @@ class Global:
         self.listMeilleurScore = []
 
     def demarreProgramme(self,population):
-        self.generateurGenome = Generation()
+
         Global.Cons["TAILLE_POPULATION"] = population
+        self.generateurGenome = Generation(Genome.default_mini())
         self.listeVoiture = [voiture(Genome.default_mini(),190,110)]*population
         for v in self.listeVoiture:
             dictGenScore.update({v.genome :0})
