@@ -123,7 +123,7 @@ class Voiture:
 
         if self.capteurCourant != 7:
             self.capteurSuivant = self.capteurCourant + 1
-        else: capteurSuivant = 0
+        else: self.capteurSuivant = 0
 
         self.distCapteurCourant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurCourant])
         self.distCapteurSuivant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])

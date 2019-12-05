@@ -127,16 +127,21 @@ class Main:
 
         #definition rect
         self.rectBtn = pygame.Rect((1000,550),(250,100))
-        self.rectReset = pygame.Rect((1100,500), (250,50))
-        self.rectPause = pygame.Rect((1100,450), (250,50))
+        self.rectReset = pygame.Rect((1100,530), (250,20))
+        self.rectPause = pygame.Rect((1100,480), (250,20))
 
         self.listRect.append(rectModifierVariables((1005,0), "Proba_mutation : ", Genome.PROBA_MUTATION, self.police))
-        self.listRect.append(rectModifierVariables((1005, 55), "Proba_mutation_coef : ", Genome.PROBA_MUTATION_COEF, self.police))
-        self.listRect.append(rectModifierVariables((1005, 110), "Distance_c1 : ", Genome.DISTANCE_C1, self.police))
-        self.listRect.append(rectModifierVariables((1005, 165), "Distance_c2 : ", Genome.DISTANCE_C2, self.police))
-        self.listRect.append(rectModifierVariables((1005, 220), "Distance_c3 : ", Genome.DISTANCE_C1, self.police))
-        self.listRect.append(rectModifierVariables((1005, 275), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
-
+        self.listRect.append(rectModifierVariables((1005, 40), "Proba_mutation_coef : ", Genome.PROBA_MUTATION_COEF, self.police))
+        self.listRect.append(rectModifierVariables((1005, 80), "Distance_c1 : ", Genome.DISTANCE_C1, self.police))
+        self.listRect.append(rectModifierVariables((1005, 120), "Distance_c2 : ", Genome.DISTANCE_C2, self.police))
+        self.listRect.append(rectModifierVariables((1005, 160), "Distance_c3 : ", Genome.DISTANCE_C1, self.police))
+        self.listRect.append(rectModifierVariables((1005, 200), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
+        self.listRect.append(rectModifierVariables((1005, 240), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
+        self.listRect.append(rectModifierVariables((1005, 280), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))        
+        self.listRect.append(rectModifierVariables((1005, 320), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))        
+        self.listRect.append(rectModifierVariables((1005, 360), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
+        self.listRect.append(rectModifierVariables((1005,400), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
+        self.listRect.append(rectModifierVariables((1005,440), "default_n_connec : ", Genome.DEFAULT_N_CONNEC, self.police))
         #init du reseau neuronne test
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
