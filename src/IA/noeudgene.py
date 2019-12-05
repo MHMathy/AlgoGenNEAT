@@ -1,4 +1,4 @@
-## classe qui gere les informations globales d'un noeud
+## classe qui gere les informations ProgGlobales d'un noeud
 class NoeudGene:
     ## constructeur de la classe
     # @param type defini le type du noeud (input, output)

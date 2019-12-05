@@ -1,7 +1,7 @@
 from .noeudgene import NoeudGene
 from .connectiongene import ConnectionGene
 from .innovation import Innovation
-from Global.global import Global
+from ProgGlobal.ProgGlobal import ProgGlobal
 import random
 
 
@@ -35,7 +35,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,Global.Cons.get("DEFAULT_N_CONNEC):
+        for i in range(0,ProgGlobal.Cons.get("DEFAULT_N_CONNEC):
             g.ajout_connec_mutation()
 
         return g
@@ -57,7 +57,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,Global.Cons.get("DEFAULT_N_CONNEC"):
+        for i in range(0,ProgGlobal.Cons.get("DEFAULT_N_CONNEC"):
             g.ajout_connec_mutation()
 
         return g
@@ -119,8 +119,8 @@ class Genome:
     ## fonction qui gere la mutation d'une connection
     def connec_mutation(self):
         for connec in self.__listConnections:
-            if (random.randint(1,100)<Global.Cons.get("PROBA_MUTATION"):
-                if(random.randint(1,100)<Global.Cons.get("PROBA_MUTATION_COEF"):
+            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION"):
+                if(random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION_COEF"):
                     connec.set_poids(connec.get_poids()*random.uniform(-2,2))
                 else:
                     connec.set_poids(random.uniform(-2,2))
@@ -269,7 +269,7 @@ class Genome:
     @staticmethod
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
-        return (Global.Cons.get("DISTANCE_C1")*e/1)+ (Global.Cons.get("DISTANCE_C2")*d/1) + Global.Cons.get("DISTANCE_C3")*m
+        return (ProgGlobal.Cons.get("DISTANCE_C1")*e/1)+ (ProgGlobal.Cons.get("DISTANCE_C2")*d/1) + ProgGlobal.Cons.get("DISTANCE_C3")*m
 
     ## fonction qui teste les differentes fonctions de la classe
     @staticmethod

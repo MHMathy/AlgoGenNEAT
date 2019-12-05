@@ -4,7 +4,7 @@ import random
 
 class Generation:
     def __init__ (self,genomeDefault):
-        self.taillePopulation = Global.Cons.get("TAILLE_POPULATION")
+        self.taillePopulation = ProgGlobal.Cons.get("TAILLE_POPULATION")
 
         self.lienGenomeEspece = {}
         self.lienGenomeAptitude = {}
@@ -36,7 +36,7 @@ class Generation:
             for e in self.listEspeces:
                 #Si le genome est proche de la mascotte d'une espèce, on l'ajoute à l'espèce
 
-                if Genome.calc_distance_compatibilite(g,e.mascotte)<Global.Cons.get("DISTANCE_MIN_ESPECE"):
+                if Genome.calc_distance_compatibilite(g,e.mascotte)<ProgGlobal.Cons.get("DISTANCE_MIN_ESPECE"):
                     e.membres.append(g)
                     self.lienGenomeEspece.update({g:e})
                     trouveEspece = True
@@ -85,13 +85,13 @@ class Generation:
             else:
                 gfils = Genome.melange_genome(g2,g1)
 
-            if (random.randint(1,100)<Global.Cons.get("PROBA_MUTATION_GENOME"):
+            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION_GENOME"):
                 gfils.connec_mutation()
 
-            if (random.randint(1,100)<Global.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
+            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
                 gfils.ajout_connec_mutation()
 
-            if (random.randint(1,100)<Global.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
+            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
                 gfils.ajout_noeud_mutation()
 
             self.nextGenGenome.append(gfils)

@@ -1,12 +1,12 @@
 from classeMain.ClasseMain import Main
 from Affichage.Affichage import Affichage
-from Global.global import Global
+from ProgGlobal.ProgGlobal import ProgGlobal
 #cd Documents/L3/LifProjet/mathymartinet/
 
 ## initialisation d'un main, et lancement de son execution
 def main():
 
-    glob = Global()
+    glob = ProgGlobal()
     aff = Affichage()
     aff.boucle(glob)
 

@@ -6,7 +6,7 @@ from IA.genome import Genome
 from IA.noeudgene import NoeudGene
 from IA.connectiongene import ConnectionGene
 from Voiture.voiture import Voiture
-from Global.global import Global
+from ProgGlobal.ProgGlobal import ProgGlobal
 
 ## classe qui permet la creation d'un rectangle permettant la modification de la valeur d'une variable
 class rectModifierVariables:
@@ -32,7 +32,7 @@ class rectModifierVariables:
     ## fonction qui met a jour la valeur courante et de la variable en question
     # @param -1 : valeur permettant d'identifier la variable a modifer
     def ValiderNouvelleValeur(self, var):
-        Global.setlistConstantes(var, self.__valeur)
+        ProgGlobal.setlistConstantes(var, self.__valeur)
 
     ## renvoie l'etat du rectant
     def getEtat(self):
@@ -88,7 +88,7 @@ class Affichage:
         self.rectReset = pygame.Rect((1000,510), (125,30))
         self.rectPause = pygame.Rect((1125,510), (125,30))
 
-        constantesModifiables = Global.get_listConstantes()
+        constantesModifiables = ProgGlobal.get_listConstantes()
 
         self.listRect.append(rectModifierVariables((1005,0), "TAILLE_POPULATION : ", constantesModifiables["TAILLE_POPULATION"], self.police))
         self.listRect.append(rectModifierVariables((1005, 40), "DIST_MIN_ESPECE : ", constantesModifiables["DIST_MIN_ESPECE"], self.police))
@@ -116,16 +116,16 @@ class Affichage:
         self.screen.blit(self.circuit,(0,0))
         self.screen.blit(self.imageBtn,self.rectBtn)
 
-        if len(Global.listeVoiture != 0):
-            for ind in range(len(Global.listeVoiture)): 
+        if len(ProgGlobal.listeVoiture != 0):
+            for ind in range(len(ProgGlobal.listeVoiture)): 
 
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, Global.listeVoiture[i].angle,0.05)
+                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, ProgGlobal.listeVoiture[i].angle,0.05)
                 self.listPosVoiture[ind] = ImVoiture.get_rect().center
 
-                self.listPosVoiture[ind][0] = Global.listeVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
-                self.listPosVoiture[ind][1] = Global.listeVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
+                self.listPosVoiture[ind][0] = ProgGlobal.listeVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
+                self.listPosVoiture[ind][1] = ProgGlobal.listeVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
 
-                if Global.listeVoiture[ind].vivant: 
+                if ProgGlobal.listeVoiture[ind].vivant: 
                     self.screen.blit(ImVoiture, self.listPosVoiture[ind])
 
         for i in range(len(self.listRect)):
@@ -244,7 +244,7 @@ class Affichage:
                         self.mainClock.tick(30)
 
                     if self.__reset == True:
-                        Global.__init__(self)
+                        ProgGlobal.__init__(self)
                 glob.finCycle()
 
     self.quitter()

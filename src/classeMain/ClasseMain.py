@@ -78,7 +78,7 @@ class rectModifierVariables:
     def getValeur(self):
         return self.__valeur
 
-## class Main qui gere les evenements SDL et l'execution globale du programme
+## class Main qui gere les evenements SDL et l'execution ProgGlobale du programme
 class Main:
     listeConstantes = {"proba_mut": Genome.PROBA_MUTATION,
                        "proba_mut_coef": Genome.PROBA_MUTATION_COEF,
@@ -312,7 +312,7 @@ class Main:
                 Main.resetAvecNewConst()
                 Main.__init__(self)
 
-    ## fonction qui permet l'execution globale du programme
+    ## fonction qui permet l'execution ProgGlobale du programme
     def execution(self):
         self.boucle()
         self.quitter()

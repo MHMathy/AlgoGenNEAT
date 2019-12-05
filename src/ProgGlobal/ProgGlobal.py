@@ -1,6 +1,6 @@
 """
 separer calcul affichage
-import global dans des sous classes
+import ProgGlobal dans des sous classes
 utilité sigmoid que si on fait varier l'intensité de l'action
 utiliser private ou non
 qu'est-ce qu'il y a dans le rapport
@@ -28,7 +28,7 @@ COEF_EXPO = 1
 
 
 
-class Global:
+class ProgGlobal:
 
     Cons = {
         "TAILLE_POPULATION": 10,
@@ -61,8 +61,8 @@ class Global:
 
     def demarreProgramme(self,population,durree):
         self.listMeilleurScore.clear()
-        Global.Cons["TAILLE_POPULATION"] = population
-        Global.Cons["durree"] =
+        ProgGlobal.Cons["TAILLE_POPULATION"] = population
+        ProgGlobal.Cons["durree"] =
         self.generateurGenome = Generation(Genome.default_mini())
         self.listeVoiture = [voiture(Genome.default_mini(),190,110)]*population
         for v in self.listeVoiture:
@@ -73,7 +73,7 @@ class Global:
     def demarreCycle(self):
 
         self.generateurGenome.evaluer(self.dictGenScore)
-        if len(self.generateurGenome.get_listGenomes())!= Global.Cons.get("TAILLE_POPULATION"):
+        if len(self.generateurGenome.get_listGenomes())!= ProgGlobal.Cons.get("TAILLE_POPULATION"):
             print("MEGA GROSSE ERREUR")
         for gen in self.generateurGenome.get_listGenomes():
             self.listeVoiture.append(voiture(gen,190,110))
@@ -106,7 +106,7 @@ class Global:
             if v.vivant == True:
                 arret = False
 
-        if self.dureeCycle > Global.Cons.get("DUREE_CYCLE_EN_S"):
+        if self.dureeCycle > ProgGlobal.Cons.get("DUREE_CYCLE_EN_S"):
             arret = True
 
 
