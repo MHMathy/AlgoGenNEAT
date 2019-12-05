@@ -1,5 +1,4 @@
 import math
-import sys
 import time
 from Capteur.capteur import Capteur
 from IA.genome import Genome
@@ -63,7 +62,9 @@ class Voiture:
 
     ## fonction qui gere l'acceleration de la voiture
     def accelerer(self): #augmente la vitesse
-        self.vitesse += 1.5
+        if self.vitesse < 10:
+            self.vitesse += 1.5
+        else: self.vitesse *= 1
 
     ## fonction qui gere la deceleration de la voiture
     def freiner(self): #reduit la vitesse
@@ -72,12 +73,12 @@ class Voiture:
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
         if self.volant<10:
-            self.volant += 1
+            self.volant += 1 * (self.vitesse**(1/2) - self.vitesse*0.25)
 
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_droite(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à droite
         if self.volant>-10:
-            self.volant -= 1
+            self.volant -=  1 * (self.vitesse**(1/2) -self.vitesse*0.25)
 
     ## fonction qui permet a la voiture d'arreter de tourner/avancer progressivement
     def retour_neutre(self):
@@ -104,7 +105,6 @@ class Voiture:
 
         self.dureeVie = int((time.time() - self.debutTemps)*1000)
 
-
         if self.capteurCourant != 7:
             self.capteurSuivant = self.capteurCourant + 1
         else: capteurSuivant = 0
@@ -117,10 +117,11 @@ class Voiture:
                 self.capteurCourant = 0
 
             else: self.capteurCourant += 1
+          
+        self.checkCollisionMur()
 
         self.calcNeuro.setlistLien()
         self.calcNeuro.calcValeurNoeud(self.getValeursPourReseau())
-
 
     ## fonction qui retourne la position de la voiture
     def getPos(self): #renvoie la position de la voiture
@@ -169,3 +170,12 @@ class Voiture:
                  "capteur135":self.listCapt[3].getDistCapteur(),
                  "capteur225":self.listCapt[5].getDistCapteur(),
                  "capteur180":self.listCapt[4].getDistCapteur() }
+
+    def checkCollisionMur(self):
+        listeTmp = self.getDistRetourCapt()
+
+        if ((listeTmp.index(min(listeTmp)) in [1,2,3,5,6,7]) and min(listeTmp) < 11) or ((listeTmp.index(min(listeTmp)) in [0,4]) and min(listeTmp) < 20):
+            return True 
+
+        return False
+

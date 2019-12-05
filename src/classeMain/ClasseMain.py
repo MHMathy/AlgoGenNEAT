@@ -1,8 +1,6 @@
 import pygame,sys
 from pygame.locals import *
 
-sys.path.append('./')
-
 #from afficheGenome.afficheGenome import AfficheGenome
 from IA.genome import Genome
 from IA.noeudgene import NoeudGene
@@ -103,11 +101,10 @@ class Main:
         self.accel = False
         self.frein = False
         self.G = Genome.default()
-        self.v = Voiture(self.G,182,130)
+        self.v = Voiture(self.G,195,145)
         self.BoolAffResNeuro = False
         self.__reset = False
-        self.deroulement = True
-        self.pause = False
+        self.pause = True
 
         self.listRect = []
 
@@ -153,9 +150,6 @@ class Main:
         ImVoiture = pygame.transform.rotozoom(self.ImVoiture,self.v.angle,0.05)
         posRectImVoiture = ImVoiture.get_rect().center
 
-        #ImVoiture = pygame.transform.scale(self.ImVoiture, (50,25))
-        #ImVoiture = pygame.transform.rotate(ImVoiture, self.v.angle)
-
         listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
 
         self.screen.blit(self.circuit,(0,0))
@@ -178,10 +172,14 @@ class Main:
             self.screen.blit(self.surf,(0,0))
 
         self.screen.blit(self.police.render("Reset", True, (255,255,255)),self.rectReset)
-        self.screen.blit(self.police.render("Pause", True, (255,255,255)),self.rectPause)
 
-        #draw.rect(self.screen,(255,0,0),self.v.pos, (ImVoiture.get_width(), ImVoiture.get_height()))
-        pygame.draw.circle(self.screen, (0,255,0),( int(self.v.pos[0]), int(self.v.pos[1])) , 4)
+        if self.pause == True:
+            pygame.draw.rect(self.screen,(0,0,0), self.rectPause)
+            self.screen.blit(self.police.render("Play", True, (255,255,255)),self.rectPause)
+        else:
+            pygame.draw.rect(self.screen,(0,0,0), self.rectPause)
+            self.screen.blit(self.police.render("Pause", True, (255,255,255)),self.rectPause)
+
         pygame.display.update()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
@@ -205,7 +203,7 @@ class Main:
                 if event.key == ord('s'):
                     self.frein = True
                 if event.key == ord('t'):
-                    print(self.v.getValeursPourReseau())
+                    print(self.v.calculScore())
                 if event.key == K_ESCAPE and self.BoolAffResNeuro == False:
                     self.quitter()
                 if event.key == K_ESCAPE and self.BoolAffResNeuro == True:

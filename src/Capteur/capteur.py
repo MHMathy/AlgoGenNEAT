@@ -22,8 +22,8 @@ class Capteur:
 
     ## fonction qui calcul le vecteur directeur de l'angle
     def CalcVecDir(self):
-       self.VecDir = [math.cos(math.radians(self.angleCapteur + self.AngleVoiture)),
-                       math.sin(math.radians(self.angleCapteur + self.AngleVoiture))] 
+       self.VecDir = [math.cos(math.radians(self.angleCapteur - self.AngleVoiture)),
+                       math.sin(math.radians(self.angleCapteur - self.AngleVoiture))] 
 
     ## fonction qui calcul la distance du mur le plus proche
     def checkMur(self): #regarde la position du mur le plus proche de chaque capteur 
@@ -51,6 +51,7 @@ class Capteur:
                             
     def getDistCapteur(self): #retourne la distance d'un capteur par rapport au mur le plus proche
         return self.DistMur
+
 
        
 
