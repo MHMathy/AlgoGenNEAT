@@ -15,7 +15,7 @@ class Genome:
         self.__listNoeuds = []
 
     @staticmethod
-    def default():
+    def default(type="normal"):
         l = []
         g = Genome()
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
@@ -27,40 +27,20 @@ class Genome:
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        if type == "normal":
+            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(Constantes.Cons.get("DEFAULT_N_CONNEC")):
-            g.ajout_connec_mutation()
-
         return g
 
-    @staticmethod
-    def default_mini():
-        l = []
-        g = Genome()
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-
-        for n in l:
-            g.ajout_noeud(n)
-
-        for i in range(Constantes.Cons.get("DEFAULT_N_CONNEC")):
-            g.ajout_connec_mutation()
-
-        return g
+    def random_connection(self,nbCo=Constantes.Cons.get("DEFAULT_N_CONNEC")):
+        for i in range(nbCo):
+            self.ajout_connec_mutation()
 
     # ajouter une connection à la liste de connection
     ## fonction qui ajoute une connection dans la liste
@@ -148,9 +128,6 @@ class Genome:
                 if not(noeud[0].get_type() == noeud[1].get_type() and (noeud[0].get_type() == "input" or noeud[0].get_type() == "output")):
                     break
 
-            for connec in self.__listConnections:
-                if (connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id()) or (connec.get_noeudin() == noeud[1].get_id() and connec.get_noeudout() == noeud[0].get_id()):
-                    continue #Si la connection exist deja
 
             if noeud[0].get_type() == "hidden" and noeud[1].get_type() == "input":
                 noeud.reverse()
@@ -159,7 +136,12 @@ class Genome:
             elif noeud[0].get_type() == "output" and noeud[1].get_type() == "input":
                 noeud.reverse()
 
+            if [noeud[1].get_id(),noeud[0].get_id()] in Innovation.listC:
+                continue
 
+            for connec in self.__listConnections:
+                if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
+                    continue #Si la connection exist deja dans
 
             newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
             self.ajout_connec(newConnec)
@@ -193,7 +175,6 @@ class Genome:
     # @param genParent2 2eme parent du genome qui sera retourne
     @staticmethod
     def melange_genome(genParent1,genParent2):
-        print("melange")
         #+vite si copie et pop
         newGenome = Genome()
         noeudtemp = []

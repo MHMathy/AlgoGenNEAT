@@ -4,7 +4,7 @@ import random
 
 
 class Generation:
-    def __init__ (self,genomeDefault):
+    def __init__ (self,tabGen):
         self.taillePopulation = Constantes.Cons.get("TAILLE_POPULATION")
 
         self.lienGenomeEspece = {}
@@ -12,7 +12,7 @@ class Generation:
 
         self.listEspeces = []
         self.listGenomes = []
-        self.listGenomes = [genomeDefault] * self.taillePopulation
+        self.listGenomes = tabGen
 
         self.nextGenGenome = []
 
@@ -50,7 +50,6 @@ class Generation:
                 newEspece = Espece(g)
                 self.listEspeces.append(newEspece)
                 self.lienGenomeEspece.update({g:newEspece})
-        print("fin placement")
 
         #Enlève les espèces vides
         #Mettre un print voir si ça s'active un jour
@@ -73,7 +72,6 @@ class Generation:
             self.lienGenomeAptitude.update({g:scoreAjuster})
             if score>self.maxAptitude:
                 self.maxAptitude = score
-        print("fin assigner aptitude")
 
         #Mettre les meilleurs genomes de chaque espèce dans la generation suivante
         for e in self.listEspeces:
@@ -84,7 +82,7 @@ class Generation:
 
         #Generer le reste de la prochaine generation par mélange
         while len(self.nextGenGenome)<self.taillePopulation:
-            print("on mélange")
+
             e = self.get_random_espece()
 
             g1 = self.get_random_genome(e)
@@ -94,18 +92,14 @@ class Generation:
                 gfils = Genome.melange_genome(g1,g2)
             else:
                 gfils = Genome.melange_genome(g2,g1)
-            print("fin melange")
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_MUTATION_GENOME"):
-                print("c_m")
                 gfils.connec_mutation()
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
-                print("a_j_c")
                 gfils.ajout_connec_mutation()
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
-                print("a_j_n")
                 gfils.ajout_noeud_mutation()
 
             self.nextGenGenome.append(gfils)

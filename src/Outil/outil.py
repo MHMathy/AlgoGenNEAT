@@ -12,18 +12,18 @@ class Innovation:
     ## retourne le nombre de connections dans la liste
     @classmethod
     def get_new_innovation_connec(cls,nIn,nOut):
-        for c in Innovation.listC:
-            if c==[nIn,nOut]:
-                return Innovation.listC.index([nIn,nOut])+1
 
-        Innovation.listC.append([nIn,nOut])
+        if [nIn,nOut] in cls.listC:
+            return cls.listC.index([nIn,nOut])+1
+        else:
+            cls.listC.append([nIn,nOut])
         return len(Innovation.listC)
 
 class Constantes:
 
     Cons = {
-        "TAILLE_POPULATION": 10,
-        "DURREE_CYCLE_EN_S": 60,
+        "TAILLE_POPULATION": 3,
+        "DURREE_CYCLE_EN_S": 20,
 
         "DISTANCE_MIN_ESPECE": 5,
         "PROBA_MUTATION_GENOME": 50,

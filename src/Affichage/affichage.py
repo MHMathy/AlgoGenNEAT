@@ -77,6 +77,7 @@ class Affichage:
         self.reset = False
         self.pause = True
         self.demarrer = False
+        self.mainClock = pygame.time.Clock()
 
         self.listRect = []
 
@@ -115,32 +116,32 @@ class Affichage:
         self.listRect.append(rectModifierVariables((1005, 400), "DISTANCE_C3", constantesModifiables["DISTANCE_C3"], self.police))
         self.listRect.append(rectModifierVariables((1005, 440), "DEFAULT_N_CONNEC", constantesModifiables["DEFAULT_N_CONNEC"], self.police))
         self.listRect.append(rectModifierVariables((1005, 480), "COEF_EXPO", constantesModifiables["COEF_EXPO"], self.police))
-        
+
         #init du reseau neuronne test
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
 
 
-        self.listPosVoiture = []
 
     def draw(self,glob):
 
+        listPosVoiture = []
         self.screen.blit(self.circuit,(0,0))
         self.screen.blit(self.imageBtn,self.rectBtn)
 
         if glob.listVoiture != []:
             for ind in range(len(glob.listVoiture)):
-                if glob.listVoiture[ind].vivant == False:
-                    continue
+                #if glob.listVoiture[ind].vivant == False:
+                #    continue
 
                 ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[ind].angle,0.05)
-                self.listPosVoiture[ind] = ImVoiture.get_rect().center
+                listPosVoiture.append(ImVoiture.get_rect().center)
 
-                self.listPosVoiture[ind][0] = glob.listVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
-                self.listPosVoiture[ind][1] = glob.listVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
+                listPosVoiture[ind] = [glob.listVoiture[ind].pos[0] - listPosVoiture[ind][0], glob.listVoiture[ind].pos[1] - listPosVoiture[ind][1]]
+                #print("pos: ",listPosVoiture[ind])
 
                 if glob.listVoiture[ind].vivant:
-                    self.screen.blit(ImVoiture, self.listPosVoiture[ind])
+                    self.screen.blit(ImVoiture, listPosVoiture[ind])
 
         for i in range(len(self.listRect)):
             if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())
@@ -161,6 +162,8 @@ class Affichage:
             self.screen.blit(self.police.render("Pause", True, (255,255,255)),self.rectPause)
 
         pygame.display.update()
+
+        listPosVoiture.clear()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
     def quitter(self): #quitte la sdl et ferme la fenetre python
@@ -230,7 +233,7 @@ class Affichage:
                         self.listRect[i].setEtat()
 
                 if self.rectReset.collidepoint(event.pos):
-                    self.__reset = True
+                    self.reset = True
 
                 if self.rectPause.collidepoint(event.pos) and self.pause == False:
                     self.pause = True
@@ -238,7 +241,7 @@ class Affichage:
                 elif self.rectPause.collidepoint(event.pos) and self.pause == True:
                     for rect in self.listRect:
                         rect.ValiderNouvelleValeur()
-                    
+
                     self.pause = False
                     self.demarrer = True
                     return True
@@ -261,12 +264,11 @@ class Affichage:
                 while glob.arreterCourse() == False:
                     self.draw(glob)
                     self.gestionEvent()
-
                     if self.pause == False:
                         glob.update_once()
                         self.mainClock.tick(30)
 
-                    if self.__reset == True:
+                    if self.reset == True:
                         ProgGlobal.__init__(glob)
                 glob.fin_cycle()
 

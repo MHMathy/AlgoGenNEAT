@@ -77,12 +77,13 @@ class Voiture:
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
         if self.volant<10:
-            self.volant += 1 * (self.vitesse**(1/2) - self.vitesse*0.25)
+            self.volant += 1 #* (self.vitesse**(1/2) - self.vitesse*0.25)
+
 
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_droite(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à droite
-        if self.volant>-10:
-            self.volant -=  1 * (self.vitesse**(1/2) -self.vitesse*0.25)
+        if self.volant>(-10):
+            self.volant -=  1 #* (self.vitesse**(1/2) -self.vitesse*0.25)
 
     ## fonction qui permet a la voiture d'arreter de tourner/avancer progressivement
     def retour_neutre(self):
@@ -96,13 +97,15 @@ class Voiture:
 
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
+        Capteur.setPosActuVoiture(self.pos)
         for i in range(0,8):
             self.listCapt[i].checkMur()
 
         self.checkCollisionMur()
 
         if self.vivant == True:
-            valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau())
+            self.dureeVie = duree
+            valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau(),"mini")
 
             if valSortie.get("accelerer")>0.5:
                 self.accelerer()
@@ -120,6 +123,7 @@ class Voiture:
             dx = math.cos(math.radians(self.angle))
             dy = math.sin(math.radians(self.angle))
             self.pos = (self.pos[0] + dx*self.vitesse, self.pos[1] - dy*self.vitesse)
+            self.pos = [int(self.pos[0]),int(self.pos[1])]
             self.retour_neutre()
 
             Capteur.PosActuVoiture = self.pos
@@ -141,6 +145,7 @@ class Voiture:
                 else: self.capteurCourant += 1
 
     def meurt(self):
+        print("domi dommage je meurt")
         self.vivant = False
 
     ## fonction qui retourne la position de la voiture
@@ -170,6 +175,7 @@ class Voiture:
         self.scoreVoiture *= self.dureeVie
         self.scoreVoiture /= 10
 
+        print(self.scoreVoiture)
         return int(self.scoreVoiture)
 
     ## fonction qui calcul la distance entre deux points

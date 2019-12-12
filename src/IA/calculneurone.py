@@ -5,6 +5,8 @@ from Outil.outil import Constantes
 from collections import OrderedDict
 import operator
 import math
+import numpy as np
+
 
 
 
@@ -27,7 +29,6 @@ class CalculNeurone:
                 self.listLien.update({str(connec.get_noeudout()):[]})
             self.listLien[str(connec.get_noeudout())].append([str(connec.get_noeudin()),connec.get_poids()])
 
-       # print (self.listLien)
         tmp = dict(self.listLien)
         for key in tmp:
             tmp[key] = self.calcCoucheNoeud(key,self.listLien)
@@ -37,26 +38,20 @@ class CalculNeurone:
             self.listValeur.update({str(k):False})
 
 
-    def calcValeurNoeud(self,inputVal):
-        print("commence calc")
-        """
-        self.listValeur['5'] = inputVal["vitesse"]
-        self.listValeur['6'] = inputVal["angle"]
-        self.listValeur['7'] = inputVal["capteur0"]
-        self.listValeur['8'] = inputVal["capteur45"]
-        self.listValeur['9'] = inputVal["capteur315"]
-        self.listValeur['10'] = inputVal["capteur90"]
-        self.listValeur['11'] = inputVal["capteur270"]
-        self.listValeur['12'] = inputVal["capteur135"]
-        self.listValeur['13'] = inputVal["capteur225"]
-        self.listValeur['14'] = inputVal["capteur180"]
-        """
+    def calcValeurNoeud(self,inputVal,type="normal"):
 
         self.listValeur['5'] = inputVal["vitesse"]
         self.listValeur['6'] = inputVal["angle"]
         self.listValeur['7'] = inputVal["capteur0"]
         self.listValeur['8'] = inputVal["capteur45"]
         self.listValeur['9'] = inputVal["capteur315"]
+
+        if type == "normal":
+            self.listValeur['10'] = inputVal["capteur90"]
+            self.listValeur['11'] = inputVal["capteur270"]
+            self.listValeur['12'] = inputVal["capteur135"]
+            self.listValeur['13'] = inputVal["capteur225"]
+            self.listValeur['14'] = inputVal["capteur180"]
 
         tmp = 0
         for k in OrderedDict(self.listValeur):
@@ -66,7 +61,6 @@ class CalculNeurone:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
                 #tmp += 1 #bias
                 self.listValeur[k] = CalculNeurone.sigmoid(tmp)
-                #print(k,":",self.listValeur[k])
             else:
                 continue
 
@@ -80,13 +74,14 @@ class CalculNeurone:
         else:
             tmp = []
             for pair in liste[index]:
-                #print(pair)
                 tmp.append(CalculNeurone.calcCoucheNoeud(pair[0],liste))
             return 1+max(tmp)
 
     @staticmethod
     def sigmoid(x):
-      return 1/(1 + Constantes.Cons.get("COEF_EXPO")*math.exp(-round(x,5)))
+        tmpX = Constantes.Cons.get("COEF_EXPO")*x
+        tmpX = round(tmpX,5)
+        return 1/(1 + np.exp(-tmpX))
 
     @staticmethod
     def testRegression():

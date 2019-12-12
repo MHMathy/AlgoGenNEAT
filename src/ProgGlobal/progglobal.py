@@ -20,31 +20,42 @@ class ProgGlobal:
         self.listMeilleurScore.clear()
         self.listVoiture.clear()
         self.dictGenScore.clear()
-        genDef = Genome.default_mini()
+        genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
+
+        for g in genDef:
+            g.random_connection(5)
+            self.dictGenScore.update({g :0})
+
         self.generateurGenome = Generation(genDef)
-        for i in range(Constantes.Cons.get("TAILLE_POPULATION")):
-            self.dictGenScore.update({genDef :0})
+
+        self.listMeilleurScore = [0]
 
 
 
     def demarreCycle(self):
-        print("GEN N°",len(self.listMeilleurScore))
+        print()
+        print("GEN N°",len(self.listMeilleurScore)," Meilleur Score: ",self.listMeilleurScore[-1])
+
         self.generateurGenome.evaluer(self.dictGenScore)
         if len(self.generateurGenome.get_listGenomes())!= Constantes.Cons.get("TAILLE_POPULATION"):
             print("MEGA GROSSE ERREUR")
         for gen in self.generateurGenome.get_listGenomes():
-            self.listVoiture.append(Voiture(gen,190,110))
+            self.listVoiture.append(Voiture(gen,200,150))
+
 
         self.dictGenScore.clear()
 
         self.debutCycle = time.time()
+        self.dureeCycle = 0
 
 
     #plus tard update avec un while et affichge en thread
     def update_once(self):
-        self.dureeCycle = int((time.time() - self.debutCycle)*1000)
+
+        self.dureeCycle = int((time.time() - self.debutCycle)*10)
 
         for v in self.listVoiture:
+
             if v.vivant == True:
                 v.update(self.dureeCycle)
 
@@ -52,6 +63,7 @@ class ProgGlobal:
     def fin_cycle(self):
 
         for v in self.listVoiture:
+            #print(v.calculScore())
             self.dictGenScore.update({v.genome : v.calculScore()})
 
         self.listMeilleurScore.append(max(self.dictGenScore.values()))
@@ -63,5 +75,8 @@ class ProgGlobal:
             if v.vivant == True:
                 arret = False
 
+        #print("durActu: ",self.dureeCycle," const :",Constantes.Cons.get("DURREE_CYCLE_EN_S"))
         if self.dureeCycle > Constantes.Cons.get("DURREE_CYCLE_EN_S"):
             arret = True
+
+        return arret
