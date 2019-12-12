@@ -1,10 +1,10 @@
-from genome import Genome
-from Globa:
+from .genome import Genome
+from Outil.outil import Constantes
 import random
 
 class Generation:
     def __init__ (self,genomeDefault):
-        self.taillePopulation = ProgGlobal.Cons.get("TAILLE_POPULATION")
+        self.taillePopulation = Constantes.Cons.get("TAILLE_POPULATION")
 
         self.lienGenomeEspece = {}
         self.lienGenomeAptitude = {}
@@ -28,6 +28,9 @@ class Generation:
         self.lienGenomeAptitude.clear()
         self.nextGenGenome.clear()
 
+        for key in dictScore.keys():
+            self.listGenomes.append(key)
+
 
         #Place les genomes dans des espèces
         for g in self.listGenomes:
@@ -36,7 +39,7 @@ class Generation:
             for e in self.listEspeces:
                 #Si le genome est proche de la mascotte d'une espèce, on l'ajoute à l'espèce
 
-                if Genome.calc_distance_compatibilite(g,e.mascotte)<ProgGlobal.Cons.get("DISTANCE_MIN_ESPECE"):
+                if Genome.calc_distance_compatibilite(g,e.mascotte)<Constantes.Cons.get("DISTANCE_MIN_ESPECE"):
                     e.membres.append(g)
                     self.lienGenomeEspece.update({g:e})
                     trouveEspece = True
@@ -59,8 +62,10 @@ class Generation:
         for g in self.listGenomes:
             e = self.lienGenomeEspece.get(g)
             score = dictScore.get(g)
-
-            scoreAjuster = score/len(e.membres)
+            scoreAjuster = score
+            if score!= None:
+                print(len(e.membres),"et",score)
+                scoreAjuster=score/len(e.membres)
             e.ajout_aptitude_ajuster(scoreAjuster)
             e.aptitudePopulation.append(AptitudeGenome(g,scoreAjuster))
             self.lienGenomeAptitude.update({g:scoreAjuster})
@@ -85,13 +90,13 @@ class Generation:
             else:
                 gfils = Genome.melange_genome(g2,g1)
 
-            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION_GENOME"):
+            if random.randint(1,100)<Constantes.Cons.get("PROBA_MUTATION_GENOME"):
                 gfils.connec_mutation()
 
-            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
+            if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
                 gfils.ajout_connec_mutation()
 
-            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
+            if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
                 gfils.ajout_noeud_mutation()
 
             self.nextGenGenome.append(gfils)

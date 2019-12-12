@@ -2,11 +2,12 @@ import pygame,sys
 from pygame.locals import *
 
 #from afficheGenome.afficheGenome import AfficheGenome
-from IA.genome import Genome
-from IA.noeudgene import NoeudGene
-from IA.connectiongene import ConnectionGene
-from Voiture.voiture import Voiture
-from ProgGlobal.ProgGlobal import ProgGlobal
+#from IA.genome import Genome
+#from IA.noeudgene import NoeudGene
+#from IA.connectiongene import ConnectionGene
+#from Voiture.voiture import Voiture
+from Outil.outil import Constantes
+from ProgGlobal.progglobal import ProgGlobal
 
 ## classe qui permet la creation d'un rectangle permettant la modification de la valeur d'une variable
 class rectModifierVariables:
@@ -32,7 +33,7 @@ class rectModifierVariables:
     ## fonction qui met a jour la valeur courante et de la variable en question
     # @param -1 : valeur permettant d'identifier la variable a modifer
     def ValiderNouvelleValeur(self, var):
-        ProgGlobal.setlistConstantes(var, self.__valeur)
+        Constantes.setlistConstantes(var, self.__valeur)
 
     ## renvoie l'etat du rectant
     def getEtat(self):
@@ -58,6 +59,9 @@ class rectModifierVariables:
 class Affichage:
 
     def __init__(self):
+
+        pygame.init()
+
         self.WHITE = [255,255,255]
         self.WINDOWWIDTH = 1250
         self.WINDOWHEIGHT = 650
@@ -69,18 +73,18 @@ class Affichage:
         self.listRect = []
 
         #load images
-        self.ImVoiture = pygame.image.load('../../data/car.png')
-        self.circuit = pygame.image.load('../../data/course.png')
-        self.imageBtn = pygame.image.load('../../data/BtnVoirNeurones.png')
+        self.ImVoiture = pygame.image.load('../data/car.png')
+        self.circuit = pygame.image.load('../data/course.png')
+        self.imageBtn = pygame.image.load('../data/BtnVoirNeurones.png')
 
-        self.police = pygame.font.Font('../../data/arial_narrow_7.ttf', 23)
+        self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 23)
 
         #transformations CONSTANTES d'images
-        self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDITH*4/5),self.WINDOWHEIGHT))
+        self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDTH*4/5),self.WINDOWHEIGHT))
         self.imageBtn = pygame.transform.scale(self.imageBtn,(250,100))
 
         #init fenetre
-        self.screen = pygame.display.set_mode((self.WINDOWWIDITH, self.WINDOWHEIGHT),0,32)
+        self.screen = pygame.display.set_mode((self.WINDOWWIDTH, self.WINDOWHEIGHT),0,32)
         pygame.display.set_caption('mathymartinet')
 
         #definition rect
@@ -88,10 +92,10 @@ class Affichage:
         self.rectReset = pygame.Rect((1000,510), (125,30))
         self.rectPause = pygame.Rect((1125,510), (125,30))
 
-        constantesModifiables = ProgGlobal.get_listConstantes()
+        constantesModifiables = Constantes.get_listConstantes()
 
         self.listRect.append(rectModifierVariables((1005,0), "TAILLE_POPULATION : ", constantesModifiables["TAILLE_POPULATION"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 40), "DIST_MIN_ESPECE : ", constantesModifiables["DIST_MIN_ESPECE"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 40), "DIST_MIN_ESPECE : ", constantesModifiables["DISTANCE_MIN_ESPECE"], self.police))
         self.listRect.append(rectModifierVariables((1005, 80), "PROBA_MUT_GEN : ", constantesModifiables["PROBA_MUTATION_GENOME"], self.police))
         self.listRect.append(rectModifierVariables((1005, 120), "PROBA_AJ_CONNEC_GEN : ", constantesModifiables["PROBA_AJOUT_CONNEC_GENOME"], self.police))
         self.listRect.append(rectModifierVariables((1005, 160), "PROBA_AJ_NOEUD_GEN : ", constantesModifiables["PROBA_AJOUT_NOEUD_GENOME"], self.police))
@@ -102,30 +106,32 @@ class Affichage:
         self.listRect.append(rectModifierVariables((1005, 360), "DISTANCE_C3 : ", constantesModifiables["DISTANCE_C3"], self.police))
         self.listRect.append(rectModifierVariables((1005, 400), "DEFAULT_N_CONNEC : ", constantesModifiables["DEFAULT_N_CONNEC"], self.police))
         self.listRect.append(rectModifierVariables((1005, 440), "COEF_EXPO : ", constantesModifiables["COEF_EXPO"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 480), "DUREE_CYCLE : ", constantesModifiables["DUREE_CYCLE_EN_S"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 480), "DURREE_CYCLE : ", constantesModifiables["DURREE_CYCLE_EN_S"], self.police))
 
         #init du reseau neuronne test
-        self.surf = pygame.Surface((self.WINDOWWIDITH - 250, self.WINDOWHEIGHT))
+        self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
 
-        
+
         self.listPosVoiture = []
 
-    def draw(self):
+    def draw(self,glob):
 
         self.screen.blit(self.circuit,(0,0))
         self.screen.blit(self.imageBtn,self.rectBtn)
 
-        if len(ProgGlobal.listeVoiture != 0):
-            for ind in range(len(ProgGlobal.listeVoiture)): 
+        if glob.listeVoiture != []:
+            for ind in range(len(glob.listeVoiture)):
+                if glob.listeVoiture[ind].vivant == False:
+                    continue
 
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, ProgGlobal.listeVoiture[i].angle,0.05)
+                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listeVoiture[ind].angle,0.05)
                 self.listPosVoiture[ind] = ImVoiture.get_rect().center
 
-                self.listPosVoiture[ind][0] = ProgGlobal.listeVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
-                self.listPosVoiture[ind][1] = ProgGlobal.listeVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
+                self.listPosVoiture[ind][0] = glob.listeVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
+                self.listPosVoiture[ind][1] = glob.listeVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
 
-                if ProgGlobal.listeVoiture[ind].vivant: 
+                if glob.listeVoiture[ind].vivant:
                     self.screen.blit(ImVoiture, self.listPosVoiture[ind])
 
         for i in range(len(self.listRect)):
@@ -167,7 +173,7 @@ class Affichage:
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True and (event.key == K_KP0 or event.key == K_0):
                         self.listRect[i].setValeur(0)
-                
+
                     if self.listRect[i].getEtat() == True and (event.key == K_KP1 or event.key == K_1):
                         self.listRect[i].setValeur(1)
 
@@ -188,7 +194,7 @@ class Affichage:
 
                     if self.listRect[i].getEtat() == True and (event.key == K_KP7 or event.key == K_7):
                         self.listRect[i].setValeur(7)
-                    
+
                     if self.listRect[i].getEtat() == True and (event.key == K_KP8 or event.key == K_8):
                         self.listRect[i].setValeur(8)
 
@@ -200,7 +206,7 @@ class Affichage:
 
                     if self.listRect[i].getEtat() == True and event.key == K_BACKSPACE:
                         self.listRect[i].supprCarac()
-                    
+
                     if self.listRect[i].getEtat() == True and event.key == K_RETURN:
                         self.listRect[i].ValiderNouvelleValeur(i)
                         self.listRect[i].setEtat()
@@ -212,9 +218,9 @@ class Affichage:
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True: self.listRect[i].setEtat()
 
-                    if self.listRect[i].getRect().collidepoint(event.pos):                    
+                    if self.listRect[i].getRect().collidepoint(event.pos):
                         self.listRect[i].setEtat()
-                    
+
                 if self.rectReset.collidepoint(event.pos):
                     self.__reset = True
 
@@ -224,29 +230,33 @@ class Affichage:
                 elif self.rectPause.collidepoint(event.pos) and self.pause == True:
                     self.pause = False
                     self.demarrer = True
+                    return True
+
+
+
 
     def boucleAff(self, glob):
 
         while True:
             if self.demarrer == False:
-                self.draw()
-                self.gestionEvent()
-                
+                self.draw(glob)
+                demar = self.gestionEvent()
+                if demar == True:
+                    glob.demarreProgramme()
+
             else :
                 glob.demarreCycle()
 
                 while glob.arreterCourse() == False:
-                    self.draw()
+                    self.draw(glob)
                     self.gestionEvent()
-                    
+
                     if self.pause == False:
-                        glob.update_once()              
+                        glob.update_once()
                         self.mainClock.tick(30)
 
                     if self.__reset == True:
-                        ProgGlobal.__init__(self)
+                        ProgGlobal.__init__(glob)
                 glob.finCycle()
 
-    self.quitter()
-
-            
+        self.quitter()

@@ -98,7 +98,9 @@ class Voiture:
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
         for i in range(0,8):
             self.listCapt[i].checkMur()
+
         self.checkCollisionMur()
+
         if self.vivant == True:
             valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau())
 
@@ -124,10 +126,6 @@ class Voiture:
             Capteur.AngleVoiture = self.angle
 
 
-        if self.capteurCourant != 7:
-            self.capteurSuivant = self.capteurCourant + 1
-        else: self.capteurSuivant = 0
-
             if self.capteurCourant != 7:
                 self.capteurSuivant = self.capteurCourant + 1
             else:
@@ -136,10 +134,11 @@ class Voiture:
             self.distCapteurCourant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurCourant])
             self.distCapteurSuivant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
 
-            else: self.capteurCourant += 1
-          
-        self.checkCollisionMur()
+            if self.distCapteurCourant > 50 and self.distCapteurSuivant < 50:
+                if self.capteurCourant == 7:
+                    self.capteurCourant = 0
 
+                else: self.capteurCourant += 1
 
     def meurt(self):
         self.vivant = False
@@ -197,5 +196,3 @@ class Voiture:
 
         if ((listeTmp.index(min(listeTmp)) in [1,2,3,5,6,7]) and min(listeTmp) < 11) or ((listeTmp.index(min(listeTmp)) in [0,4]) and min(listeTmp) < 20):
             self.meurt()
-
-

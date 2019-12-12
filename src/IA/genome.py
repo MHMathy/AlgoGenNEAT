@@ -1,12 +1,12 @@
 from .noeudgene import NoeudGene
 from .connectiongene import ConnectionGene
-from .innovation import Innovation
-from ProgGlobal.ProgGlobal import ProgGlobal
+from Outil.outil import Innovation
+from Outil.outil import Constantes
 import random
 
 
 # classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connection entre les noeuds
-## classe qui gere les noeuronnes sous forme de liste de noeuds et liste de connections
+## classe qui gere les noeuronnes sous form de liste de noeuds et liste de connections
 class Genome:
 
     ## constructeur qui initialise les deux listes de la classe comme etant des listes vides
@@ -35,7 +35,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,ProgGlobal.Cons.get("DEFAULT_N_CONNEC):
+        for i in range(Constantes.Cons.get("DEFAULT_N_CONNEC")):
             g.ajout_connec_mutation()
 
         return g
@@ -57,7 +57,7 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
-        for i in range(0,ProgGlobal.Cons.get("DEFAULT_N_CONNEC"):
+        for i in range(Constantes.Cons.get("DEFAULT_N_CONNEC")):
             g.ajout_connec_mutation()
 
         return g
@@ -108,6 +108,15 @@ class Genome:
                 maxinno=connec.get_innovation()
         return maxinno
 
+    def aff_Genome(self):
+        vG = [[],[]]
+        for noeud in self.get_listNoeuds():
+            vG[0].append(noeud.get_id())
+        for connec in self.get_listConnections():
+            vG[1].append([connec.get_noeudin(),connec.get_noeudout()])
+        print("liste noeud du genome:", vG[0])
+        print("liste connection du genome:", vG[1])
+
     ## fonction qui remplace une connection dans la liste
     # @param newConnec Connection qui remplacera la precedente dans la liste
     def remplace_connec(self,newConnec):
@@ -119,8 +128,8 @@ class Genome:
     ## fonction qui gere la mutation d'une connection
     def connec_mutation(self):
         for connec in self.__listConnections:
-            if (random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION"):
-                if(random.randint(1,100)<ProgGlobal.Cons.get("PROBA_MUTATION_COEF"):
+            if random.randint(1,100)<Constantes.Cons.get("PROBA_MUTATION"):
+                if random.randint(1,100)<Constantes.Cons.get("PROBA_MUTATION_COEF"):
                     connec.set_poids(connec.get_poids()*random.uniform(-2,2))
                 else:
                     connec.set_poids(random.uniform(-2,2))
@@ -221,6 +230,8 @@ class Genome:
     # @param genParent2 2eme genome a evaluer
     @staticmethod
     def count_moyenne_exces_disjoint(genParent1, genParent2):
+        print( genParent1.aff_Genome())
+        print( genParent2.aff_Genome())
         matchParents = 0
         exces = 0
         disjoint = 0
@@ -260,6 +271,8 @@ class Genome:
             elif ListeGenParent2[i] != 0 and ListeGenParent2[i].get_innovation() == i and i > MaxInnovationParent1 :
                 exces += 1
 
+        #print(moyennePoids)
+        #print(matchParents)
         moyennePoids /= matchParents
         return moyennePoids,exces,disjoint
 
@@ -269,7 +282,7 @@ class Genome:
     @staticmethod
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
-        return (ProgGlobal.Cons.get("DISTANCE_C1")*e/1)+ (ProgGlobal.Cons.get("DISTANCE_C2")*d/1) + ProgGlobal.Cons.get("DISTANCE_C3")*m
+        return (Constantes.Cons.get("DISTANCE_C1")*e/1)+ (Constantes.Cons.get("DISTANCE_C2")*d/1) + Constantes.Cons.get("DISTANCE_C3")*m
 
     ## fonction qui teste les differentes fonctions de la classe
     @staticmethod

@@ -48,4 +48,5 @@ class ConnectionGene:
 
     ## renvoie la copie d'une connection
     def copy_connec(self):
+        print("COPY:",self.__innovation)
         return ConnectionGene(self.__noeudin,self.__noeudout,self.__poids,self.__actif,self.__innovation)
