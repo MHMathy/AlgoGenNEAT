@@ -17,5 +17,4 @@ class NoeudGene:
 
     ## renvoie une copie du noeud
     def copy_noeud(self):
-        #print("COPY:",self.__type, "et ",self.__id)
         return NoeudGene(self.__type,self.__id)

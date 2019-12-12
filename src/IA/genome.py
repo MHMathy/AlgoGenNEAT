@@ -193,6 +193,7 @@ class Genome:
     # @param genParent2 2eme parent du genome qui sera retourne
     @staticmethod
     def melange_genome(genParent1,genParent2):
+        print("melange")
         #+vite si copie et pop
         newGenome = Genome()
         noeudtemp = []
@@ -230,8 +231,6 @@ class Genome:
     # @param genParent2 2eme genome a evaluer
     @staticmethod
     def count_moyenne_exces_disjoint(genParent1, genParent2):
-        print( genParent1.aff_Genome())
-        print( genParent2.aff_Genome())
         matchParents = 0
         exces = 0
         disjoint = 0

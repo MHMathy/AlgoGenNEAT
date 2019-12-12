@@ -2,6 +2,7 @@ from .genome import Genome
 from Outil.outil import Constantes
 import random
 
+
 class Generation:
     def __init__ (self,genomeDefault):
         self.taillePopulation = Constantes.Cons.get("TAILLE_POPULATION")
@@ -19,7 +20,7 @@ class Generation:
 
 
     def evaluer(self,dictScore):
-
+        print("commence evaluer")
         #Reinitialiser les dictionnaires
         for e in self.listEspeces:
             e.reset()
@@ -49,6 +50,7 @@ class Generation:
                 newEspece = Espece(g)
                 self.listEspeces.append(newEspece)
                 self.lienGenomeEspece.update({g:newEspece})
+        print("fin placement")
 
         #Enlève les espèces vides
         #Mettre un print voir si ça s'active un jour
@@ -64,22 +66,25 @@ class Generation:
             score = dictScore.get(g)
             scoreAjuster = score
             if score!= None:
-                print(len(e.membres),"et",score)
+                #print(len(e.membres),"et",score)
                 scoreAjuster=score/len(e.membres)
             e.ajout_aptitude_ajuster(scoreAjuster)
             e.aptitudePopulation.append(AptitudeGenome(g,scoreAjuster))
             self.lienGenomeAptitude.update({g:scoreAjuster})
             if score>self.maxAptitude:
                 self.maxAptitude = score
+        print("fin assigner aptitude")
 
         #Mettre les meilleurs genomes de chaque espèce dans la generation suivante
         for e in self.listEspeces:
             e.aptitudePopulation.sort(key=lambda x: x.aptitude,reverse=True)
             self.nextGenGenome.append(e.aptitudePopulation[0].genome)
+        print("fin ajout meilleurs: ", len(self.nextGenGenome))
 
 
         #Generer le reste de la prochaine generation par mélange
         while len(self.nextGenGenome)<self.taillePopulation:
+            print("on mélange")
             e = self.get_random_espece()
 
             g1 = self.get_random_genome(e)
@@ -89,20 +94,25 @@ class Generation:
                 gfils = Genome.melange_genome(g1,g2)
             else:
                 gfils = Genome.melange_genome(g2,g1)
+            print("fin melange")
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_MUTATION_GENOME"):
+                print("c_m")
                 gfils.connec_mutation()
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_CONNEC_GENOME"):
+                print("a_j_c")
                 gfils.ajout_connec_mutation()
 
             if random.randint(1,100)<Constantes.Cons.get("PROBA_AJOUT_NOEUD_GENOME"):
+                print("a_j_n")
                 gfils.ajout_noeud_mutation()
 
             self.nextGenGenome.append(gfils)
 
         self.listGenomes = list(self.nextGenGenome)
         self.nextGenGenome.clear()
+        print("fin evaluer")
 
     def get_listGenomes(self):
         return self.listGenomes
@@ -112,15 +122,17 @@ class Generation:
         maxApt = max(esp.aptitudeTotalAjuster for esp in self.listEspeces)
         while True:
             e = random.choice(self.listEspeces)
-            if e.aptitudeTotalAjuster>(maxApt*0.7):
-                return e
+            #if e.aptitudeTotalAjuster>(maxApt*0.7):
+                #return e
+            return e
 
     def get_random_genome(self,esp):
         maxApt = max(gen.aptitude for gen in esp.aptitudePopulation)
         while True:
             gen = random.choice(esp.aptitudePopulation)
-            if gen.aptitude>(maxApt*0.7):
-                return gen.genome
+            #if gen.aptitude>(maxApt*0.7):
+                #return gen.genome
+            return gen.genome
 
     @staticmethod
     def evaluer_Genome(g):

@@ -38,6 +38,7 @@ class CalculNeurone:
 
 
     def calcValeurNoeud(self,inputVal):
+        print("commence calc")
         """
         self.listValeur['5'] = inputVal["vitesse"]
         self.listValeur['6'] = inputVal["angle"]

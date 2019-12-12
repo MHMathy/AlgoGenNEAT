@@ -120,18 +120,18 @@ class Affichage:
         self.screen.blit(self.circuit,(0,0))
         self.screen.blit(self.imageBtn,self.rectBtn)
 
-        if glob.listeVoiture != []:
-            for ind in range(len(glob.listeVoiture)):
-                if glob.listeVoiture[ind].vivant == False:
+        if glob.listVoiture != []:
+            for ind in range(len(glob.listVoiture)):
+                if glob.listVoiture[ind].vivant == False:
                     continue
 
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listeVoiture[ind].angle,0.05)
+                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[ind].angle,0.05)
                 self.listPosVoiture[ind] = ImVoiture.get_rect().center
 
-                self.listPosVoiture[ind][0] = glob.listeVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
-                self.listPosVoiture[ind][1] = glob.listeVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
+                self.listPosVoiture[ind][0] = glob.listVoiture[ind].pos[0] - self.listPosVoiture[ind][0]
+                self.listPosVoiture[ind][1] = glob.listVoiture[ind].pos[1] - self.listPosVoiture[ind][1]
 
-                if glob.listeVoiture[ind].vivant:
+                if glob.listVoiture[ind].vivant:
                     self.screen.blit(ImVoiture, self.listPosVoiture[ind])
 
         for i in range(len(self.listRect)):
@@ -257,6 +257,6 @@ class Affichage:
 
                     if self.__reset == True:
                         ProgGlobal.__init__(glob)
-                glob.finCycle()
+                glob.fin_cycle()
 
         self.quitter()
