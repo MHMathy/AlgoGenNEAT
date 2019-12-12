@@ -18,12 +18,13 @@ class rectModifierVariables:
         self.police = police
         self.__valeur = str(valeur)
         self.txtInit = texte
+        self.nom = self.txtInit[0:-1]
         self.__etat = False
         self.__rect = pygame.Rect(self.pos, (245, 40))
 
     ## retourne le texte a afficher selon l'action en cours
     def getTexte(self):
-        return  self.police.render(self.txtInit + str(self.__valeur) , True, (255,255,255))
+        return  self.police.render(self.txtInit + " : " + str(self.__valeur) , True, (255,255,255))
 
     ## permet la modification de la valeur tampon
     # @param valeur : valeur a concatener a la valeur tampon
@@ -32,8 +33,15 @@ class rectModifierVariables:
 
     ## fonction qui met a jour la valeur courante et de la variable en question
     # @param -1 : valeur permettant d'identifier la variable a modifer
-    def ValiderNouvelleValeur(self, var):
-        Constantes.setlistConstantes(var, self.__valeur)
+    def ValiderNouvelleValeur(self):
+        tmp = 0
+        if "." in self.__valeur:
+            tmp = float(self.__valeur)
+
+        else:
+            tmp = int(self.__valeur)
+
+        Constantes.set_listConstantes(self.txtInit, tmp)
 
     ## renvoie l'etat du rectant
     def getEtat(self):
@@ -77,7 +85,7 @@ class Affichage:
         self.circuit = pygame.image.load('../data/course.png')
         self.imageBtn = pygame.image.load('../data/BtnVoirNeurones.png')
 
-        self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 23)
+        self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 17)
 
         #transformations CONSTANTES d'images
         self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDTH*4/5),self.WINDOWHEIGHT))
@@ -94,20 +102,20 @@ class Affichage:
 
         constantesModifiables = Constantes.get_listConstantes()
 
-        self.listRect.append(rectModifierVariables((1005,0), "TAILLE_POPULATION : ", constantesModifiables["TAILLE_POPULATION"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 40), "DIST_MIN_ESPECE : ", constantesModifiables["DISTANCE_MIN_ESPECE"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 80), "PROBA_MUT_GEN : ", constantesModifiables["PROBA_MUTATION_GENOME"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 120), "PROBA_AJ_CONNEC_GEN : ", constantesModifiables["PROBA_AJOUT_CONNEC_GENOME"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 160), "PROBA_AJ_NOEUD_GEN : ", constantesModifiables["PROBA_AJOUT_NOEUD_GENOME"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 200), "PROBA_MUTATION : ", constantesModifiables["PROBA_MUTATION"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 240), "PROBA_MUTATION_COEF : ", constantesModifiables["PROBA_MUTATION_COEF"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 280), "DISTANCE_C1 : ", constantesModifiables["DISTANCE_C1"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 320), "DISTANCE_C2 : ", constantesModifiables["DISTANCE_C2"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 360), "DISTANCE_C3 : ", constantesModifiables["DISTANCE_C3"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 400), "DEFAULT_N_CONNEC : ", constantesModifiables["DEFAULT_N_CONNEC"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 440), "COEF_EXPO : ", constantesModifiables["COEF_EXPO"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 480), "DURREE_CYCLE : ", constantesModifiables["DURREE_CYCLE_EN_S"], self.police))
-
+        self.listRect.append(rectModifierVariables((1005,0), "TAILLE_POPULATION", constantesModifiables["TAILLE_POPULATION"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 40), "DURREE_CYCLE_EN_S", constantesModifiables["DURREE_CYCLE_EN_S"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 80), "DISTANCE_MIN_ESPECE", constantesModifiables["DISTANCE_MIN_ESPECE"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 120), "PROBA_MUTATION_GENOME", constantesModifiables["PROBA_MUTATION_GENOME"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 160), "PROBA_AJOUT_CONNEC_GENOME", constantesModifiables["PROBA_AJOUT_CONNEC_GENOME"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 200), "PROBA_AJOUT_NOEUD_GENOME", constantesModifiables["PROBA_AJOUT_NOEUD_GENOME"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 240), "PROBA_MUTATION", constantesModifiables["PROBA_MUTATION"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 280), "PROBA_MUTATION_COEF", constantesModifiables["PROBA_MUTATION_COEF"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 320), "DISTANCE_C1", constantesModifiables["DISTANCE_C1"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 360), "DISTANCE_C2", constantesModifiables["DISTANCE_C2"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 400), "DISTANCE_C3", constantesModifiables["DISTANCE_C3"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 440), "DEFAULT_N_CONNEC", constantesModifiables["DEFAULT_N_CONNEC"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 480), "COEF_EXPO", constantesModifiables["COEF_EXPO"], self.police))
+        
         #init du reseau neuronne test
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
@@ -208,7 +216,7 @@ class Affichage:
                         self.listRect[i].supprCarac()
 
                     if self.listRect[i].getEtat() == True and event.key == K_RETURN:
-                        self.listRect[i].ValiderNouvelleValeur(i)
+                        self.listRect[i].ValiderNouvelleValeur()
                         self.listRect[i].setEtat()
 
             elif event.type == MOUSEBUTTONDOWN and event.button == 1:
@@ -228,6 +236,9 @@ class Affichage:
                     self.pause = True
 
                 elif self.rectPause.collidepoint(event.pos) and self.pause == True:
+                    for rect in self.listRect:
+                        rect.ValiderNouvelleValeur()
+                    
                     self.pause = False
                     self.demarrer = True
                     return True
