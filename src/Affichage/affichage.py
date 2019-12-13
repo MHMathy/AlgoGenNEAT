@@ -130,18 +130,23 @@ class Affichage:
         self.screen.blit(self.imageBtn,self.rectBtn)
 
         if glob.listVoiture != []:
-            for ind in range(len(glob.listVoiture)):
-                #if glob.listVoiture[ind].vivant == False:
+            for i in range(len(glob.listVoiture)):
+                #if glob.listVoiture[i].vivant == False:
                 #    continue
 
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[ind].angle,0.05)
-                listPosVoiture.append(ImVoiture.get_rect().center)
+                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[i].angle,0.05)
+                
+                [x,y]=ImVoiture.get_rect().center
 
-                listPosVoiture[ind] = [glob.listVoiture[ind].pos[0] - listPosVoiture[ind][0], glob.listVoiture[ind].pos[1] - listPosVoiture[ind][1]]
-                #print("pos: ",listPosVoiture[ind])
+                listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
+                #print("pos: ",listPosVoiture[i])
 
-                if glob.listVoiture[ind].vivant:
-                    self.screen.blit(ImVoiture, listPosVoiture[ind])
+                if glob.listVoiture[i].vivant:
+                    self.screen.blit(ImVoiture, listPosVoiture[i])
+
+                    pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
+                    for capt in glob.listVoiture[i].listCapt:
+                        pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
 
         for i in range(len(self.listRect)):
             if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())

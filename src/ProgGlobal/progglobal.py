@@ -39,8 +39,10 @@ class ProgGlobal:
         self.generateurGenome.evaluer(self.dictGenScore)
         if len(self.generateurGenome.get_listGenomes())!= Constantes.Cons.get("TAILLE_POPULATION"):
             print("MEGA GROSSE ERREUR")
+
         for gen in self.generateurGenome.get_listGenomes():
             self.listVoiture.append(Voiture(gen,200,150))
+
 
 
         self.dictGenScore.clear()
@@ -52,8 +54,7 @@ class ProgGlobal:
     #plus tard update avec un while et affichge en thread
     def update_once(self):
 
-        self.dureeCycle = int((time.time() - self.debutCycle)*10)
-
+        self.dureeCycle = int(time.time() - self.debutCycle)
         for v in self.listVoiture:
 
             if v.vivant == True:
@@ -77,6 +78,7 @@ class ProgGlobal:
 
         #print("durActu: ",self.dureeCycle," const :",Constantes.Cons.get("DURREE_CYCLE_EN_S"))
         if self.dureeCycle > Constantes.Cons.get("DURREE_CYCLE_EN_S"):
+            print(self.dureeCycle)
             arret = True
 
         return arret

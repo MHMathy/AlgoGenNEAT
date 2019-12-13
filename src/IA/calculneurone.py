@@ -36,9 +36,11 @@ class CalculNeurone:
         tmp = sorted(tmp.items(), key=operator.itemgetter(1))
         for k in OrderedDict(tmp):
             self.listValeur.update({str(k):False})
+        
 
 
     def calcValeurNoeud(self,inputVal,type="normal"):
+        #print("input:",inputVal)
 
         self.listValeur['5'] = inputVal["vitesse"]
         self.listValeur['6'] = inputVal["angle"]

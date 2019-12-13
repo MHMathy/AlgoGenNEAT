@@ -22,8 +22,8 @@ class Innovation:
 class Constantes:
 
     Cons = {
-        "TAILLE_POPULATION": 3,
-        "DURREE_CYCLE_EN_S": 20,
+        "TAILLE_POPULATION": 10,
+        "DURREE_CYCLE_EN_S": 10,
 
         "DISTANCE_MIN_ESPECE": 5,
         "PROBA_MUTATION_GENOME": 50,

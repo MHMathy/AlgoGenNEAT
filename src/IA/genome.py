@@ -143,7 +143,7 @@ class Genome:
                 if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
                     continue #Si la connection exist deja dans
 
-            newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
+            newConnec = ConnectionGene(noeud[0].get_id(),noeud[1].get_id(),0.1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
             self.ajout_connec(newConnec)
             succes = True
 
@@ -162,7 +162,7 @@ class Genome:
 
         newNoeud = NoeudGene("hidden",Innovation.get_new_innovation_noeud())
 
-        coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
+        coInNew = ConnectionGene(noeudin.get_id(),newNoeud.get_id(),0.1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
         coNewOut = ConnectionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
 
         self.ajout_noeud(newNoeud)

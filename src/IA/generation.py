@@ -106,6 +106,11 @@ class Generation:
 
         self.listGenomes = list(self.nextGenGenome)
         self.nextGenGenome.clear()
+        print("  Nombre especes: ",len(self.listEspeces))
+        m = max(self.lienGenomeAptitude.values())
+        gmax = [key  for (key, value) in self.lienGenomeAptitude.items() if value == m]
+        print("max score: ",m)
+        gmax[0].aff_Genome()
         print("fin evaluer")
 
     def get_listGenomes(self):
@@ -114,19 +119,21 @@ class Generation:
 
     def get_random_espece(self):
         maxApt = max(esp.aptitudeTotalAjuster for esp in self.listEspeces)
-        while True:
-            e = random.choice(self.listEspeces)
-            #if e.aptitudeTotalAjuster>(maxApt*0.7):
-                #return e
-            return e
+        r = random.random()*maxApt
+        conteApt = 0
+        for e in sorted(self.listEspeces, key = lambda esp: esp.aptitudeTotalAjuster):
+            conteApt+=e.aptitudeTotalAjuster
+            if conteApt >=r:
+                return e
 
     def get_random_genome(self,esp):
         maxApt = max(gen.aptitude for gen in esp.aptitudePopulation)
-        while True:
-            gen = random.choice(esp.aptitudePopulation)
-            #if gen.aptitude>(maxApt*0.7):
-                #return gen.genome
-            return gen.genome
+        r = random.random()*maxApt
+        conteApt = 0
+        for aptGen in sorted(esp.aptitudePopulation, key = lambda aptGen: aptGen.aptitude):
+            conteApt+=aptGen.aptitude
+            if conteApt>=r:
+                return aptGen.genome
 
     @staticmethod
     def evaluer_Genome(g):
