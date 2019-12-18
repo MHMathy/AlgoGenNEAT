@@ -2,6 +2,7 @@ from IA.generation import Generation
 from IA.genome import Genome
 from Outil.outil import Constantes
 from Voiture.voiture import Voiture
+import random
 import time
 
 class ProgGlobal:
@@ -20,11 +21,15 @@ class ProgGlobal:
         self.listMeilleurScore.clear()
         self.listVoiture.clear()
         self.dictGenScore.clear()
-        genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
-
+        #genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
+        genDef = Genome.default("mini")
+        genDef.random_connexion(8)
+        """
         for g in genDef:
-            g.random_connection(5)
+            g.random_connexion(5)
             self.dictGenScore.update({g :0})
+        """
+        self.dictGenScore.update({genDef:0})
 
         self.generateurGenome = Generation(genDef)
 
@@ -41,6 +46,8 @@ class ProgGlobal:
             print("MEGA GROSSE ERREUR")
 
         for gen in self.generateurGenome.get_listGenomes():
+            x = random.randint(190,210)
+            y = random.randint(140,160)
             self.listVoiture.append(Voiture(gen,200,150))
 
 
@@ -66,6 +73,12 @@ class ProgGlobal:
         for v in self.listVoiture:
             #print(v.calculScore())
             self.dictGenScore.update({v.genome : v.calculScore()})
+        i = 0
+
+        for key, value in self.dictGenScore.items():
+            key.aff_genome()
+            print("score: ", value)
+
 
         self.listMeilleurScore.append(max(self.dictGenScore.values()))
         self.listVoiture.clear()
