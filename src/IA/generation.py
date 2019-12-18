@@ -4,7 +4,7 @@ import random
 
 
 class Generation:
-    def __init__ (self,tabGen):
+    def __init__ (self,genDef):
         self.taillePopulation = Constantes.Cons.get("TAILLE_POPULATION")
 
         self.lienGenomeEspece = {}
@@ -12,7 +12,7 @@ class Generation:
 
         self.listEspeces = []
         self.listGenomes = []
-        self.listGenomes = tabGen
+        self.listGenomes = [genDef]*self.taillePopulation
 
         self.nextGenGenome = []
 
@@ -54,7 +54,6 @@ class Generation:
         #Enlève les espèces vides
         #Mettre un print voir si ça s'active un jour
         for e in self.listEspeces[:]:
-
             if len(e.membres)==0:
                 self.listEspeces.remove(e)
 
@@ -110,7 +109,7 @@ class Generation:
         m = max(self.lienGenomeAptitude.values())
         gmax = [key  for (key, value) in self.lienGenomeAptitude.items() if value == m]
         print("max score: ",m)
-        gmax[0].aff_Genome()
+        gmax[0].aff_genome()
         print("fin evaluer")
 
     def get_listGenomes(self):
@@ -163,7 +162,7 @@ class Espece:
     def __init__(self,mascotte):
         self.mascotte = mascotte
         self.membres = []
-        self.membres.append(self.mascotte)
+        #self.membres.append(self.mascotte)
         self.aptitudePopulation = []
         self.aptitudeTotalAjuster = 0
 
@@ -190,7 +189,7 @@ class testGeneration(Generation):
 
     @staticmethod
     def evaluer_Genome(g):
-        return len(g.get_listConnections())
+        return len(g.get_listConnexions())
 
     @staticmethod
     def testRegression():

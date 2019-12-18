@@ -24,7 +24,7 @@ class CalculNeurone:
             self.listLien.update({str(noeud.get_id()):[]})
 
 
-        for connec in self.genome.get_listConnections():
+        for connec in self.genome.get_listConnexions():
             if not(str(connec.get_noeudout()) in self.listLien):
                 self.listLien.update({str(connec.get_noeudout()):[]})
             self.listLien[str(connec.get_noeudout())].append([str(connec.get_noeudin()),connec.get_poids()])
@@ -36,12 +36,17 @@ class CalculNeurone:
         tmp = sorted(tmp.items(), key=operator.itemgetter(1))
         for k in OrderedDict(tmp):
             self.listValeur.update({str(k):False})
-        
+
 
 
     def calcValeurNoeud(self,inputVal,type="normal"):
         #print("input:",inputVal)
-
+        self.listValeur['3'] = inputVal["vitesse"]
+        #self.listValeur['4'] = inputVal["angle"]
+        self.listValeur['4'] = inputVal["capteur0"]
+        self.listValeur['5'] = inputVal["capteur45"]
+        self.listValeur['6'] = inputVal["capteur315"]
+        """
         self.listValeur['5'] = inputVal["vitesse"]
         self.listValeur['6'] = inputVal["angle"]
         self.listValeur['7'] = inputVal["capteur0"]
@@ -54,7 +59,9 @@ class CalculNeurone:
             self.listValeur['12'] = inputVal["capteur135"]
             self.listValeur['13'] = inputVal["capteur225"]
             self.listValeur['14'] = inputVal["capteur180"]
-
+        """
+        print(self.listLien)
+        
         tmp = 0
         for k in OrderedDict(self.listValeur):
             tmp = 0
@@ -66,7 +73,8 @@ class CalculNeurone:
             else:
                 continue
 
-        return {"accelerer":self.listValeur['1'],"freiner":self.listValeur['2'],"tourneG":self.listValeur['3'],"tourneD":self.listValeur['4']}
+        #return {"accelerer":self.listValeur['1'],"freiner":self.listValeur['2'],"tourneG":self.listValeur['3'],"tourneD":self.listValeur['4']}
+        return {"acc/fre":self.listValeur['1'],"G/D":self.listValeur['2']}
 
 
     @staticmethod

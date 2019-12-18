@@ -67,10 +67,15 @@ class Voiture:
     def accelerer(self): #augmente la vitesse
         if self.vitesse < 5:
             self.vitesse += 1.5
+        else:
+            self.vitesse = 5
 
     ## fonction qui gere la deceleration de la voiture
     def freiner(self): #reduit la vitesse
-        self.vitesse -= 1.2
+        if self.vitesse > 0:
+            self.vitesse -= 1.2
+        else:
+            self.vitesse = 0
 
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
@@ -103,9 +108,10 @@ class Voiture:
 
         if self.vivant == True:
             self.dureeVie = duree
+            #print(self.get_valeurs_pour_reseau())
             valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau(),"mini")
-
-
+            #print("sortie: ",valSortie)
+            """
             if valSortie.get("accelerer")>0.5:
                 self.accelerer()
 
@@ -117,6 +123,19 @@ class Voiture:
 
             if valSortie.get("tourneD")>0.5:
                 self.tourne_droite()
+            """
+            if valSortie.get("acc/fre")>0.5:
+                self.accelerer()
+
+            elif valSortie.get("acc/fre")<0.2:
+                self.freiner()
+
+            if valSortie.get("G/D")>0.8:
+                self.tourne_gauche()
+
+            elif valSortie.get("G/D")<0.2:
+                self.tourne_droite()
+
 
             self.angle += self.volant
             dx = math.cos(math.radians(self.angle))
@@ -170,11 +189,13 @@ class Voiture:
 
         self.scoreVoiture += self.calculDistance(self.listeCapteursCircuit[self.capteurCourant],self.listeCapteursCircuit[self.capteurSuivant])- self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
 
-        self.scoreVoiture *= self.dureeVie
         if self.vivant == False:
             self.scoreVoiture /=2
-            
-        self.scoreVoiture /= 10
+
+        self.scoreVoiture += self.dureeVie*50
+
+
+
 
 
         return int(self.scoreVoiture)
