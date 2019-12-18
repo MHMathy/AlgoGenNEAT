@@ -13,7 +13,9 @@ class Generation:
         self.listEspeces = []
         self.listGenomes = []
         self.listGenomes = [genDef]*self.taillePopulation
-
+        for g in self.listGenomes:
+            g.random_connexion()
+        self.genUn = True
         self.nextGenGenome = []
 
         self.maxAptitude = 0
@@ -21,6 +23,7 @@ class Generation:
 
     def evaluer(self,dictScore):
         print("commence evaluer")
+        
         #Reinitialiser les dictionnaires
         for e in self.listEspeces:
             e.reset()
@@ -28,10 +31,13 @@ class Generation:
         self.lienGenomeEspece.clear()
         self.lienGenomeAptitude.clear()
         self.nextGenGenome.clear()
+        if not self.genUn:
+            self.listGenomes.clear()
 
-        for key in dictScore.keys():
-            self.listGenomes.append(key)
-
+            for key in dictScore.keys():
+                self.listGenomes.append(key)
+        self.genUn = False
+        print("taille l gen", len(self.listGenomes))
 
         #Place les genomes dans des espèces
         for g in self.listGenomes:
@@ -51,35 +57,40 @@ class Generation:
                 self.listEspeces.append(newEspece)
                 self.lienGenomeEspece.update({g:newEspece})
 
-        #Enlève les espèces vides
-        #Mettre un print voir si ça s'active un jour
-        for e in self.listEspeces[:]:
-            if len(e.membres)==0:
-                self.listEspeces.remove(e)
+
 
 
         #Evaluer les genomes et assigner les aptitudes
         for g in self.listGenomes:
             e = self.lienGenomeEspece.get(g)
+           # print("e", len(e.membres))
             score = dictScore.get(g)
             scoreAjuster = score
-            if score!= None:
-                #print(len(e.membres),"et",score)
-                scoreAjuster=score/len(e.membres)
+            
+            #print(len(e.membres),"et",score)
+            scoreAjuster=score/len(e.membres)
             e.ajout_aptitude_ajuster(scoreAjuster)
             e.aptitudePopulation.append(AptitudeGenome(g,scoreAjuster))
             self.lienGenomeAptitude.update({g:scoreAjuster})
             if score>self.maxAptitude:
                 self.maxAptitude = score
 
+        #Enlève les espèces vides
+        #Mettre un print voir si ça s'active un jour
+        for e in self.listEspeces[:]:
+            if len(e.membres)==1:
+                self.listEspeces.remove(e)
+                print("rm esp")
+
         #Mettre les meilleurs genomes de chaque espèce dans la generation suivante
         for e in self.listEspeces:
             e.aptitudePopulation.sort(key=lambda x: x.aptitude,reverse=True)
             self.nextGenGenome.append(e.aptitudePopulation[0].genome)
-        print("fin ajout meilleurs: ", len(self.nextGenGenome))
+       # print("fin ajout meilleurs: ", len(self.nextGenGenome))
 
 
         #Generer le reste de la prochaine generation par mélange
+        print("l next", len(self.nextGenGenome))
         while len(self.nextGenGenome)<self.taillePopulation:
 
             e = self.get_random_espece()
@@ -128,11 +139,15 @@ class Generation:
     def get_random_genome(self,esp):
         maxApt = max(gen.aptitude for gen in esp.aptitudePopulation)
         r = random.random()*maxApt
+        #print("r", r)
         conteApt = 0
         for aptGen in sorted(esp.aptitudePopulation, key = lambda aptGen: aptGen.aptitude):
             conteApt+=aptGen.aptitude
+        
             if conteApt>=r:
+                #print("va etre return", aptGen.aptitude)
                 return aptGen.genome
+
 
     @staticmethod
     def evaluer_Genome(g):
@@ -162,7 +177,7 @@ class Espece:
     def __init__(self,mascotte):
         self.mascotte = mascotte
         self.membres = []
-        #self.membres.append(self.mascotte)
+        self.membres.append(self.mascotte)
         self.aptitudePopulation = []
         self.aptitudeTotalAjuster = 0
 
@@ -172,6 +187,7 @@ class Espece:
     def reset(self):
         self.mascotte = random.choice(self.membres)
         self.membres.clear()
+        self.membres.append(self.mascotte)
         self.aptitudePopulation.clear()
         self.aptitudeTotalAjuster = 0
 

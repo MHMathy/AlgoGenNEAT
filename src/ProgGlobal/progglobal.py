@@ -23,12 +23,12 @@ class ProgGlobal:
         self.dictGenScore.clear()
         #genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
         genDef = Genome.default("mini")
-        genDef.random_connexion(8)
-        """
-        for g in genDef:
-            g.random_connexion(5)
-            self.dictGenScore.update({g :0})
-        """
+        #genDef.random_connexion(8)
+        
+       #for i in range(Constantes.Cons.get("TAILLE_POPULATION")):
+            #g.random_connexion(5)
+         #   self.dictGenScore.update({genDef :0})
+        
         self.dictGenScore.update({genDef:0})
 
         self.generateurGenome = Generation(genDef)
@@ -72,12 +72,15 @@ class ProgGlobal:
 
         for v in self.listVoiture:
             #print(v.calculScore())
-            self.dictGenScore.update({v.genome : v.calculScore()})
-        i = 0
+            score = v.calculScore()
 
-        for key, value in self.dictGenScore.items():
-            key.aff_genome()
-            print("score: ", value)
+            self.dictGenScore.update({v.genome : score})
+        #print(self.dictGenScore)
+       
+
+       # for key, value in self.dictGenScore.items():
+        #    key.aff_genome()
+            #print("score: ", value)
 
 
         self.listMeilleurScore.append(max(self.dictGenScore.values()))

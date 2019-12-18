@@ -72,10 +72,10 @@ class Voiture:
 
     ## fonction qui gere la deceleration de la voiture
     def freiner(self): #reduit la vitesse
-        if self.vitesse > 0:
+        if self.vitesse> -3:
             self.vitesse -= 1.2
         else:
-            self.vitesse = 0
+            self.vitesse = -3
 
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
@@ -100,6 +100,7 @@ class Voiture:
 
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
+       # print("dureee", duree)
         Capteur.setPosActuVoiture(self.pos)
         for i in range(0,8):
             self.listCapt[i].checkMur()
@@ -124,17 +125,20 @@ class Voiture:
             if valSortie.get("tourneD")>0.5:
                 self.tourne_droite()
             """
-            if valSortie.get("acc/fre")>0.5:
+            #print("val acc/fre",valSortie.get("acc/fre"),"   comp ",valSortie.get("acc/fre")<0.2)
+            print("val gd",valSortie.get("G/D"))
+            if valSortie.get("acc/fre")>0.8:
                 self.accelerer()
 
             elif valSortie.get("acc/fre")<0.2:
                 self.freiner()
 
-            if valSortie.get("G/D")>0.8:
+            if valSortie.get("G/D")>0.6 and self.vitesse != 0:
                 self.tourne_gauche()
 
-            elif valSortie.get("G/D")<0.2:
+            elif valSortie.get("G/D")<0.4 and self.vitesse != 0:
                 self.tourne_droite()
+
 
 
             self.angle += self.volant
@@ -161,6 +165,10 @@ class Voiture:
                     self.capteurCourant = 0
 
                 else: self.capteurCourant += 1
+
+            if self.dureeVie > 1.5 and self.pos == [200,150]:
+                self.meurt()
+
 
     def meurt(self):
 
@@ -192,12 +200,12 @@ class Voiture:
         if self.vivant == False:
             self.scoreVoiture /=2
 
-        self.scoreVoiture += self.dureeVie*50
+        self.scoreVoiture *= self.dureeVie*50
 
 
 
 
-
+        #print("D vie", self.dureeVie)
         return int(self.scoreVoiture)
 
     ## fonction qui calcul la distance entre deux points
@@ -209,15 +217,19 @@ class Voiture:
     ## fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes
     def get_valeurs_pour_reseau(self):
         return { "vitesse":self.vitesse,
-                 "angle":self.angle,
+                 #"angle":self.angle,
                  "capteur0":self.listCapt[0].getDistCapteur(),
-                 "capteur45":self.listCapt[1].getDistCapteur(),
-                 "capteur315":self.listCapt[7].getDistCapteur(),
-                 "capteur90":self.listCapt[2].getDistCapteur(),
-                 "capteur270":self.listCapt[6].getDistCapteur(),
-                 "capteur135":self.listCapt[3].getDistCapteur(),
-                 "capteur225":self.listCapt[5].getDistCapteur(),
-                 "capteur180":self.listCapt[4].getDistCapteur() }
+                 "capteurDif": self.listCapt[1].getDistCapteur() - self.listCapt[7].getDistCapteur()
+                 }
+    """
+    "capteur45":self.listCapt[1].getDistCapteur(),
+    "capteur315":self.listCapt[7].getDistCapteur(),
+    "capteur90":self.listCapt[2].getDistCapteur(),
+    "capteur270":self.listCapt[6].getDistCapteur(),
+    "capteur135":self.listCapt[3].getDistCapteur(),
+    "capteur225":self.listCapt[5].getDistCapteur(),
+    "capteur180":self.listCapt[4].getDistCapteur() }
+    """
 
     def checkCollisionMur(self):
         listeTmp = self.getDistRetourCapt()

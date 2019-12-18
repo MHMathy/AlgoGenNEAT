@@ -23,7 +23,7 @@ class Genome:
         #l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         #l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         #l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        #l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
@@ -35,6 +35,8 @@ class Genome:
             l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         for n in l:
             g.ajout_noeud(n)
+
+        #g.random_connexion()
 
         return g
 
@@ -93,7 +95,7 @@ class Genome:
         for noeud in self.get_listNoeuds():
             vG[0].append(noeud.get_id())
         for connec in self.get_listConnexions():
-            vG[1].append([connec.get_noeudin(),connec.get_noeudout()])
+            vG[1].append([connec.get_noeudin(),connec.get_noeudout(), connec.get_actif()])
         print("liste noeud du genome:", vG[0])
         print("liste connexion du genome:", vG[1])
 
@@ -122,7 +124,7 @@ class Genome:
         maxEssai = 100
         succes = False
         while essai<=maxEssai and succes==False:
-            print("on essaie")
+            #print("on essaie")
             essai += 1
             while True:
                 noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
@@ -140,22 +142,22 @@ class Genome:
             if [noeud[1].get_id(),noeud[0].get_id()] in Innovation.listC:
                 continue #Si la connexion exist deja
 
-            print("on est la")
+            #print("on est la")
             prochain = False
             for connec in self.__listConnexions:
-                print()
-                print(noeud[0].get_id()," et ",noeud[1].get_id())
-                print(connec.get_noeudin()," et ",connec.get_noeudout())
+               # print()
+                #print(noeud[0].get_id()," et ",noeud[1].get_id())
+                #print(connec.get_noeudin()," et ",connec.get_noeudout())
                 if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
-                    print("break")
+                    #print("break")
                     prochain = True #Si la connexion exist deja dans le genome
             if prochain:
                 continue
-            print("on ajoute")
-            newConnec = ConnexionGene(noeud[0].get_id(),noeud[1].get_id(),0.1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
+            #print("on ajoute")
+            newConnec = ConnexionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
             self.ajout_connec(newConnec)
             succes = True
-        print("on a fini")
+        #print("on a fini")
         if succes == False:
             print("Ajout de connexion impossible")
 
@@ -171,7 +173,7 @@ class Genome:
 
         newNoeud = NoeudGene("hidden",Innovation.get_new_innovation_noeud())
 
-        coInNew = ConnexionGene(noeudin.get_id(),newNoeud.get_id(),0.1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
+        coInNew = ConnexionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
         coNewOut = ConnexionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
 
         self.ajout_noeud(newNoeud)
