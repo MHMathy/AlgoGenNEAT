@@ -11,7 +11,7 @@ from IA.calculneurone import CalculNeurone
 class Voiture:
     ## variable commune a toutes les voitures, qui est une liste de capteurs "checkpoints" presents sur
     # le circuit
-    listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
+    listeCapteursCircuit = [(200,150), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
 
     ## constructeur de la classe qui initialise toutes les variables d'une voiture
     def __init__(self, genome, posx=0,posy=0,angle=0,volant=0,vitesse=0): #initialisation de la voiture
@@ -67,20 +67,15 @@ class Voiture:
     def accelerer(self): #augmente la vitesse
         if self.vitesse < 5:
             self.vitesse += 1.5
-        else:
-            self.vitesse = 5
 
     ## fonction qui gere la deceleration de la voiture
     def freiner(self): #reduit la vitesse
-        if self.vitesse > 0:
-            self.vitesse -= 1.2
-        else:
-            self.vitesse = 0
+        self.vitesse -= 1.2
 
     ## fonction qui permet de faire tourner a gauche la voiture
     def tourne_gauche(self): #permet d'actionner le volant de la voiture pour donner l'ordre de tourner à gauche
         if self.volant<10:
-            self.angle += 1 #* (self.vitesse**(1/2) - self.vitesse*0.25)
+            self.angle += 1#* (self.vitesse**(1/2) - self.vitesse*0.25)
 
 
     ## fonction qui permet de faire tourner a gauche la voiture
@@ -108,34 +103,30 @@ class Voiture:
 
         if self.vivant == True:
             self.dureeVie = duree
-            #print(self.get_valeurs_pour_reseau())
             valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau(),"mini")
-            #print("sortie: ",valSortie)
-            """
+
+
             if valSortie.get("accelerer")>0.5:
                 self.accelerer()
 
             if valSortie.get("freiner")>0.5:
                 self.freiner()
 
+            """
             if valSortie.get("tourneG")>0.5:
                 self.tourne_gauche()
 
             if valSortie.get("tourneD")>0.5:
                 self.tourne_droite()
             """
-            if valSortie.get("acc/fre")>0.5:
-                self.accelerer()
-
-            elif valSortie.get("acc/fre")<0.2:
-                self.freiner()
-
-            if valSortie.get("G/D")>0.8:
-                self.tourne_gauche()
-
-            elif valSortie.get("G/D")<0.2:
+            if valSortie.get("tourneG") - valSortie.get("tourneD") < 0 and valSortie.get("accelerer") != 0:
                 self.tourne_droite()
 
+            elif valSortie.get("tourneG") - valSortie.get("tourneD") > 0 and valSortie.get("accelerer") != 0:
+                self.tourne_gauche()
+
+            elif  valSortie.get("tourneG") - valSortie.get("tourneD") == 0 and valSortie.get("accelerer") != 0:
+                self.accelerer()
 
             self.angle += self.volant
             dx = math.cos(math.radians(self.angle))
@@ -161,6 +152,9 @@ class Voiture:
                     self.capteurCourant = 0
 
                 else: self.capteurCourant += 1
+
+            if self.dureeVie > 1.5 and self.pos == [200,150]:
+                self.meurt()
 
     def meurt(self):
 
@@ -188,14 +182,18 @@ class Voiture:
             self.scoreVoiture += self.calculDistance(self.listeCapteursCircuit[i], self.listeCapteursCircuit[i+1])
 
         self.scoreVoiture += self.calculDistance(self.listeCapteursCircuit[self.capteurCourant],self.listeCapteursCircuit[self.capteurSuivant])- self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
-
+        """
+        self.scoreVoiture *= self.dureeVie 
         if self.vivant == False:
             self.scoreVoiture /=2
-
-        self.scoreVoiture += self.dureeVie*50
-
-
-
+            
+        self.scoreVoiture /= 10
+        """
+    
+        self.scoreVoiture *= 100
+        self.scoreVoiture *= self.dureeVie * 100
+        if self.vivant == False:
+            self.scoreVoiture /= 2
 
 
         return int(self.scoreVoiture)

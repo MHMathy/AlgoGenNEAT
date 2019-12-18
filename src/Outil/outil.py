@@ -1,4 +1,4 @@
-## classe qui garde en memoire l'etat d'un genome (connexions et nombres de neuronnes)
+## classe qui garde en memoire l'etat d'un genome (connections et nombres de neuronnes)
 class Innovation:
     nbNoeud = 0
     listC = []
@@ -9,7 +9,7 @@ class Innovation:
         Innovation.nbNoeud+=1
         return Innovation.nbNoeud
 
-    ## retourne le nombre de connexions dans la liste
+    ## retourne le nombre de connections dans la liste
     @classmethod
     def get_new_innovation_connec(cls,nIn,nOut):
 
@@ -22,7 +22,7 @@ class Innovation:
 class Constantes:
 
     Cons = {
-        "TAILLE_POPULATION": 1,
+        "TAILLE_POPULATION": 10,
         "DURREE_CYCLE_EN_S": 10,
 
         "DISTANCE_MIN_ESPECE": 5,

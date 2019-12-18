@@ -4,7 +4,7 @@ from pygame.locals import *
 #from afficheGenome.afficheGenome import AfficheGenome
 #from IA.genome import Genome
 #from IA.noeudgene import NoeudGene
-#from IA.connexiongene import ConnexionGene
+#from IA.connectiongene import ConnectionGene
 #from Voiture.voiture import Voiture
 from Outil.outil import Constantes
 from ProgGlobal.progglobal import ProgGlobal
@@ -135,22 +135,14 @@ class Affichage:
                 #    continue
 
                 ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[i].angle,0.05)
-
+                
                 [x,y]=ImVoiture.get_rect().center
 
                 listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
                 #print("pos: ",listPosVoiture[i])
 
                 if glob.listVoiture[i].vivant:
-                    #self.screen.blit(ImVoiture, listPosVoiture[i])
-
-                    pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
-                    for capt in glob.listVoiture[i].listCapt:
-                        if capt.angleCapteur ==0:
-                            pygame.draw.line(self.screen,(255,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-                        else:
-                            pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-
+                    self.screen.blit(ImVoiture, listPosVoiture[i])
 
         for i in range(len(self.listRect)):
             if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())
