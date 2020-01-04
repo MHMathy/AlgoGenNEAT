@@ -73,7 +73,7 @@ class Affichage:
         self.WHITE = [255,255,255]
         self.WINDOWWIDTH = 1250
         self.WINDOWHEIGHT = 650
-        self.BoolAffResNeuro = False
+        self.boolAffProgression = False
         self.reset = False
         self.pause = True
         self.demarrer = False
@@ -84,7 +84,7 @@ class Affichage:
         #load images
         self.ImVoiture = pygame.image.load('../data/car.png')
         self.circuit = pygame.image.load('../data/course.png')
-        self.imageBtn = pygame.image.load('../data/BtnVoirNeurones.png')
+        self.imageBtn = pygame.image.load('../data/BtnVoirProgression.png')
 
         self.police = pygame.font.Font('../data/arial_narrow_7.ttf', 17)
 
@@ -158,7 +158,23 @@ class Affichage:
 
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
-        if self.BoolAffResNeuro == True:
+        if self.boolAffProgression == True:
+            pygame.draw.line(self.surf, (0,0,0), (50, self.WINDOWHEIGHT),(50,0), 5)
+            pygame.draw.line(self.surf, (0,0,0), (0, self.WINDOWHEIGHT - 20),(self.WINDOWWIDTH - 250, self.WINDOWHEIGHT - 20), 5)
+
+            rectScore = pygame.Rect((70, 20), (100,20))
+            rectGen = pygame.Rect((self.WINDOWWIDTH - 350, self.WINDOWHEIGHT - 50), (100,20))
+
+            pygame.draw.rect(self.surf, (255,255,255), rectScore)
+            pygame.draw.rect(self.surf, (255,255,255), rectGen)
+
+            self.surf.blit(self.police.render("score" , True, (0,0,0)), rectScore)
+            self.surf.blit(self.police.render("generation" , True, (0,0,0)), rectGen)
+            absGen = 70
+            for i in range(len(glob.listMeilleurScore)):
+                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 3000)),5)
+                absGen += 5
+
             self.screen.blit(self.surf,(0,0))
 
         self.screen.blit(self.police.render("Reset", True, (255,255,255)),self.rectReset)
@@ -185,10 +201,10 @@ class Affichage:
             if event.type == QUIT:
                 self.quitter()
             elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE and self.BoolAffResNeuro == False:
+                if event.key == K_ESCAPE and self.boolAffProgression == False:
                     self.quitter()
-                if event.key == K_ESCAPE and self.BoolAffResNeuro == True:
-                        self.BoolAffResNeuro = False
+                if event.key == K_ESCAPE and self.boolAffProgression == True:
+                        self.boolAffProgression = False
 
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True and (event.key == K_KP0 or event.key == K_0):
@@ -233,7 +249,7 @@ class Affichage:
 
             elif event.type == MOUSEBUTTONDOWN and event.button == 1:
                 if self.rectBtn.collidepoint(event.pos):
-                    self.BoolAffResNeuro = True
+                    self.boolAffProgression = True
 
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True: self.listRect[i].setEtat()
