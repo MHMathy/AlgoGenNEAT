@@ -7,8 +7,10 @@ from pygame.locals import *
 #from IA.connexiongene import ConnexionGene
 #from Voiture.voiture import Voiture
 from Outil.outil import Constantes
+from Outil.outil import Map
 from ProgGlobal.progglobal import ProgGlobal
 import random
+import copy
 
 ## classe qui permet la creation d'un rectangle permettant la modification de la valeur d'une variable
 class rectModifierVariables:
@@ -125,6 +127,14 @@ class Affichage:
 
         self.surf2 = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf2.fill(self.WHITE)
+
+        for i in range(self.WINDOWHEIGHT):
+            Map.map.append([0]*(self.WINDOWWIDTH - 250))
+        
+        for i in range(self.WINDOWHEIGHT):
+            for j in range(self.WINDOWWIDTH-250):
+                Map.map[i][j] = self.circuit.get_at([j,i])
+
 
 
 
