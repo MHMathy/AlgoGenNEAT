@@ -36,6 +36,14 @@ class Genome:
         for n in l:
             g.ajout_noeud(n)
 
+        #g.ajout_connec(ConnexionGene(3,1,-0.2,True,Innovation.get_new_innovation_connec(3,1)))
+        #g.ajout_connec(ConnexionGene(4,1,0.015,True,Innovation.get_new_innovation_connec(4,1)))
+        #g.ajout_connec(ConnexionGene(5,2,0.02,True,Innovation.get_new_innovation_connec(5,2)))
+
+        g.ajout_connec(ConnexionGene(3,1,1,True,Innovation.get_new_innovation_connec(3,1)))
+        g.ajout_connec(ConnexionGene(4,1,1,True,Innovation.get_new_innovation_connec(4,1)))
+        g.ajout_connec(ConnexionGene(5,2,1,True,Innovation.get_new_innovation_connec(5,2)))
+
         #g.random_connexion()
 
         return g

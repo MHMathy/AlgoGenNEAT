@@ -14,7 +14,7 @@ class ProgGlobal:
         self.generateurGenome = None
         self.listVoiture = []
         self.dictGenScore = {}
-
+        self.gmax = None
         self.listMeilleurScore = []
 
     def demarreProgramme(self):
@@ -24,11 +24,11 @@ class ProgGlobal:
         #genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
         genDef = Genome.default("mini")
         #genDef.random_connexion(8)
-        
+
        #for i in range(Constantes.Cons.get("TAILLE_POPULATION")):
             #g.random_connexion(5)
          #   self.dictGenScore.update({genDef :0})
-        
+
         self.dictGenScore.update({genDef:0})
 
         self.generateurGenome = Generation(genDef)
@@ -51,6 +51,10 @@ class ProgGlobal:
             self.listVoiture.append(Voiture(gen,200,150))
 
 
+        m = max(self.dictGenScore.values())
+
+        tmp = [key  for (key, value) in self.dictGenScore.items() if value == m]
+        self.gmax = tmp[0]
 
         self.dictGenScore.clear()
 
@@ -76,7 +80,7 @@ class ProgGlobal:
 
             self.dictGenScore.update({v.genome : score})
         #print(self.dictGenScore)
-       
+
 
        # for key, value in self.dictGenScore.items():
         #    key.aff_genome()

@@ -13,8 +13,8 @@ class Generation:
         self.listEspeces = []
         self.listGenomes = []
         self.listGenomes = [genDef]*self.taillePopulation
-        for g in self.listGenomes:
-            g.random_connexion()
+        #for g in self.listGenomes:
+            #g.random_connexion()
         self.genUn = True
         self.nextGenGenome = []
 
@@ -23,7 +23,7 @@ class Generation:
 
     def evaluer(self,dictScore):
         print("commence evaluer")
-        
+
         #Reinitialiser les dictionnaires
         for e in self.listEspeces:
             e.reset()
@@ -66,7 +66,7 @@ class Generation:
            # print("e", len(e.membres))
             score = dictScore.get(g)
             scoreAjuster = score
-            
+
             #print(len(e.membres),"et",score)
             scoreAjuster=score/len(e.membres)
             e.ajout_aptitude_ajuster(scoreAjuster)
@@ -94,9 +94,11 @@ class Generation:
         while len(self.nextGenGenome)<self.taillePopulation:
 
             e = self.get_random_espece()
+            #print("taille espece :", len(e.membres))
 
             g1 = self.get_random_genome(e)
             g2 = self.get_random_genome(e)
+            #print("1:", g1," 2:", g2)
 
             if self.lienGenomeAptitude.get(g1)>=self.lienGenomeAptitude.get(g2):
                 gfils = Genome.melange_genome(g1,g2)
@@ -143,7 +145,7 @@ class Generation:
         conteApt = 0
         for aptGen in sorted(esp.aptitudePopulation, key = lambda aptGen: aptGen.aptitude):
             conteApt+=aptGen.aptitude
-        
+
             if conteApt>=r:
                 #print("va etre return", aptGen.aptitude)
                 return aptGen.genome

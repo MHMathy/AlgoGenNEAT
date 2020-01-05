@@ -29,7 +29,7 @@ class CalculNeurone:
                 self.listLien.update({str(connec.get_noeudout()):[]})
             if connec.get_actif():
                 self.listLien[str(connec.get_noeudout())].append([str(connec.get_noeudin()),connec.get_poids()])
-            
+
 
         tmp = dict(self.listLien)
         for key in tmp:
@@ -42,7 +42,10 @@ class CalculNeurone:
 
 
     def calcValeurNoeud(self,inputVal,type="normal"):
-        #print("input:",inputVal)
+        #print("ON MAPPELLE")
+        for k in OrderedDict(self.listValeur):
+            self.listValeur[k] = False
+
         self.listValeur['3'] = inputVal["vitesse"]
         #self.listValeur['4'] = inputVal["angle"]
         self.listValeur['4'] = inputVal["capteur0"]
@@ -63,7 +66,7 @@ class CalculNeurone:
             self.listValeur['14'] = inputVal["capteur180"]
         """
         #print(self.listLien)
-        
+
         tmp = 0
         for k in OrderedDict(self.listValeur):
             tmp = 0
@@ -72,12 +75,12 @@ class CalculNeurone:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
                 #tmp += 1 #bias
                 self.listValeur[k] = CalculNeurone.sigmoid(tmp)
-               # print("tmp",tmp, "             k", k)
+                #print("tmp",tmp, "             k", k)
             else:
                 continue
 
         #return {"accelerer":self.listValeur['1'],"freiner":self.listValeur['2'],"tourneG":self.listValeur['3'],"tourneD":self.listValeur['4']}
-        return {"acc/fre":self.listValeur['1'],"G/D":self.listValeur['2']}
+        return {"acc/fre":self.listValeur['1'],"D/G":self.listValeur['2']}
 
     """
     @staticmethod
@@ -110,7 +113,7 @@ class CalculNeurone:
         tmpX = round(tmpX,5)
         return 1/(1 + np.exp(-tmpX))
     """
-    
+
     @staticmethod
     def sigmoid(x):
         #tmpX = Constantes.Cons.get("COEF_EXPO")*x
@@ -119,9 +122,9 @@ class CalculNeurone:
         if x < 0:
              return 1 - 1/(1 + np.exp(x))
 
-        else : 
+        else :
              return 1/(1 + np.exp(-x))
-    
+
 
     @staticmethod
     def testRegression():

@@ -9,26 +9,28 @@ class Capteur:
     circuit = pygame.transform.scale(circuit,(1000,650))
 
     ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs
-    PosActuVoiture = [0,0]
-    AngleVoiture = 0
+
+
 
     ## constructeur qui initialise les variables d'un capteur
     # @param angleCapteur angle du capteur de la voiture
     def __init__(self, angleCapteur): #initialisation capteur
         self.VecDir = [0,0]
         self.DistMur = 0
+        self.posActuVoiture = [0,0]
+        self.angleVoiture = 0
         self.angleCapteur = angleCapteur
-        self.posCapteur = Capteur.PosActuVoiture
+        self.posCapteur = self.posActuVoiture
 
     ## fonction qui calcul le vecteur directeur de l'angle
     def CalcVecDir(self):
-       self.VecDir = [math.cos(math.radians(self.angleCapteur - self.AngleVoiture)),
-                       math.sin(math.radians(self.angleCapteur - self.AngleVoiture))]
+       self.VecDir = [math.cos(math.radians(self.angleCapteur - self.angleVoiture)),
+                       math.sin(math.radians(self.angleCapteur - self.angleVoiture))]
 
     ## fonction qui calcul la distance du mur le plus proche
     def checkMur(self): #regarde la position du mur le plus proche de chaque capteur
         #return True #brainfuck du programme avant de corriger rotozoom
-        self.posCapteur = Capteur.PosActuVoiture   #et calcul la distance entre la voiture et cette position
+        self.posCapteur = self.posActuVoiture   #et calcul la distance entre la voiture et cette position
 
         self.CalcVecDir()
 
@@ -57,12 +59,12 @@ class Capteur:
             else:
                 self.posCapteur = [self.posCapteur[0]+self.VecDir[0]*3, self.posCapteur[1]+self.VecDir[1]*3]
 
-        self.DistMur = math.sqrt((x-Capteur.PosActuVoiture[0]) * (x-Capteur.PosActuVoiture[0])
-                                 + (y-Capteur.PosActuVoiture[1]) * (y-Capteur.PosActuVoiture[1]))
+        self.DistMur = math.sqrt((x-self.posActuVoiture[0]) * (x-self.posActuVoiture[0])
+                                 + (y-self.posActuVoiture[1]) * (y-self.posActuVoiture[1]))
 
     def getDistCapteur(self): #retourne la distance d'un capteur par rapport au mur le plus proche
         return self.DistMur
 
-    @classmethod
-    def setPosActuVoiture(cls,val):
-        cls.PosActuVoiture = val
+
+    def setPosActuVoiture(self,val):
+        self.posActuVoiture = val

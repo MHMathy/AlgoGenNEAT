@@ -8,6 +8,7 @@ from pygame.locals import *
 #from Voiture.voiture import Voiture
 from Outil.outil import Constantes
 from ProgGlobal.progglobal import ProgGlobal
+import random
 
 ## classe qui permet la creation d'un rectangle permettant la modification de la valeur d'une variable
 class rectModifierVariables:
@@ -75,6 +76,7 @@ class Affichage:
         self.WINDOWHEIGHT = 650
         self.boolAffProgression = False
         self.reset = False
+        self.boolAffGenome = False
         self.pause = True
         self.demarrer = False
         self.mainClock = pygame.time.Clock()
@@ -121,6 +123,9 @@ class Affichage:
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
         self.surf.fill(self.WHITE)
 
+        self.surf2 = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
+        self.surf2.fill(self.WHITE)
+
 
 
     def draw(self,glob):
@@ -130,11 +135,12 @@ class Affichage:
         self.screen.blit(self.imageBtn,self.rectBtn)
 
         if glob.listVoiture != []:
+
             for i in range(len(glob.listVoiture)):
                 #if glob.listVoiture[i].vivant == False:
                 #    continue
 
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture, glob.listVoiture[i].angle,0.05)
+                ImVoiture = pygame.transform.rotozoom(self.ImVoiture,glob.listVoiture[i].angle,0.05)
 
                 [x,y]=ImVoiture.get_rect().center
 
@@ -143,20 +149,58 @@ class Affichage:
 
                 if glob.listVoiture[i].vivant:
                     self.screen.blit(ImVoiture, listPosVoiture[i])
-                """
-                pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
-                for capt in glob.listVoiture[i].listCapt:
-                    if capt.angleCapteur ==0:
-                        pygame.draw.line(self.screen,(255,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-                    else:
-                        pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-                """
+
+                    #print("angle:",v.angle)
+                    """
+                    pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
+                    for capt in glob.listVoiture[i].listCapt:
+                        if capt.angleCapteur == 0:
+                            pygame.draw.line(self.screen,(255,0,0),glob.listVoiture[i].pos,capt.posCapteur)
+                        else:
+                            pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
+                    """
 
         for i in range(len(self.listRect)):
             if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())
             else: pygame.draw.rect(self.screen,(0,0,0), self.listRect[i].getRect())
 
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
+
+        ########## AFFICHE GENOME ###########
+
+        if self.boolAffGenome == True:
+            pos = []
+            posN = {}
+            colc = [0,0,255]
+            for connec in glob.gmax.get_listConnexions():
+                cin = connec.get_noeudin()
+                cout = connec.get_noeudout()
+                for n in [cin,cout]:
+                    if posN.get(n)==None:
+
+                        coln = [100,100,255]
+                        if n == 1 or n == 2:
+                            pos = [random.randint(100,900),random.randint(50,100)]
+                            coln = [100,255,100]
+                        elif n == 3 or n == 4 or n == 5:
+                            pos = [random.randint(100,900),random.randint(550,600)]
+                            coln = [255,100,100]
+                        else:
+                            pos = [random.randint(100,900),random.randint(550,600)]
+
+                        posN.update({n:pos})
+                        pygame.draw.circle(self.surf2,coln, pos, 10)
+
+                if connec.get_poids()<0:
+                    colc = [255,0,0]
+                if connec.get_actif() == False:
+                    colc = [50,50,50]
+                pygame.draw.line(self.surf2,colc,posN.get(cin),posN.get(cout),connec.get_poids()*4)
+                self.screen.blit(self.surf2,(0,0))
+
+
+
+
 
         if self.boolAffProgression == True:
             pygame.draw.line(self.surf, (0,0,0), (50, self.WINDOWHEIGHT),(50,0), 5)
@@ -258,7 +302,7 @@ class Affichage:
                         self.listRect[i].setEtat()
 
                 if self.rectReset.collidepoint(event.pos):
-                    self.reset = True
+                    self.boolAffGenome = not (self.boolAffGenome)
 
                 if self.rectPause.collidepoint(event.pos) and self.pause == False:
                     self.pause = True
@@ -293,8 +337,9 @@ class Affichage:
                         glob.update_once()
                         self.mainClock.tick(30)
 
-                    if self.reset == True:
-                        ProgGlobal.__init__(glob)
+                    #if self.reset == True:
+                    #    ProgGlobal.__init__(glob)
+                self.surf2.fill((255,255,255))
                 glob.fin_cycle()
 
         self.quitter()

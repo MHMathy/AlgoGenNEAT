@@ -101,15 +101,17 @@ class Voiture:
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
        # print("dureee", duree)
-        Capteur.setPosActuVoiture(self.pos)
-        for i in range(0,8):
-            self.listCapt[i].checkMur()
+        for capt in self.listCapt:
+            capt.setPosActuVoiture(self.pos)
+            capt.checkMur()
 
         self.checkCollisionMur()
 
         if self.vivant == True:
             self.dureeVie = duree
             #print(self.get_valeurs_pour_reseau())
+            
+
             valSortie = self.calcNeuro.calcValeurNoeud(self.get_valeurs_pour_reseau(),"mini")
             #print("sortie: ",valSortie)
             """
@@ -126,18 +128,18 @@ class Voiture:
                 self.tourne_droite()
             """
             #print("val acc/fre",valSortie.get("acc/fre"),"   comp ",valSortie.get("acc/fre")<0.2)
-            print("val gd",valSortie.get("G/D"))
+            #print("val gd",valSortie.get("G/D"))
             if valSortie.get("acc/fre")>0.8:
                 self.accelerer()
 
-            elif valSortie.get("acc/fre")<0.2:
+            elif valSortie.get("acc/fre")<0.6:
                 self.freiner()
 
-            if valSortie.get("G/D")>0.6 and self.vitesse != 0:
-                self.tourne_gauche()
-
-            elif valSortie.get("G/D")<0.4 and self.vitesse != 0:
+            if valSortie.get("D/G")>0.7 and self.vitesse != 0:
                 self.tourne_droite()
+
+            elif valSortie.get("D/G")<0.3 and self.vitesse != 0:
+                self.tourne_gauche()
 
 
 
@@ -147,9 +149,9 @@ class Voiture:
             self.pos = (self.pos[0] + dx*self.vitesse, self.pos[1] - dy*self.vitesse)
             self.pos = [int(self.pos[0]),int(self.pos[1])]
             #self.retour_neutre()
-
-            Capteur.PosActuVoiture = self.pos
-            Capteur.AngleVoiture = self.angle
+            for capt in self.listCapt:
+                capt.posActuVoiture = self.pos
+                capt.angleVoiture = self.angle
 
 
             if self.capteurCourant != 7:
@@ -216,10 +218,13 @@ class Voiture:
 
     ## fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes
     def get_valeurs_pour_reseau(self):
+        #print("vitesse",self.vitesse)
+        #print("capteur0",self.listCapt[0].getDistCapteur())
+        #print("d/g: ",self.listCapt[7].getDistCapteur()-self.listCapt[1].getDistCapteur())
         return { "vitesse":self.vitesse,
                  #"angle":self.angle,
                  "capteur0":self.listCapt[0].getDistCapteur(),
-                 "capteurDif": self.listCapt[1].getDistCapteur() - self.listCapt[7].getDistCapteur()
+                 "capteurDif": self.listCapt[7].getDistCapteur()-self.listCapt[1].getDistCapteur()
                  }
     """
     "capteur45":self.listCapt[1].getDistCapteur(),
