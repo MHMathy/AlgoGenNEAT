@@ -4,9 +4,7 @@ from Outil.outil import Innovation
 from Outil.outil import Constantes
 import random
 
-
-# classe contenant une liste de noeuronnes sous le nom de noeud et une liste de connexion entre les noeuds
-## classe qui gere les noeuronnes sous form de liste de noeuds et liste de connexions
+## classe qui gere les neurones sous form de liste de noeuds et liste de connexions
 class Genome:
 
     ## constructeur qui initialise les deux listes de la classe comme etant des listes vides

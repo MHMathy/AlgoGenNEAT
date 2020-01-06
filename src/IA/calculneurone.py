@@ -166,7 +166,7 @@ class CalculNeurone:
         G1.connec_mutation()
         cn = CalculNeurone(G1)
 
-        val = {"vitesse":10,"angle": 10,"c_0": 100}
+        val = {"vitesse":7,"capteurDif": 150,"capteur0": 100}
 
         cn.setlistLien()
         cn.calcValeurNoeud(val)

@@ -226,7 +226,7 @@ class Affichage:
             self.surf.blit(self.police.render("generation" , True, (0,0,0)), rectGen)
             absGen = 70
             for i in range(len(glob.listMeilleurScore)):
-                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 3000)),5)
+                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 5000)),5)
                 absGen += 5
 
             self.screen.blit(self.surf,(0,0))
@@ -346,7 +346,7 @@ class Affichage:
                     if self.pause == False:
                         glob.update_once()
                         self.mainClock.tick(30)
-                        
+
                 self.surf2.fill((255,255,255))
                 glob.fin_cycle()
 
