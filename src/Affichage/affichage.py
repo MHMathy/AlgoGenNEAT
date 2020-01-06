@@ -346,9 +346,7 @@ class Affichage:
                     if self.pause == False:
                         glob.update_once()
                         self.mainClock.tick(30)
-
-                    #if self.reset == True:
-                    #    ProgGlobal.__init__(glob)
+                        
                 self.surf2.fill((255,255,255))
                 glob.fin_cycle()
 
