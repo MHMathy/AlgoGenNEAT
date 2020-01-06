@@ -245,12 +245,12 @@ class Affichage:
         listPosVoiture.clear()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
-    def quitter(self): #quitte la sdl et ferme la fenetre python
+    def quitter(self): 
         pygame.quit()
         sys.exit()
 
     ## fonction qui gere les differents evenements SDL: appuie sur une touche, appuie sur un bouton..
-    def gestionEvent(self): #events permanents
+    def gestionEvent(self): 
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.quitter()
