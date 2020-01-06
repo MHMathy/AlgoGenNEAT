@@ -1,16 +1,11 @@
-import pygame
 import math
 import Voiture.voiture
+from Outil.outil import Map
 
 ## classe Capteur qui calcul la distance par rapport au mur le plus proche
 class Capteur:
-    ## on reiinitialise un circuit, pour verifier les positions
-    circuit = pygame.image.load("../data/course.png")
-    circuit = pygame.transform.scale(circuit,(1000,650))
 
     ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs ###########################################################################
-
-
 
     ## constructeur qui initialise les variables d'un capteur
     # @param angleCapteur angle du capteur de la voiture
@@ -40,7 +35,7 @@ class Capteur:
             y = int(round(self.posCapteur[1]))
 
 
-            if self.circuit.get_at([x,y]) == (0,0,0): #on trouve du noir on sort de la boucle
+            if Map.map[y][x] == (0,0,0): #on trouve du noir on sort de la boucle
                 break
 
             else:

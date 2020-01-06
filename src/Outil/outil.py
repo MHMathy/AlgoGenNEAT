@@ -48,3 +48,6 @@ class Constantes:
     @classmethod
     def set_listConstantes(cls,nomConst,valConst):
             cls.Cons[nomConst] = valConst
+
+class Map:
+    map = []
