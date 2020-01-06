@@ -5,8 +5,6 @@ from Outil.outil import Map
 ## classe Capteur qui calcul la distance par rapport au mur le plus proche
 class Capteur:
 
-    ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs
-
     ## constructeur qui initialise les variables d'un capteur
     # @param angleCapteur angle du capteur de la voiture
     def __init__(self, angleCapteur): #initialisation capteur
@@ -24,7 +22,7 @@ class Capteur:
 
     ## fonction qui calcul la distance du mur le plus proche
     def checkMur(self): #regarde la position du mur le plus proche de chaque capteur
-        #return True #brainfuck du programme avant de corriger rotozoom
+
         self.posCapteur = self.posActuVoiture   #et calcul la distance entre la voiture et cette position
 
         self.CalcVecDir()
@@ -33,19 +31,6 @@ class Capteur:
 
             x = int(round(self.posCapteur[0]))
             y = int(round(self.posCapteur[1]))
-
-            assert x > 0 and x < 1000
-            assert y > 0 and y < 650
-            """
-            if x<0:
-                x=0
-            elif x>800:
-                x=800
-            elif y<0:
-                y=0
-            elif y>550:
-                y=550
-            """
 
 
             if Map.map[y][x] == (0,0,0): #on trouve du noir on sort de la boucle

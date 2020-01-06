@@ -1,11 +1,5 @@
 import pygame,sys
 from pygame.locals import *
-
-#from afficheGenome.afficheGenome import AfficheGenome
-#from IA.genome import Genome
-#from IA.noeudgene import NoeudGene
-#from IA.connexiongene import ConnexionGene
-#from Voiture.voiture import Voiture
 from Outil.outil import Constantes
 from Outil.outil import Map
 from ProgGlobal.progglobal import ProgGlobal
@@ -73,6 +67,7 @@ class Affichage:
     def __init__(self):
 
         pygame.init()
+        pygame.font.init()
 
         self.WHITE = [255,255,255]
         self.WINDOWWIDTH = 1250
@@ -86,7 +81,11 @@ class Affichage:
 
         self.listRect = []
 
-        #load images
+        #init fenetre
+        self.screen = pygame.display.set_mode((self.WINDOWWIDTH, self.WINDOWHEIGHT),0,32)
+        pygame.display.set_caption('mathymartinet')
+
+        #charger images
         self.ImVoiture = pygame.image.load('../data/car.png')
         self.circuit = pygame.image.load('../data/course.png')
         self.imageBtn = pygame.image.load('../data/BtnVoirProgression.png')
@@ -97,9 +96,7 @@ class Affichage:
         self.circuit = pygame.transform.scale(self.circuit,(int(self.WINDOWWIDTH*4/5),self.WINDOWHEIGHT))
         self.imageBtn = pygame.transform.scale(self.imageBtn,(250,100))
 
-        #init fenetre
-        self.screen = pygame.display.set_mode((self.WINDOWWIDTH, self.WINDOWHEIGHT),0,32)
-        pygame.display.set_caption('mathymartinet')
+
 
         #definition rect
         self.rectBtn = pygame.Rect((1000,550),(250,100))
@@ -131,13 +128,15 @@ class Affichage:
 
         for i in range(self.WINDOWHEIGHT):
             Map.map.append([0]*(self.WINDOWWIDTH - 250))
-        
+
         for i in range(self.WINDOWHEIGHT):
             for j in range(self.WINDOWWIDTH-250):
                 Map.map[i][j] = self.circuit.get_at([j,i])
 
     ## fonction qui gere l'affichage des differents elements du programme
     def draw(self,glob):
+
+
 
         listPosVoiture = []
         self.screen.blit(self.circuit,(0,0))
@@ -146,20 +145,16 @@ class Affichage:
         if glob.listVoiture != []:
 
             for i in range(len(glob.listVoiture)):
-                #if glob.listVoiture[i].vivant == False:
-                #    continue
-
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture,glob.listVoiture[i].angle,0.05)
-
-                [x,y]=ImVoiture.get_rect().center
-
-                listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
-                #print("pos: ",listPosVoiture[i])
 
                 if glob.listVoiture[i].vivant:
+                    ImVoiture = pygame.transform.rotozoom(self.ImVoiture,glob.listVoiture[i].angle,0.05)
+
+                    [x,y]=ImVoiture.get_rect().center
+
+                    listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
+
                     self.screen.blit(ImVoiture, listPosVoiture[i])
 
-                    #print("angle:",v.angle)
                     """
                     pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
                     for capt in glob.listVoiture[i].listCapt:
@@ -168,6 +163,12 @@ class Affichage:
                         else:
                             pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
                     """
+                else:
+                    listPosVoiture.append(False)
+
+
+
+
 
         for i in range(len(self.listRect)):
             if self.listRect[i].getEtat() == True: pygame.draw.rect(self.screen,(255,127,0), self.listRect[i].getRect())
@@ -175,38 +176,12 @@ class Affichage:
 
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
-        ########## AFFICHE GENOME ###########
+        ########## AFFICHE GENOME ##########################################################
 
         if self.boolAffGenome == True:
-            pos = []
-            posN = {}
-            colc = [0,0,255]
-            for connec in glob.gmax.get_listConnexions():
-                cin = connec.get_noeudin()
-                cout = connec.get_noeudout()
-                for n in [cin,cout]:
-                    if posN.get(n)==None:
+            self.screen.blit(self.surf2,(0,0))
 
-                        coln = [100,100,255]
-                        if n == 1 or n == 2:
-                            pos = [random.randint(100,900),random.randint(50,100)]
-                            coln = [100,255,100]
-                        elif n == 3 or n == 4 or n == 5:
-                            pos = [random.randint(100,900),random.randint(550,600)]
-                            coln = [255,100,100]
-                        else:
-                            pos = [random.randint(100,900),random.randint(550,600)]
-
-                        posN.update({n:pos})
-                        pygame.draw.circle(self.surf2,coln, pos, 10)
-
-                if connec.get_poids()<0:
-                    colc = [255,0,0]
-                if connec.get_actif() == False:
-                    colc = [50,50,50]
-                pygame.draw.line(self.surf2,colc,posN.get(cin),posN.get(cout),connec.get_poids()*4)
-                self.screen.blit(self.surf2,(0,0))
-
+        # Affiche la courbe de progression du score
         if self.boolAffProgression == True:
             pygame.draw.line(self.surf, (0,0,0), (50, self.WINDOWHEIGHT),(50,0), 5)
             pygame.draw.line(self.surf, (0,0,0), (0, self.WINDOWHEIGHT - 20),(self.WINDOWWIDTH - 250, self.WINDOWHEIGHT - 20), 5)
@@ -240,12 +215,12 @@ class Affichage:
         listPosVoiture.clear()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
-    def quitter(self): 
+    def quitter(self):
         pygame.quit()
         sys.exit()
 
     ## fonction qui gere les differents evenements SDL: appuie sur une touche, appuie sur un bouton..
-    def gestionEvent(self): 
+    def gestionEvent(self):
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.quitter()
@@ -320,7 +295,56 @@ class Affichage:
                     self.demarrer = True
                     return True
 
-    ## fonction qui gere la boucle principale du programme
+    def text(self,surface,text, x, y,police,size=1, couleur=(0,0,0)):
+        text = police.render(text, size,couleur)
+        rect = text.get_rect()
+        rect.center =(x,y)
+        surface.blit(text,rect)
+
+
+    def drawGenome(self,glob):
+
+
+
+        pos = []
+        posN = {}
+        colc = [0,0,255]
+        for connec in glob.gmax.get_listConnexions():
+            cin = connec.get_noeudin()
+            cout = connec.get_noeudout()
+
+            for n in [cin,cout]:
+                if posN.get(n)==None:
+
+                    coln = [100,100,255]
+                    if glob.gmax.get_type_noeud(n) == "output":
+                        pos = [random.randint(100,900),random.randint(50,100)]
+
+                        coln = [100,255,100]
+                    elif glob.gmax.get_type_noeud(n) == "input":
+                        pos = [random.randint(100,900),random.randint(550,600)]
+                        coln = [255,100,100]
+                    elif glob.gmax.get_type_noeud(n) == "bias":
+                        pos = [random.randint(700,900),random.randint(400,450)]
+                        coln = [100,100,100]
+                    else:
+                        pos = [random.randint(100,900),random.randint(200,450)]
+
+                    posN.update({n:pos})
+                    pygame.draw.circle(self.surf2,coln, pos, 30)
+                    self.text(self.surf2,str(n),pos[0],pos[1]+20,self.police)
+            if connec.get_poids()<0:
+                colc = [255,0,0]
+            if connec.get_actif() == False:
+                colc = [50,50,50]
+            print("cin",cin,"    ",posN.get(cin)," cout",cout,"    ",posN.get(cout))
+            colc = [50,50,50]
+            pygame.draw.line(self.surf2,(0,0,0),posN.get(cin),posN.get(cout),int(connec.get_poids()*2)+1)
+            colc = [50,50,50]
+            pygame.draw.line(self.surf2,(0,0,0),posN.get(cout),posN.get(cin),int(connec.get_poids()*2)+1)
+
+
+
     def boucleAff(self, glob):
 
         while True:
@@ -332,13 +356,14 @@ class Affichage:
 
             else :
                 glob.demarreCycle()
-
+                self.drawGenome(glob)
                 while glob.arreterCourse() == False:
                     self.draw(glob)
                     self.gestionEvent()
                     if self.pause == False:
                         glob.update_once()
                         self.mainClock.tick(30)
+
 
                 self.surf2.fill((255,255,255))
                 glob.fin_cycle()
