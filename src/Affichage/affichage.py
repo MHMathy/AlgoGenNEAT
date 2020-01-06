@@ -17,7 +17,7 @@ class rectModifierVariables:
         self.txtInit = texte
         self.nom = self.txtInit[0:-1]
         self.__etat = False
-        self.__rect = pygame.Rect(self.pos, (245, 40))
+        self.__rect = pygame.Rect(self.pos, (245, 30))
 
     ## retourne le texte a afficher selon l'action en cours
     def getTexte(self):
@@ -191,7 +191,7 @@ class Affichage:
 
             self.screen.blit(self.surf,(0,0))
 
-        self.screen.blit(self.police.render("Reset", True, (255,255,255)),self.rectReset)
+        self.screen.blit(self.police.render("AffGenome", True, (255,255,255)),self.rectReset)
 
         if self.pause == True:
             pygame.draw.rect(self.screen,(0,0,0), self.rectPause)
