@@ -40,7 +40,7 @@ class rectModifierVariables:
 
         Constantes.set_listConstantes(self.txtInit, tmp)
 
-    ## renvoie l'etat du rectant
+    ## renvoie l'etat du rectangle
     def getEtat(self):
         return self.__etat
 
@@ -60,9 +60,10 @@ class rectModifierVariables:
     def getValeur(self):
         return self.__valeur
 
-
+## classe Affichage qui gere tous les evenements d'affichage, la boucle du programme et les events
 class Affichage:
 
+    ## constructeur de la classe Affichage
     def __init__(self):
 
         pygame.init()
@@ -132,9 +133,7 @@ class Affichage:
             for j in range(self.WINDOWWIDTH-250):
                 Map.map[i][j] = self.circuit.get_at([j,i])
 
-
-
-
+    ## fonction qui gere l'affichage des differents elements du programme
     def draw(self,glob):
 
 
@@ -197,7 +196,7 @@ class Affichage:
             self.surf.blit(self.police.render("generation" , True, (0,0,0)), rectGen)
             absGen = 70
             for i in range(len(glob.listMeilleurScore)):
-                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 3000)),5)
+                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 5000)),5)
                 absGen += 5
 
             self.screen.blit(self.surf,(0,0))
@@ -216,12 +215,12 @@ class Affichage:
         listPosVoiture.clear()
 
     ## fonction qui quitte la SDL et ferme la fenetre python
-    def quitter(self): #quitte la sdl et ferme la fenetre python
+    def quitter(self):
         pygame.quit()
         sys.exit()
 
     ## fonction qui gere les differents evenements SDL: appuie sur une touche, appuie sur un bouton..
-    def gestionEvent(self): #events permanents
+    def gestionEvent(self):
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.quitter()

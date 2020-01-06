@@ -100,5 +100,50 @@ class CalculNeurone:
              return 1 - 1/(1 + np.exp(x))
 
         else :
-
             return 1/(1 + np.exp(-x))
+
+    @staticmethod
+    def testRegression():
+
+        G1 = Genome()
+        l = []
+        """
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        """
+
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
+        for n in l:
+            G1.ajout_noeud(n)
+
+        for i in range(0,6):
+            G1.ajout_connec_mutation()
+
+        for i in range(0,2):
+            G1.ajout_noeud_mutation()
+        for i in range(0,6):
+            G1.ajout_connec_mutation()
+        G1.connec_mutation()
+        cn = CalculNeurone(G1)
+
+        val = {"vitesse":7,"capteurDif": 150,"capteur0": 100}
+
+        cn.setlistLien()
+        cn.calcValeurNoeud(val)
+#CalculNeurone.testRegression()
