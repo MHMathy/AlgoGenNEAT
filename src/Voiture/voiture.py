@@ -11,7 +11,7 @@ from IA.calculneurone import CalculNeurone
 class Voiture:
     ## variable commune a toutes les voitures, qui est une liste de capteurs "checkpoints" presents sur
     # le circuit
-    listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)]
+    listeCapteursCircuit = [(182,130), (525,197), (715, 295), (795,447), (525, 540), (265, 520),(330,360),(220,280)]
 
     ## constructeur de la classe qui initialise toutes les variables d'une voiture
     def __init__(self, genome, posx=0,posy=0,angle=0,volant=0,vitesse=0): #initialisation de la voiture
@@ -30,8 +30,7 @@ class Voiture:
         ## liste des capteurs de la voiture
         self.listCapt = []
 
-        ## instant auquel la voiture a ete cree
-
+        self.nbTour = 0
 
         ## temps de vie de la voiture
         self.dureeVie = 0
@@ -90,7 +89,6 @@ class Voiture:
 
     ## fonction qui met a jour les parametres de la voiture et ses capteurs
     def update(self,duree): #met à jour les paramètres de la voiture (et ses capteurs)
-
        for capt in self.listCapt:
            capt.setPosActuVoiture(self.pos)
            capt.checkMur()
@@ -125,14 +123,16 @@ class Voiture:
 
            if self.capteurCourant != 7:
                self.capteurSuivant = self.capteurCourant + 1
+               
            else:
                self.capteurSuivant = 0
 
            self.distCapteurCourant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurCourant])
            self.distCapteurSuivant = self.calculDistance(self.pos, self.listeCapteursCircuit[self.capteurSuivant])
 
-           if self.distCapteurCourant > 50 and self.distCapteurSuivant < 50:
+           if self.distCapteurSuivant < 75:
                if self.capteurCourant == 7:
+                   self.nbTour += 1
                    self.capteurCourant = 0
 
                else: self.capteurCourant += 1
@@ -140,6 +140,7 @@ class Voiture:
            if self.dureeVie > 1.5 and self.pos == [200,150]:
                self.meurt()
 
+        
 
     def meurt(self):
         self.vivant = False
@@ -172,6 +173,9 @@ class Voiture:
 
         self.scoreVoiture #*= self.dureeVie
 
+        if self.nbTour > 0:
+            self.scoreVoiture += (self.scoreTourComplet() * self.nbTour)
+        print(self.nbTour)
         return int(self.scoreVoiture)
 
     ## fonction qui calcul la distance entre deux points
@@ -200,3 +204,12 @@ class Voiture:
 
         if ((listeTmp.index(min(listeTmp)) in [1,2,3,5,6,7]) and min(listeTmp) < 11) or ((listeTmp.index(min(listeTmp)) in [0,4]) and min(listeTmp) < 20):
             self.meurt()
+
+    def scoreTourComplet(self):
+        res = 0
+        for i in range(len(self.listeCapteursCircuit) - 1):
+            res += self.calculDistance(self.listeCapteursCircuit[i], self.listeCapteursCircuit[i+1])
+
+        res += self.calculDistance(self.listeCapteursCircuit[6], self.listeCapteursCircuit[0])
+
+        return res

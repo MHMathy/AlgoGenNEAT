@@ -153,14 +153,6 @@ class Affichage:
 
                     self.screen.blit(ImVoiture, listPosVoiture[i])
 
-                    """
-                    pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
-                    for capt in glob.listVoiture[i].listCapt:
-                        if capt.angleCapteur == 0:
-                            pygame.draw.line(self.screen,(255,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-                        else:
-                            pygame.draw.line(self.screen,(0,0,0),glob.listVoiture[i].pos,capt.posCapteur)
-                    """
                 else:
                     listPosVoiture.append(False)
 
@@ -194,7 +186,7 @@ class Affichage:
             self.surf.blit(self.police.render("generation" , True, (0,0,0)), rectGen)
             absGen = 70
             for i in range(len(glob.listMeilleurScore)):
-                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 5000)),5)
+                pygame.draw.circle(self.surf,(255,0,0),(absGen,int(self.WINDOWHEIGHT - 60 - glob.listMeilleurScore[i] / 7)),5)
                 absGen += 5
 
             self.screen.blit(self.surf,(0,0))
