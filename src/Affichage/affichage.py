@@ -100,8 +100,8 @@ class Affichage:
 
         #definition rect
         self.rectBtn = pygame.Rect((1000,550),(250,100))
-        self.rectReset = pygame.Rect((1000,510), (125,30))
-        self.rectPause = pygame.Rect((1125,510), (125,30))
+        self.rectAffGenome = pygame.Rect((1050,510), (100,30))
+        self.rectPause = pygame.Rect((1150,510), (125,30))
 
         constantesModifiables = Constantes.get_listConstantes()
 
@@ -116,8 +116,7 @@ class Affichage:
         self.listRect.append(rectModifierVariables((1005, 320), "DISTANCE_C1", constantesModifiables["DISTANCE_C1"], self.police))
         self.listRect.append(rectModifierVariables((1005, 360), "DISTANCE_C2", constantesModifiables["DISTANCE_C2"], self.police))
         self.listRect.append(rectModifierVariables((1005, 400), "DISTANCE_C3", constantesModifiables["DISTANCE_C3"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 440), "DEFAULT_N_CONNEC", constantesModifiables["DEFAULT_N_CONNEC"], self.police))
-        self.listRect.append(rectModifierVariables((1005, 480), "COEF_EXPO", constantesModifiables["COEF_EXPO"], self.police))
+        self.listRect.append(rectModifierVariables((1005, 440), "COEF_EXPO", constantesModifiables["COEF_EXPO"], self.police))
 
         #init du reseau neuronne test
         self.surf = pygame.Surface((self.WINDOWWIDTH - 250, self.WINDOWHEIGHT))
@@ -191,7 +190,7 @@ class Affichage:
 
             self.screen.blit(self.surf,(0,0))
 
-        self.screen.blit(self.police.render("AffGenome", True, (255,255,255)),self.rectReset)
+        self.screen.blit(self.police.render("AffGenome", True, (255,255,255)),self.rectAffGenome)
 
         if self.pause == True:
             pygame.draw.rect(self.screen,(0,0,0), self.rectPause)
@@ -263,7 +262,7 @@ class Affichage:
 
             elif event.type == MOUSEBUTTONDOWN and event.button == 1:
                 if self.rectBtn.collidepoint(event.pos):
-                    self.boolAffProgression = True
+                    self.boolAffProgression = not (self.boolAffProgression)
 
                 for i in range(len(self.listRect)):
                     if self.listRect[i].getEtat() == True: self.listRect[i].setEtat()
@@ -271,7 +270,7 @@ class Affichage:
                     if self.listRect[i].getRect().collidepoint(event.pos):
                         self.listRect[i].setEtat()
 
-                if self.rectReset.collidepoint(event.pos):
+                if self.rectAffGenome.collidepoint(event.pos):
                     self.boolAffGenome = not (self.boolAffGenome)
 
                 if self.rectPause.collidepoint(event.pos) and self.pause == False:
