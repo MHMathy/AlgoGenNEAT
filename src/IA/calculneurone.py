@@ -9,16 +9,19 @@ import numpy as np
 
 
 
-
+## classe CalculNeuronne qui va se charger de calculer la valeur de sortie de chaque neurone pour obtenir les valeurs de sortie
+#
 class CalculNeurone:
 
+    ## contructeur qui assigne un genome et établie un lien entre chaque neurone
     def __init__(self,genome):
         self.genome = genome
         self.listLien = {}
         self.listValeur = {}
         self.setlistLien()
 
-
+    ## fonction qui va retourner une liste indiquant tout les dépandances entre les neurones
+    # pour toutes connections vers un neurone, on retient qu'il aura besoin de chaque neurone en entrée
     def setlistLien(self):
         for noeud in self.genome.get_listNoeuds():
             self.listLien.update({str(noeud.get_id()):[]})
@@ -40,11 +43,13 @@ class CalculNeurone:
             self.listValeur.update({str(k):False})
 
 
-
+    ## fonction qui va calculer la valeur de chaques neurones on fonction des neurones dont il dépend
+    # @param prend en entrée les valeurs fournie par la voiture
     def calcValeurNoeud(self,inputVal):
         for k in OrderedDict(self.listValeur):
             self.listValeur[k] = False
 
+        # les valeurs d'entrée sont assigné
         self.listValeur['3'] = inputVal["vitesse"]
         self.listValeur['4'] = inputVal["capteur0"]
         self.listValeur['5'] = inputVal["capteur45"]
@@ -59,6 +64,8 @@ class CalculNeurone:
         for k in OrderedDict(self.listValeur):
             tmp = 0
             if self.listValeur[k] == False:
+                # pour chaques neurones sans valeur on cherche les valeurs dont il dépend grace lisrLien
+                # et
                 for connec in self.listLien[k]:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
                 #tmp += 1 #bias  ###########################################################################################
@@ -70,7 +77,7 @@ class CalculNeurone:
 
         return {"acc/fre":self.listValeur['1'],"D/G":self.listValeur['2']}
 
-
+    ## cherche à déterminer les dépendances d'un seul neurone
     @staticmethod
     def calcCoucheNoeud(index, liste):
         if liste[index] == []:
@@ -81,10 +88,11 @@ class CalculNeurone:
               ind = 0
               while ind < int(index):
                   if 1 + int(max(liste)) > tmp:
-                      tmp = 1 + int(max(liste))
+                     tmp = 1 + int(max(liste))
                   ind += 1
           return tmp
 
+    ## fonciton sigmoid pour calculer la sortie à partir de la somme des valeurs
     @staticmethod
     def sigmoid(x):
 

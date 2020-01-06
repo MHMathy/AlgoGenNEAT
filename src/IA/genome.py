@@ -79,6 +79,12 @@ class Genome:
             if noeud.get_id() == id:
                 return noeud
 
+    # retourne le type d'un noeud à partir de son numero id
+    ## fonction qui retourne le type d'un noeud en fonction de son ID
+    # @param id ID du noeud a chercher
+    def get_type_noeud(self,id):
+        return self.get_noeud(id).get_type()
+
     ## fonction qui retourne une connexion en fonction de son ID
     # @param id ID de la connexion a chercher
     def get_connexion(self,id):
@@ -275,5 +281,3 @@ class Genome:
     def calc_distance_compatibilite(genome1,genome2):
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
         return (Constantes.Cons.get("DISTANCE_C1")*e/1)+ (Constantes.Cons.get("DISTANCE_C2")*d/1) + Constantes.Cons.get("DISTANCE_C3")*m
-
-    

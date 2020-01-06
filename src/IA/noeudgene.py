@@ -1,7 +1,7 @@
 ## classe qui gere les informations ProgGlobales d'un noeud
 class NoeudGene:
     ## constructeur de la classe
-    # @param type defini le type du noeud (input, output)
+    # @param type defini le type du noeud (input, output, hidden)
     # @param id identifiant du noeud
     def __init__(self,type,id):
         self.__type=type

@@ -5,8 +5,6 @@ from Outil.outil import Map
 ## classe Capteur qui calcul la distance par rapport au mur le plus proche
 class Capteur:
 
-    ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs ###########################################################################
-
     ## constructeur qui initialise les variables d'un capteur
     # @param angleCapteur angle du capteur de la voiture
     def __init__(self, angleCapteur): #initialisation capteur

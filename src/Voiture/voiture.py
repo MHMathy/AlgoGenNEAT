@@ -170,7 +170,7 @@ class Voiture:
         if self.vivant == False:
             self.scoreVoiture /=2
 
-        self.scoreVoiture *= self.dureeVie*50
+        self.scoreVoiture #*= self.dureeVie
 
         return int(self.scoreVoiture)
 
@@ -182,7 +182,7 @@ class Voiture:
 
     ## fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes
     def get_valeurs_pour_reseau(self):
-        
+
         return { "vitesse":self.vitesse,
                  #"volant":self.volant,
                  "capteur0":self.listCapt[0].getDistCapteur(),
