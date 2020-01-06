@@ -19,6 +19,7 @@ class Innovation:
             cls.listC.append([nIn,nOut])
         return len(Innovation.listC)
 
+## classe qui gere les constantes
 class Constantes:
 
     Cons = {
@@ -41,10 +42,12 @@ class Constantes:
        }
 
 
+    ## fonction qui retourne la liste des constantes
     @classmethod
     def get_listConstantes(cls):
         return cls.Cons
 
+    ## fonction qui permet la modification d'un element de la liste de constantes
     @classmethod
     def set_listConstantes(cls,nomConst,valConst):
             cls.Cons[nomConst] = valConst

@@ -1,0 +1,302 @@
+\hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome}{}\section{src.\+I\+A.\+genome.\+Genome Class Reference}
+\label{classsrc_1_1_i_a_1_1genome_1_1_genome}\index{src.\+I\+A.\+genome.\+Genome@{src.\+I\+A.\+genome.\+Genome}}
+
+
+classe qui gere les neurones sous forme de liste de noeuds et liste de connexions  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_aa2ac658a0a10371801446a2631bd4cab}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em constructeur qui initialise les deux listes de la classe comme etant des listes vides \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a361c26903fa6bc978955402580c8d1b2}{random\+\_\+connexion} (self, nb\+Co=Constantes.\+Cons.\+get(\char`\"{}D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+\_\+\+C\+O\+N\+N\+EC\char`\"{}))
+\begin{DoxyCompactList}\small\item\em fonction qui ajoute une connexion aleatoire \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_ad69b8deb3d375fd6a7ed59d5af580e5c}{ajout\+\_\+connec} (self, connexion)
+\begin{DoxyCompactList}\small\item\em fonction qui ajoute une connexion dans la liste \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a8af471d98e92b89554c1d8c529cbd9b6}{ajout\+\_\+noeud} (self, noeud)
+\begin{DoxyCompactList}\small\item\em fonction qui ajoute un noeud dans la liste \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a03932bb05e9e56b789930f8462e8cbc3}{get\+\_\+list\+Noeuds} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne la liste des noeuds du genome \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a0df62962a25e45a73c0a0a4a899b8573}{get\+\_\+list\+Connexions} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne la liste des connexions du genome \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a3ae6b59375d7cb648e6e65b299745136}{get\+\_\+noeud} (self, id)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne un noeud en fonction de son ID \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_aacf83c150a5222a2502737adadf41d6e}{get\+\_\+type\+\_\+noeud} (self, id)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne le type d\textquotesingle{}un noeud en fonction de son ID \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a07ebf660dfb9962a4ceeb078537c5fb1}{get\+\_\+connexion} (self, id)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne une connexion en fonction de son ID \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a8a5bbeda2d4dafaf999bf8d0a096157d}{get\+\_\+max\+Num\+Innovation} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne le numero d\textquotesingle{}innovation le plus elever dans la liste \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_ae5bfcd0f717f5aa7ac272aacdeb1a95d}{aff\+\_\+genome} (self)
+\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_aed3a26c1418ec0b34d654c6f9464b709}{remplace\+\_\+connec} (self, new\+Connec)
+\begin{DoxyCompactList}\small\item\em fonction qui remplace une connexion dans la liste \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a2b233eb27662060165e583fb4e54f0d0}{connec\+\_\+mutation} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui gere la mutation d\textquotesingle{}une connexion \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a6f7059702835cf2c68493e9b55216c74}{ajout\+\_\+connec\+\_\+mutation} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui ajoute une connexion a une mutation \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a48edc3632415eccdb7116dec4d9ba8c0}{ajout\+\_\+noeud\+\_\+mutation} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui ajoute un noeud a une mutation \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_abaffc777e83e14be746e97f0b7b30738}{default} (type=\char`\"{}normal\char`\"{})
+\begin{DoxyCompactList}\small\item\em fonction qui initialise un genome avec des connexions definies \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_aa0ad761608127d6f8cdb4287149643fd}{melange\+\_\+genome} (gen\+Parent1, gen\+Parent2)
+\begin{DoxyCompactList}\small\item\em fonction qui renvoie une genome qui est le melange de deux autres genomes \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_ac41d60cc40e0bbc452046d888196ac8d}{count\+\_\+moyenne\+\_\+exces\+\_\+disjoint} (gen\+Parent1, gen\+Parent2)
+\begin{DoxyCompactList}\small\item\em fonction qui renvoie le poids moyen des connexions, le nombres de noeuds en exces et le nombres de noeuds \char`\"{}decaler\char`\"{} dans la liste entre les deux parents \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1genome_1_1_genome_a03d70c35344336c68ea06ebcea2dd941}{calc\+\_\+distance\+\_\+compatibilite} (genome1, genome2)
+\begin{DoxyCompactList}\small\item\em fonction qui calcule la compatibilite entre deux genomes \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+classe qui gere les neurones sous forme de liste de noeuds et liste de connexions 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_aa2ac658a0a10371801446a2631bd4cab}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_aa2ac658a0a10371801446a2631bd4cab}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+constructeur qui initialise les deux listes de la classe comme etant des listes vides 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_ae5bfcd0f717f5aa7ac272aacdeb1a95d}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_ae5bfcd0f717f5aa7ac272aacdeb1a95d}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!aff\+\_\+genome@{aff\+\_\+genome}}
+\index{aff\+\_\+genome@{aff\+\_\+genome}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{aff\+\_\+genome()}{aff\_genome()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+aff\+\_\+genome (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_ad69b8deb3d375fd6a7ed59d5af580e5c}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_ad69b8deb3d375fd6a7ed59d5af580e5c}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!ajout\+\_\+connec@{ajout\+\_\+connec}}
+\index{ajout\+\_\+connec@{ajout\+\_\+connec}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{ajout\+\_\+connec()}{ajout\_connec()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+ajout\+\_\+connec (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{connexion }\end{DoxyParamCaption})}
+
+
+
+fonction qui ajoute une connexion dans la liste 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connexion} & Connexion a ajoute dans la liste \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a6f7059702835cf2c68493e9b55216c74}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a6f7059702835cf2c68493e9b55216c74}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!ajout\+\_\+connec\+\_\+mutation@{ajout\+\_\+connec\+\_\+mutation}}
+\index{ajout\+\_\+connec\+\_\+mutation@{ajout\+\_\+connec\+\_\+mutation}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{ajout\+\_\+connec\+\_\+mutation()}{ajout\_connec\_mutation()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+ajout\+\_\+connec\+\_\+mutation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui ajoute une connexion a une mutation 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a8af471d98e92b89554c1d8c529cbd9b6}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a8af471d98e92b89554c1d8c529cbd9b6}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!ajout\+\_\+noeud@{ajout\+\_\+noeud}}
+\index{ajout\+\_\+noeud@{ajout\+\_\+noeud}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{ajout\+\_\+noeud()}{ajout\_noeud()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+ajout\+\_\+noeud (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{noeud }\end{DoxyParamCaption})}
+
+
+
+fonction qui ajoute un noeud dans la liste 
+
+
+\begin{DoxyParams}{Parameters}
+{\em noeud} & Noeud a ajoute dans la liste \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a48edc3632415eccdb7116dec4d9ba8c0}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a48edc3632415eccdb7116dec4d9ba8c0}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!ajout\+\_\+noeud\+\_\+mutation@{ajout\+\_\+noeud\+\_\+mutation}}
+\index{ajout\+\_\+noeud\+\_\+mutation@{ajout\+\_\+noeud\+\_\+mutation}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{ajout\+\_\+noeud\+\_\+mutation()}{ajout\_noeud\_mutation()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+ajout\+\_\+noeud\+\_\+mutation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui ajoute un noeud a une mutation 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a03d70c35344336c68ea06ebcea2dd941}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a03d70c35344336c68ea06ebcea2dd941}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!calc\+\_\+distance\+\_\+compatibilite@{calc\+\_\+distance\+\_\+compatibilite}}
+\index{calc\+\_\+distance\+\_\+compatibilite@{calc\+\_\+distance\+\_\+compatibilite}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{calc\+\_\+distance\+\_\+compatibilite()}{calc\_distance\_compatibilite()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+calc\+\_\+distance\+\_\+compatibilite (\begin{DoxyParamCaption}\item[{}]{genome1,  }\item[{}]{genome2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+fonction qui calcule la compatibilite entre deux genomes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em genome1} & premier genome a evaluer \\
+\hline
+{\em genome2} & deuxieme genome a evaluer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a2b233eb27662060165e583fb4e54f0d0}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a2b233eb27662060165e583fb4e54f0d0}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!connec\+\_\+mutation@{connec\+\_\+mutation}}
+\index{connec\+\_\+mutation@{connec\+\_\+mutation}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{connec\+\_\+mutation()}{connec\_mutation()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+connec\+\_\+mutation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui gere la mutation d\textquotesingle{}une connexion 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_ac41d60cc40e0bbc452046d888196ac8d}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_ac41d60cc40e0bbc452046d888196ac8d}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!count\+\_\+moyenne\+\_\+exces\+\_\+disjoint@{count\+\_\+moyenne\+\_\+exces\+\_\+disjoint}}
+\index{count\+\_\+moyenne\+\_\+exces\+\_\+disjoint@{count\+\_\+moyenne\+\_\+exces\+\_\+disjoint}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{count\+\_\+moyenne\+\_\+exces\+\_\+disjoint()}{count\_moyenne\_exces\_disjoint()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+count\+\_\+moyenne\+\_\+exces\+\_\+disjoint (\begin{DoxyParamCaption}\item[{}]{gen\+Parent1,  }\item[{}]{gen\+Parent2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+fonction qui renvoie le poids moyen des connexions, le nombres de noeuds en exces et le nombres de noeuds \char`\"{}decaler\char`\"{} dans la liste entre les deux parents 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gen\+Parent1} & 1er genome a evaluer \\
+\hline
+{\em gen\+Parent2} & 2eme genome a evaluer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_abaffc777e83e14be746e97f0b7b30738}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_abaffc777e83e14be746e97f0b7b30738}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!default@{default}}
+\index{default@{default}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{default()}{default()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+default (\begin{DoxyParamCaption}\item[{}]{type = {\ttfamily \char`\"{}normal\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+fonction qui initialise un genome avec des connexions definies 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a07ebf660dfb9962a4ceeb078537c5fb1}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a07ebf660dfb9962a4ceeb078537c5fb1}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+connexion@{get\+\_\+connexion}}
+\index{get\+\_\+connexion@{get\+\_\+connexion}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+connexion()}{get\_connexion()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+connexion (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{id }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne une connexion en fonction de son ID 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID de la connexion a chercher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a0df62962a25e45a73c0a0a4a899b8573}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a0df62962a25e45a73c0a0a4a899b8573}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+list\+Connexions@{get\+\_\+list\+Connexions}}
+\index{get\+\_\+list\+Connexions@{get\+\_\+list\+Connexions}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+list\+Connexions()}{get\_listConnexions()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+list\+Connexions (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne la liste des connexions du genome 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a03932bb05e9e56b789930f8462e8cbc3}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a03932bb05e9e56b789930f8462e8cbc3}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+list\+Noeuds@{get\+\_\+list\+Noeuds}}
+\index{get\+\_\+list\+Noeuds@{get\+\_\+list\+Noeuds}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+list\+Noeuds()}{get\_listNoeuds()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+list\+Noeuds (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne la liste des noeuds du genome 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a8a5bbeda2d4dafaf999bf8d0a096157d}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a8a5bbeda2d4dafaf999bf8d0a096157d}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+max\+Num\+Innovation@{get\+\_\+max\+Num\+Innovation}}
+\index{get\+\_\+max\+Num\+Innovation@{get\+\_\+max\+Num\+Innovation}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+max\+Num\+Innovation()}{get\_maxNumInnovation()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+max\+Num\+Innovation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne le numero d\textquotesingle{}innovation le plus elever dans la liste 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a3ae6b59375d7cb648e6e65b299745136}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a3ae6b59375d7cb648e6e65b299745136}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+noeud@{get\+\_\+noeud}}
+\index{get\+\_\+noeud@{get\+\_\+noeud}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+noeud()}{get\_noeud()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+noeud (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{id }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne un noeud en fonction de son ID 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID du noeud a chercher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_aacf83c150a5222a2502737adadf41d6e}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_aacf83c150a5222a2502737adadf41d6e}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!get\+\_\+type\+\_\+noeud@{get\+\_\+type\+\_\+noeud}}
+\index{get\+\_\+type\+\_\+noeud@{get\+\_\+type\+\_\+noeud}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{get\+\_\+type\+\_\+noeud()}{get\_type\_noeud()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+get\+\_\+type\+\_\+noeud (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{id }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne le type d\textquotesingle{}un noeud en fonction de son ID 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID du noeud a chercher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_aa0ad761608127d6f8cdb4287149643fd}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_aa0ad761608127d6f8cdb4287149643fd}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!melange\+\_\+genome@{melange\+\_\+genome}}
+\index{melange\+\_\+genome@{melange\+\_\+genome}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{melange\+\_\+genome()}{melange\_genome()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+melange\+\_\+genome (\begin{DoxyParamCaption}\item[{}]{gen\+Parent1,  }\item[{}]{gen\+Parent2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+fonction qui renvoie une genome qui est le melange de deux autres genomes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gen\+Parent1} & 1er parent du genome qui sera retourne \\
+\hline
+{\em gen\+Parent2} & 2eme parent du genome qui sera retourne \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_a361c26903fa6bc978955402580c8d1b2}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_a361c26903fa6bc978955402580c8d1b2}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!random\+\_\+connexion@{random\+\_\+connexion}}
+\index{random\+\_\+connexion@{random\+\_\+connexion}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{random\+\_\+connexion()}{random\_connexion()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+random\+\_\+connexion (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{nb\+Co = {\ttfamily Constantes.Cons.get(\char`\"{}DEFAULT\+\_\+N\+\_\+CONNEC\char`\"{})} }\end{DoxyParamCaption})}
+
+
+
+fonction qui ajoute une connexion aleatoire 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1genome_1_1_genome_aed3a26c1418ec0b34d654c6f9464b709}\label{classsrc_1_1_i_a_1_1genome_1_1_genome_aed3a26c1418ec0b34d654c6f9464b709}} 
+\index{src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}!remplace\+\_\+connec@{remplace\+\_\+connec}}
+\index{remplace\+\_\+connec@{remplace\+\_\+connec}!src\+::\+I\+A\+::genome\+::\+Genome@{src\+::\+I\+A\+::genome\+::\+Genome}}
+\subsubsection{\texorpdfstring{remplace\+\_\+connec()}{remplace\_connec()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+genome.\+Genome.\+remplace\+\_\+connec (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{new\+Connec }\end{DoxyParamCaption})}
+
+
+
+fonction qui remplace une connexion dans la liste 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Connec} & Connexion qui remplacera la precedente dans la liste \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/aurelien/\+Bureau/mathymartinet/src/\+I\+A/\hyperlink{genome_8py}{genome.\+py}\end{DoxyCompactItemize}

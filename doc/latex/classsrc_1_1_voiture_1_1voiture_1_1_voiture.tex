@@ -1,0 +1,372 @@
+\hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture}{}\section{src.\+Voiture.\+voiture.\+Voiture Class Reference}
+\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture}\index{src.\+Voiture.\+voiture.\+Voiture@{src.\+Voiture.\+voiture.\+Voiture}}
+
+
+documentation de la classe voiture\+: gere tous les evenements lies a une voiture, ainsi que tous ses parametres  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f36479e14f3127db26dfc408a626edf}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afbb9cab19661eb3eb38def8c49c14dc3}{genome}, posx=0, posy=0, \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a808deb309ce297eb0493e9f6239a2e23}{angle}=0, \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2757624ed52879d1e8b5ea742b2146e2}{volant}=0, \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aaabd3a8eee61977f2e0eb8e33c6ffe10}{vitesse}=0)
+\begin{DoxyCompactList}\small\item\em constructeur de la classe qui initialise toutes les variables d\textquotesingle{}une voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a0800c81e2f1de13938bf6b61787dc781}{accelerer} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui gere l\textquotesingle{}acceleration de la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af163e07ac6317ff655531984a56b0f26}{freiner} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui gere la deceleration de la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac65408426057b65e6e1da05ae56befd5}{tourne\+\_\+gauche} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui permet de faire tourner a gauche la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ad32e5359e63f20d848ef161a6926a082}{tourne\+\_\+droite} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui permet de faire tourner a gauche la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aacae4707fab946e85c1a4599f920dd47}{update} (self, duree)
+\begin{DoxyCompactList}\small\item\em fonction qui met a jour les parametres de la voiture et ses capteurs \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a67f1af78ea71b0d6ccfcfe272a6be4c0}{meurt} (self)
+\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_adf2c8f1fe4e59541e49ad034ebb15c99}{get\+Pos} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne la position de la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a3df91fedd037cbd745bfeffb1afd2a32}{get\+Angle} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne l\textquotesingle{}angle de la voiture \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afd663041ade2522f1137b38c78929f63}{get\+Dist\+Retour\+Capt} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne une liste comportant toutes les distances auxquelles les capteurs detetectent un mur \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4d2b74b448d16d053ac5908fa8598885}{calcul\+Score} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui calcul le score de la voiture en fonction de la distance qu\textquotesingle{}elle a parcouru et du temps qu\textquotesingle{}elle a survecu \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4dad4941537e1670a824a91e7bcde38d}{calcul\+Distance} (self, ptA, ptB)
+\begin{DoxyCompactList}\small\item\em fonction qui calcul la distance entre deux points \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a1393a9fafd59f721506f550061de7a69}{get\+\_\+valeurs\+\_\+pour\+\_\+reseau} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aedd6fbfe283ac4e8dbc80ae1ff5aeeb9}{check\+Collision\+Mur} (self)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac34e11869dc117239962990aa07dd980}{pos}
+\begin{DoxyCompactList}\small\item\em position de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a808deb309ce297eb0493e9f6239a2e23}{angle}
+\begin{DoxyCompactList}\small\item\em angle de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2757624ed52879d1e8b5ea742b2146e2}{volant}
+\begin{DoxyCompactList}\small\item\em volant de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aaabd3a8eee61977f2e0eb8e33c6ffe10}{vitesse}
+\begin{DoxyCompactList}\small\item\em vitesse de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a206fd3cee2decf168d69061c7c439073}{list\+Capt}
+\begin{DoxyCompactList}\small\item\em liste des capteurs de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2612ae8592f5ede03ae7c2f02b356dc2}{duree\+Vie}
+\begin{DoxyCompactList}\small\item\em instant auquel la voiture a ete cree \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af5a21074454f983bc59e93ab09b44eda}{vivant}
+\begin{DoxyCompactList}\small\item\em etat vivant \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f8b17c1a34732cb2b26df5a79371e58}{capteur\+Courant}
+\begin{DoxyCompactList}\small\item\em capteur circuit auquel est actuellement la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a8e621a5d8bd2896829e44ccecaa672cb}{capteur\+Suivant}
+\begin{DoxyCompactList}\small\item\em prochain capteur circuit que doit atteindre la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_add678a941c9d0c9222a18bd337bd77da}{score\+Voiture}
+\begin{DoxyCompactList}\small\item\em score de la voiture \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a18260cb22364f4a2a253c528701a26c1}{dist\+Capteur\+Courant}
+\begin{DoxyCompactList}\small\item\em distance par rapport au capteur circuit courant \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ab713c721352d5b00f07c38c7307aca}{dist\+Capteur\+Suivant}
+\begin{DoxyCompactList}\small\item\em distance par rapport au prochain capteur circuit \end{DoxyCompactList}\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afbb9cab19661eb3eb38def8c49c14dc3}{genome}
+\item 
+\hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ac2ed3c2a0de3b5eed4cdeae91b2123}{calc\+Neuro}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+list \hyperlink{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ab8c5d7ecd3f9be4d77e0717c079fe8d1}{liste\+Capteurs\+Circuit} = \mbox{[}(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)\mbox{]}
+\begin{DoxyCompactList}\small\item\em variable commune a toutes les voitures, qui est une liste de capteurs \char`\"{}checkpoints\char`\"{} presents sur le circuit \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+documentation de la classe voiture\+: gere tous les evenements lies a une voiture, ainsi que tous ses parametres 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f36479e14f3127db26dfc408a626edf}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f36479e14f3127db26dfc408a626edf}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{genome,  }\item[{}]{posx = {\ttfamily 0},  }\item[{}]{posy = {\ttfamily 0},  }\item[{}]{angle = {\ttfamily 0},  }\item[{}]{volant = {\ttfamily 0},  }\item[{}]{vitesse = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+constructeur de la classe qui initialise toutes les variables d\textquotesingle{}une voiture 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a0800c81e2f1de13938bf6b61787dc781}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a0800c81e2f1de13938bf6b61787dc781}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!accelerer@{accelerer}}
+\index{accelerer@{accelerer}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{accelerer()}{accelerer()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+accelerer (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui gere l\textquotesingle{}acceleration de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4dad4941537e1670a824a91e7bcde38d}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4dad4941537e1670a824a91e7bcde38d}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!calcul\+Distance@{calcul\+Distance}}
+\index{calcul\+Distance@{calcul\+Distance}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{calcul\+Distance()}{calculDistance()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+calcul\+Distance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ptA,  }\item[{}]{ptB }\end{DoxyParamCaption})}
+
+
+
+fonction qui calcul la distance entre deux points 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptA} & premier point \\
+\hline
+{\em ptB} & un second point \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4d2b74b448d16d053ac5908fa8598885}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a4d2b74b448d16d053ac5908fa8598885}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!calcul\+Score@{calcul\+Score}}
+\index{calcul\+Score@{calcul\+Score}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{calcul\+Score()}{calculScore()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+calcul\+Score (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui calcul le score de la voiture en fonction de la distance qu\textquotesingle{}elle a parcouru et du temps qu\textquotesingle{}elle a survecu 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aedd6fbfe283ac4e8dbc80ae1ff5aeeb9}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aedd6fbfe283ac4e8dbc80ae1ff5aeeb9}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!check\+Collision\+Mur@{check\+Collision\+Mur}}
+\index{check\+Collision\+Mur@{check\+Collision\+Mur}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{check\+Collision\+Mur()}{checkCollisionMur()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+check\+Collision\+Mur (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af163e07ac6317ff655531984a56b0f26}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af163e07ac6317ff655531984a56b0f26}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!freiner@{freiner}}
+\index{freiner@{freiner}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{freiner()}{freiner()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+freiner (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui gere la deceleration de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a1393a9fafd59f721506f550061de7a69}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a1393a9fafd59f721506f550061de7a69}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!get\+\_\+valeurs\+\_\+pour\+\_\+reseau@{get\+\_\+valeurs\+\_\+pour\+\_\+reseau}}
+\index{get\+\_\+valeurs\+\_\+pour\+\_\+reseau@{get\+\_\+valeurs\+\_\+pour\+\_\+reseau}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{get\+\_\+valeurs\+\_\+pour\+\_\+reseau()}{get\_valeurs\_pour\_reseau()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+get\+\_\+valeurs\+\_\+pour\+\_\+reseau (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne un dictionnaire comportant toutes les valeurs de la voiture a evaluer par le reseau de neuronnes 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a3df91fedd037cbd745bfeffb1afd2a32}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a3df91fedd037cbd745bfeffb1afd2a32}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!get\+Angle@{get\+Angle}}
+\index{get\+Angle@{get\+Angle}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{get\+Angle()}{getAngle()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+get\+Angle (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne l\textquotesingle{}angle de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afd663041ade2522f1137b38c78929f63}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afd663041ade2522f1137b38c78929f63}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!get\+Dist\+Retour\+Capt@{get\+Dist\+Retour\+Capt}}
+\index{get\+Dist\+Retour\+Capt@{get\+Dist\+Retour\+Capt}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{get\+Dist\+Retour\+Capt()}{getDistRetourCapt()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+get\+Dist\+Retour\+Capt (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne une liste comportant toutes les distances auxquelles les capteurs detetectent un mur 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_adf2c8f1fe4e59541e49ad034ebb15c99}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_adf2c8f1fe4e59541e49ad034ebb15c99}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!get\+Pos@{get\+Pos}}
+\index{get\+Pos@{get\+Pos}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{get\+Pos()}{getPos()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+get\+Pos (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui retourne la position de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a67f1af78ea71b0d6ccfcfe272a6be4c0}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a67f1af78ea71b0d6ccfcfe272a6be4c0}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!meurt@{meurt}}
+\index{meurt@{meurt}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{meurt()}{meurt()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+meurt (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ad32e5359e63f20d848ef161a6926a082}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ad32e5359e63f20d848ef161a6926a082}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!tourne\+\_\+droite@{tourne\+\_\+droite}}
+\index{tourne\+\_\+droite@{tourne\+\_\+droite}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{tourne\+\_\+droite()}{tourne\_droite()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+tourne\+\_\+droite (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui permet de faire tourner a gauche la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac65408426057b65e6e1da05ae56befd5}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac65408426057b65e6e1da05ae56befd5}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!tourne\+\_\+gauche@{tourne\+\_\+gauche}}
+\index{tourne\+\_\+gauche@{tourne\+\_\+gauche}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{tourne\+\_\+gauche()}{tourne\_gauche()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+tourne\+\_\+gauche (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui permet de faire tourner a gauche la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aacae4707fab946e85c1a4599f920dd47}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aacae4707fab946e85c1a4599f920dd47}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!update@{update}}
+\index{update@{update}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily def src.\+Voiture.\+voiture.\+Voiture.\+update (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{duree }\end{DoxyParamCaption})}
+
+
+
+fonction qui met a jour les parametres de la voiture et ses capteurs 
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a808deb309ce297eb0493e9f6239a2e23}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a808deb309ce297eb0493e9f6239a2e23}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!angle@{angle}}
+\index{angle@{angle}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{angle}{angle}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+angle}
+
+
+
+angle de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ac2ed3c2a0de3b5eed4cdeae91b2123}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ac2ed3c2a0de3b5eed4cdeae91b2123}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!calc\+Neuro@{calc\+Neuro}}
+\index{calc\+Neuro@{calc\+Neuro}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{calc\+Neuro}{calcNeuro}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+calc\+Neuro}
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f8b17c1a34732cb2b26df5a79371e58}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5f8b17c1a34732cb2b26df5a79371e58}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!capteur\+Courant@{capteur\+Courant}}
+\index{capteur\+Courant@{capteur\+Courant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{capteur\+Courant}{capteurCourant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+capteur\+Courant}
+
+
+
+capteur circuit auquel est actuellement la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a8e621a5d8bd2896829e44ccecaa672cb}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a8e621a5d8bd2896829e44ccecaa672cb}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!capteur\+Suivant@{capteur\+Suivant}}
+\index{capteur\+Suivant@{capteur\+Suivant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{capteur\+Suivant}{capteurSuivant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+capteur\+Suivant}
+
+
+
+prochain capteur circuit que doit atteindre la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a18260cb22364f4a2a253c528701a26c1}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a18260cb22364f4a2a253c528701a26c1}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!dist\+Capteur\+Courant@{dist\+Capteur\+Courant}}
+\index{dist\+Capteur\+Courant@{dist\+Capteur\+Courant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{dist\+Capteur\+Courant}{distCapteurCourant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+dist\+Capteur\+Courant}
+
+
+
+distance par rapport au capteur circuit courant 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ab713c721352d5b00f07c38c7307aca}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a5ab713c721352d5b00f07c38c7307aca}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!dist\+Capteur\+Suivant@{dist\+Capteur\+Suivant}}
+\index{dist\+Capteur\+Suivant@{dist\+Capteur\+Suivant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{dist\+Capteur\+Suivant}{distCapteurSuivant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+dist\+Capteur\+Suivant}
+
+
+
+distance par rapport au prochain capteur circuit 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2612ae8592f5ede03ae7c2f02b356dc2}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2612ae8592f5ede03ae7c2f02b356dc2}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!duree\+Vie@{duree\+Vie}}
+\index{duree\+Vie@{duree\+Vie}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{duree\+Vie}{dureeVie}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+duree\+Vie}
+
+
+
+instant auquel la voiture a ete cree 
+
+temps de vie de la voiture \mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afbb9cab19661eb3eb38def8c49c14dc3}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_afbb9cab19661eb3eb38def8c49c14dc3}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!genome@{genome}}
+\index{genome@{genome}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{genome}{genome}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+genome}
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a206fd3cee2decf168d69061c7c439073}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a206fd3cee2decf168d69061c7c439073}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!list\+Capt@{list\+Capt}}
+\index{list\+Capt@{list\+Capt}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{list\+Capt}{listCapt}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+list\+Capt}
+
+
+
+liste des capteurs de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ab8c5d7ecd3f9be4d77e0717c079fe8d1}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ab8c5d7ecd3f9be4d77e0717c079fe8d1}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!liste\+Capteurs\+Circuit@{liste\+Capteurs\+Circuit}}
+\index{liste\+Capteurs\+Circuit@{liste\+Capteurs\+Circuit}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{liste\+Capteurs\+Circuit}{listeCapteursCircuit}}
+{\footnotesize\ttfamily list src.\+Voiture.\+voiture.\+Voiture.\+liste\+Capteurs\+Circuit = \mbox{[}(182,130), (525,197), (715, 295), (795,447), (525, 510), (282, 490),(395,346),(235,280)\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+variable commune a toutes les voitures, qui est une liste de capteurs \char`\"{}checkpoints\char`\"{} presents sur le circuit 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac34e11869dc117239962990aa07dd980}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_ac34e11869dc117239962990aa07dd980}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!pos@{pos}}
+\index{pos@{pos}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+pos}
+
+
+
+position de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_add678a941c9d0c9222a18bd337bd77da}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_add678a941c9d0c9222a18bd337bd77da}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!score\+Voiture@{score\+Voiture}}
+\index{score\+Voiture@{score\+Voiture}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{score\+Voiture}{scoreVoiture}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+score\+Voiture}
+
+
+
+score de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aaabd3a8eee61977f2e0eb8e33c6ffe10}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_aaabd3a8eee61977f2e0eb8e33c6ffe10}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!vitesse@{vitesse}}
+\index{vitesse@{vitesse}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{vitesse}{vitesse}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+vitesse}
+
+
+
+vitesse de la voiture 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af5a21074454f983bc59e93ab09b44eda}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_af5a21074454f983bc59e93ab09b44eda}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!vivant@{vivant}}
+\index{vivant@{vivant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{vivant}{vivant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+vivant}
+
+
+
+etat vivant 
+
+\mbox{\Hypertarget{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2757624ed52879d1e8b5ea742b2146e2}\label{classsrc_1_1_voiture_1_1voiture_1_1_voiture_a2757624ed52879d1e8b5ea742b2146e2}} 
+\index{src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}!volant@{volant}}
+\index{volant@{volant}!src\+::\+Voiture\+::voiture\+::\+Voiture@{src\+::\+Voiture\+::voiture\+::\+Voiture}}
+\subsubsection{\texorpdfstring{volant}{volant}}
+{\footnotesize\ttfamily src.\+Voiture.\+voiture.\+Voiture.\+volant}
+
+
+
+volant de la voiture 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/aurelien/\+Bureau/mathymartinet/src/\+Voiture/\hyperlink{voiture_8py}{voiture.\+py}\end{DoxyCompactItemize}

@@ -42,9 +42,10 @@ class Capteur:
         self.DistMur = math.sqrt((x-self.posActuVoiture[0]) * (x-self.posActuVoiture[0])
                                  + (y-self.posActuVoiture[1]) * (y-self.posActuVoiture[1]))
 
-    def getDistCapteur(self): #retourne la distance d'un capteur par rapport au mur le plus proche
+    ## retourne la distance d'un capteur par rapport au mur le plus proche
+    def getDistCapteur(self): 
         return self.DistMur
 
-
+    ## met a jour la position tampon de la voiture
     def setPosActuVoiture(self,val):
         self.posActuVoiture = val

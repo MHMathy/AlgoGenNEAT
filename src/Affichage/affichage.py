@@ -136,8 +136,6 @@ class Affichage:
     ## fonction qui gere l'affichage des differents elements du programme
     def draw(self,glob):
 
-
-
         listPosVoiture = []
         self.screen.blit(self.circuit,(0,0))
         self.screen.blit(self.imageBtn,self.rectBtn)
@@ -295,16 +293,15 @@ class Affichage:
                     self.demarrer = True
                     return True
 
+    ## fonction qui simplifie l'ecriture sur la fenetre sdl
     def text(self,surface,text, x, y,police,size=1, couleur=(0,0,0)):
         text = police.render(text, size,couleur)
         rect = text.get_rect()
         rect.center =(x,y)
         surface.blit(text,rect)
 
-
+    ## fonction d'affichage du genome le plus performant lors de la derniere generation
     def drawGenome(self,glob):
-
-
 
         pos = []
         posN = {}
@@ -343,8 +340,7 @@ class Affichage:
             colc = [50,50,50]
             pygame.draw.line(self.surf2,(0,0,0),posN.get(cout),posN.get(cin),int(connec.get_poids()*2)+1)
 
-
-
+    ## fonction qui gere le deroulement global du programme
     def boucleAff(self, glob):
 
         while True:

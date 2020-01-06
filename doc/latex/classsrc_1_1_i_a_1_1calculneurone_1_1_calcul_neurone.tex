@@ -1,0 +1,130 @@
+\hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone}{}\section{src.\+I\+A.\+calculneurone.\+Calcul\+Neurone Class Reference}
+\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone}\index{src.\+I\+A.\+calculneurone.\+Calcul\+Neurone@{src.\+I\+A.\+calculneurone.\+Calcul\+Neurone}}
+
+
+classe Calcul\+Neuronne qui va se charger de calculer la valeur de sortie de chaque neurone pour obtenir les valeurs de sortie  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_afe5ce9166d3419eb900db1d3a3801ba7}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a72f88c170dedc7b9fff3200986e5dafc}{genome})
+\begin{DoxyCompactList}\small\item\em contructeur qui assigne un genome et établie un lien entre chaque neurone \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a5a2eac40e09b30ac192f13c5486c54ad}{setlist\+Lien} (self)
+\begin{DoxyCompactList}\small\item\em fonction qui va retourner une liste indiquant tout les dépandances entre les neurones pour toutes connections vers un neurone, on retient qu\textquotesingle{}il aura besoin de chaque neurone en entrée \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_ad7667fe4e8a57f0fb89766c1d4db9488}{calc\+Valeur\+Noeud} (self, input\+Val)
+\begin{DoxyCompactList}\small\item\em fonction qui va calculer la valeur de chaques neurones on fonction des neurones dont il dépend \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a099b391595178f8212b417467aa066a9}{calc\+Couche\+Noeud} (index, liste)
+\begin{DoxyCompactList}\small\item\em cherche à déterminer les dépendances d\textquotesingle{}un seul neurone \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a85f9c2a232514510494df22fad8076f3}{sigmoid} (x)
+\begin{DoxyCompactList}\small\item\em fonciton sigmoid pour calculer la sortie à partir de la somme des valeurs \end{DoxyCompactList}\item 
+def \hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a06e27efe9cfd0bd879634946685299b5}{test\+Regression} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a72f88c170dedc7b9fff3200986e5dafc}{genome}
+\item 
+\hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a47ce8bc94af0536f22b9a55c7bf874d2}{list\+Lien}
+\item 
+\hyperlink{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a4a217721543355649c6f25bbc50b6800}{list\+Valeur}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+classe Calcul\+Neuronne qui va se charger de calculer la valeur de sortie de chaque neurone pour obtenir les valeurs de sortie 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_afe5ce9166d3419eb900db1d3a3801ba7}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_afe5ce9166d3419eb900db1d3a3801ba7}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{genome }\end{DoxyParamCaption})}
+
+
+
+contructeur qui assigne un genome et établie un lien entre chaque neurone 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a099b391595178f8212b417467aa066a9}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a099b391595178f8212b417467aa066a9}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!calc\+Couche\+Noeud@{calc\+Couche\+Noeud}}
+\index{calc\+Couche\+Noeud@{calc\+Couche\+Noeud}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{calc\+Couche\+Noeud()}{calcCoucheNoeud()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+calc\+Couche\+Noeud (\begin{DoxyParamCaption}\item[{}]{index,  }\item[{}]{liste }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+cherche à déterminer les dépendances d\textquotesingle{}un seul neurone 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_ad7667fe4e8a57f0fb89766c1d4db9488}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_ad7667fe4e8a57f0fb89766c1d4db9488}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!calc\+Valeur\+Noeud@{calc\+Valeur\+Noeud}}
+\index{calc\+Valeur\+Noeud@{calc\+Valeur\+Noeud}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{calc\+Valeur\+Noeud()}{calcValeurNoeud()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+calc\+Valeur\+Noeud (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{input\+Val }\end{DoxyParamCaption})}
+
+
+
+fonction qui va calculer la valeur de chaques neurones on fonction des neurones dont il dépend 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prend} & en entrée les valeurs fournie par la voiture \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a5a2eac40e09b30ac192f13c5486c54ad}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a5a2eac40e09b30ac192f13c5486c54ad}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!setlist\+Lien@{setlist\+Lien}}
+\index{setlist\+Lien@{setlist\+Lien}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{setlist\+Lien()}{setlistLien()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+setlist\+Lien (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+fonction qui va retourner une liste indiquant tout les dépandances entre les neurones pour toutes connections vers un neurone, on retient qu\textquotesingle{}il aura besoin de chaque neurone en entrée 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a85f9c2a232514510494df22fad8076f3}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a85f9c2a232514510494df22fad8076f3}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!sigmoid@{sigmoid}}
+\index{sigmoid@{sigmoid}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{sigmoid()}{sigmoid()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+sigmoid (\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+fonciton sigmoid pour calculer la sortie à partir de la somme des valeurs 
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a06e27efe9cfd0bd879634946685299b5}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a06e27efe9cfd0bd879634946685299b5}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!test\+Regression@{test\+Regression}}
+\index{test\+Regression@{test\+Regression}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{test\+Regression()}{testRegression()}}
+{\footnotesize\ttfamily def src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+test\+Regression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a72f88c170dedc7b9fff3200986e5dafc}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a72f88c170dedc7b9fff3200986e5dafc}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!genome@{genome}}
+\index{genome@{genome}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{genome}{genome}}
+{\footnotesize\ttfamily src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+genome}
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a47ce8bc94af0536f22b9a55c7bf874d2}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a47ce8bc94af0536f22b9a55c7bf874d2}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!list\+Lien@{list\+Lien}}
+\index{list\+Lien@{list\+Lien}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{list\+Lien}{listLien}}
+{\footnotesize\ttfamily src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+list\+Lien}
+
+\mbox{\Hypertarget{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a4a217721543355649c6f25bbc50b6800}\label{classsrc_1_1_i_a_1_1calculneurone_1_1_calcul_neurone_a4a217721543355649c6f25bbc50b6800}} 
+\index{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}!list\+Valeur@{list\+Valeur}}
+\index{list\+Valeur@{list\+Valeur}!src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone@{src\+::\+I\+A\+::calculneurone\+::\+Calcul\+Neurone}}
+\subsubsection{\texorpdfstring{list\+Valeur}{listValeur}}
+{\footnotesize\ttfamily src.\+I\+A.\+calculneurone.\+Calcul\+Neurone.\+list\+Valeur}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/aurelien/\+Bureau/mathymartinet/src/\+I\+A/\hyperlink{calculneurone_8py}{calculneurone.\+py}\end{DoxyCompactItemize}

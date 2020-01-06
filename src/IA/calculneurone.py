@@ -7,8 +7,6 @@ import operator
 import math
 import numpy as np
 
-
-
 ## classe CalculNeuronne qui va se charger de calculer la valeur de sortie de chaque neurone pour obtenir les valeurs de sortie
 #
 class CalculNeurone:

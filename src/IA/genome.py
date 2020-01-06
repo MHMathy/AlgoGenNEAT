@@ -12,6 +12,7 @@ class Genome:
         self.__listConnexions = []
         self.__listNoeuds = []
 
+    ## fonction qui initialise un genome avec des connexions definies
     @staticmethod
     def default(type="normal"):
         l = []
@@ -43,6 +44,7 @@ class Genome:
 
         return g
 
+    ## fonction qui ajoute une connexion aleatoire
     def random_connexion(self,nbCo=Constantes.Cons.get("DEFAULT_N_CONNEC")):
         for i in range(nbCo):
             self.ajout_connec_mutation()

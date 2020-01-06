@@ -2,8 +2,10 @@ from .genome import Genome
 from Outil.outil import Constantes
 import random
 
-
+## classe Generation qui va permettre de derouler une generation
 class Generation:
+
+    ##constructeur de la classe
     def __init__ (self,genDef):
         self.taillePopulation = Constantes.Cons.get("TAILLE_POPULATION")
 
@@ -17,7 +19,7 @@ class Generation:
 
         self.maxAptitude = 0
 
-
+    ## fonction evaluer, qui va gerer le classement entre especes des differents genomes
     def evaluer(self,dictScore):
         print("commence evaluer")
 
@@ -54,9 +56,6 @@ class Generation:
                 newEspece = Espece(g)
                 self.listEspeces.append(newEspece)
                 self.lienGenomeEspece.update({g:newEspece})
-
-
-
 
         #Evaluer les genomes et assigner les aptitudes
         for g in self.listGenomes:
@@ -119,10 +118,11 @@ class Generation:
         gmax[0].aff_genome()
 
 
+    ## fonction qui renvoie la liste de genomes
     def get_listGenomes(self):
         return self.listGenomes
 
-
+    ## fonction qui retourne une espece aleatoire, selon l'aptitude maximale des differentes especes
     def get_random_espece(self):
         maxApt = max(esp.aptitudeTotalAjuster for esp in self.listEspeces)
         r = random.random()*maxApt
@@ -132,6 +132,7 @@ class Generation:
             if conteApt >=r:
                 return e
 
+    ## fonction qui retourne un genome aleatoire, selon l'aptitude maximale des genomes
     def get_random_genome(self,esp):
         maxApt = max(gen.aptitude for gen in esp.aptitudePopulation)
         r = random.random()*maxApt
@@ -143,13 +144,16 @@ class Generation:
                 return aptGen.genome
 
 
-
+## classe qui gere l'aptitude des genomes
 class AptitudeGenome:
 
+    ## constructeur de la classe
+    # @param scoreAptitude score obtenu par le genome
     def __init__(self,genome, scoreAptitude):
         self.genome = genome
         self.aptitude = scoreAptitude
 
+    ## fonction qui regarde si le genome 1 a un meilleur score que le genome 2
     @staticmethod
     def comparer(aptG1,aptG2):
         if aptG1.aptitude > aptG2.aptitude :
@@ -159,9 +163,11 @@ class AptitudeGenome:
         else:
             return 0
 
-
+## classe qui gere les especes
 class Espece:
 
+    ## constructeur de la classe
+    # @param mascotte genome de reference
     def __init__(self,mascotte):
         self.mascotte = mascotte
         self.membres = []
@@ -169,9 +175,11 @@ class Espece:
         self.aptitudePopulation = []
         self.aptitudeTotalAjuster = 0
 
+    ## fonction qui incremente l'aptitude totale
     def ajout_aptitude_ajuster(self,aptAjuster):
         self.aptitudeTotalAjuster += aptAjuster
 
+    ## fonction qui vide les différents objets pour la generation suivante
     def reset(self):
         self.mascotte = random.choice(self.membres)
         self.membres.clear()
