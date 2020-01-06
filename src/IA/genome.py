@@ -20,31 +20,28 @@ class Genome:
         g = Genome()
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        #l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        #l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        #l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        #l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        if type == "normal":
-            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-            l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
+        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         for n in l:
             g.ajout_noeud(n)
 
-        #g.ajout_connec(ConnexionGene(3,1,-0.2,True,Innovation.get_new_innovation_connec(3,1)))
-        #g.ajout_connec(ConnexionGene(4,1,0.015,True,Innovation.get_new_innovation_connec(4,1)))
-        #g.ajout_connec(ConnexionGene(5,2,0.02,True,Innovation.get_new_innovation_connec(5,2)))
-
         g.ajout_connec(ConnexionGene(3,1,1,True,Innovation.get_new_innovation_connec(3,1)))
         g.ajout_connec(ConnexionGene(4,1,1,True,Innovation.get_new_innovation_connec(4,1)))
-        g.ajout_connec(ConnexionGene(5,2,1,True,Innovation.get_new_innovation_connec(5,2)))
 
-        #g.random_connexion()
+        g.ajout_connec(ConnexionGene(5,2,1,True,Innovation.get_new_innovation_connec(5,2)))
+        g.ajout_connec(ConnexionGene(6,2,1,True,Innovation.get_new_innovation_connec(6,2)))
+        #g.ajout_connec(ConnexionGene(7,2,1,True,Innovation.get_new_innovation_connec(7,2)))
+        #g.ajout_connec(ConnexionGene(8,2,1,True,Innovation.get_new_innovation_connec(8,2)))
+        #g.ajout_connec(ConnexionGene(9,2,1,True,Innovation.get_new_innovation_connec(9,2)))
+        #g.ajout_connec(ConnexionGene(10,2,1,True,Innovation.get_new_innovation_connec(10,2)))
+        #g.ajout_connec(ConnexionGene(11,1,1,True,Innovation.get_new_innovation_connec(11,1)))
 
         return g
 
@@ -132,7 +129,7 @@ class Genome:
         maxEssai = 100
         succes = False
         while essai<=maxEssai and succes==False:
-            #print("on essaie")
+
             essai += 1
             while True:
                 noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
@@ -150,22 +147,19 @@ class Genome:
             if [noeud[1].get_id(),noeud[0].get_id()] in Innovation.listC:
                 continue #Si la connexion exist deja
 
-            #print("on est la")
+
             prochain = False
             for connec in self.__listConnexions:
-               # print()
-                #print(noeud[0].get_id()," et ",noeud[1].get_id())
-                #print(connec.get_noeudin()," et ",connec.get_noeudout())
                 if connec.get_noeudin() == noeud[0].get_id() and connec.get_noeudout() == noeud[1].get_id():
-                    #print("break")
                     prochain = True #Si la connexion exist deja dans le genome
+
             if prochain:
                 continue
-            #print("on ajoute")
+
             newConnec = ConnexionGene(noeud[0].get_id(),noeud[1].get_id(),1,True,Innovation.get_new_innovation_connec(noeud[0].get_id(),noeud[1].get_id()))
             self.ajout_connec(newConnec)
             succes = True
-        #print("on a fini")
+
         if succes == False:
             print("Ajout de connexion impossible")
 
@@ -199,7 +193,7 @@ class Genome:
         noeudtemp = []
         connectemp = []
 
-        # ce sera pas dans l'ordre donc bouge toi le cul si ça te trigger
+
         for noeudp1 in genParent1.get_listNoeuds():
             noeudtemp.append(noeudp1.get_id())
             newGenome.ajout_noeud(noeudp1.copy_noeud())
@@ -270,8 +264,7 @@ class Genome:
             elif ListeGenParent2[i] != 0 and ListeGenParent2[i].get_innovation() == i and i > MaxInnovationParent1 :
                 exces += 1
 
-        #print(moyennePoids)
-        #print(matchParents)
+
         moyennePoids /= matchParents
         return moyennePoids,exces,disjoint
 
@@ -283,107 +276,4 @@ class Genome:
         (m,e,d) = Genome.count_moyenne_exces_disjoint(genome1,genome2)
         return (Constantes.Cons.get("DISTANCE_C1")*e/1)+ (Constantes.Cons.get("DISTANCE_C2")*d/1) + Constantes.Cons.get("DISTANCE_C3")*m
 
-    ## fonction qui teste les differentes fonctions de la classe
-    @staticmethod
-    def testRegression():
-
-        print("initialisation du genome")
-        G1 = Genome()
-        G2 = Genome()
-        if G1.get_listNoeuds() != [] or G1.get_listConnexions() != []:
-            print("echec de l'initialisation du genome")
-            return -1
-        print("initialisation reussie")
-
-        l = []
-
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-
-        print("id 1:",l[0].get_id())
-        print("id 2:",l[1].get_id())
-
-        for n in l:
-            G1.ajout_noeud(n)
-            G2.ajout_noeud(n)
-
-        if len(G1.get_listNoeuds()) != 5:
-            print("probleme lors de l'ajout d'un noeud")
-            return -1
-        print("tous les noeuds ont ete ajoute")
-
-        while len(G1.get_listConnexions())<3:
-            G1.ajout_connec_mutation()
-        while len(G2.get_listConnexions())<5:
-            G2.ajout_connec_mutation()
-
-
-        if len(G1.get_listConnexions()) != 3:
-            print("probleme lors de la creation de la connexion entre les noeuds")
-            return -1
-        print("la connexion a ete ajoute")
-
-        for i in range(0,3):
-            G1.ajout_noeud_mutation()
-            G2.ajout_noeud_mutation()
-
-        #Trouver le bon nombre de connexion
-        """
-        if len(G1.get_listConnexions()) != 3 or len(G1.get_listNoeuds()) != 3:
-            print("erreur lors de l'ajout d'un noeud de mutation")
-            print("taille listConnexions:", len(G1.get_listConnexions()), " devrait etre egale a 3")
-            print("taille listNoeuds: ", len(G1.get_listNoeuds()), "devrait etre egale a 3")
-            return -1
-        print("le noeud de mutation a ete ajoute")
-        """
-        tmppoids = []
-        change = False
-        for connec in G1.get_listConnexions():
-            tmppoids.append(connec.get_poids())
-
-        #print(tmppoids)
-        G1.connec_mutation()
-        i = 0
-        for connec in G1.get_listConnexions():
-            if connec.get_poids() != tmppoids:
-                change = True
-            i +=1
-        if change == True:
-            print("Les valeurs des connexions ont changé")
-        else:
-            print("Aucun changement, connec mutaion ne marche pas")
-
-        vG1 = [[],[]]
-        vG2 = [[],[]]
-        for noeud in G1.get_listNoeuds():
-            vG1[0].append(noeud.get_id())
-        for connec in G1.get_listConnexions():
-            vG1[1].append([connec.get_noeudin(),connec.get_noeudout()])
-        print("liste noeud de G1:", vG1[0])
-        print("liste connexion de G1:", vG1[1])
-
-        for noeud in G2.get_listNoeuds():
-            vG2[0].append(noeud.get_id())
-        for connec in G2.get_listConnexions():
-            vG2[1].append([connec.get_noeudin(),connec.get_noeudout()])
-        print("liste noeud de G2:", vG2[0])
-        print("liste connexion de G2:", vG2[1])
-
-        G3 = Genome.melange_genome(G1,G2)
-        vG3 = [[],[]]
-        for noeud in G3.get_listNoeuds():
-            vG3[0].append(noeud.get_id())
-        for connec in G3.get_listConnexions():
-            vG3[1].append([connec.get_noeudin(),connec.get_noeudout()])
-        print("liste noeud de G3:", vG3[0])
-        print("liste connexion de G3:", vG3[1])
-
-        print("compatibilité: ",Genome.calc_distance_compatibilite(G1,G3))
-        print("fin du test de regression, passe avec succes")
-
-
-
-#Genome.testRegression()
+    

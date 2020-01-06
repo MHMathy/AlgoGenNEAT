@@ -21,13 +21,8 @@ class ProgGlobal:
         self.listMeilleurScore.clear()
         self.listVoiture.clear()
         self.dictGenScore.clear()
-        #genDef = [Genome.default("mini")]*Constantes.Cons.get("TAILLE_POPULATION")
-        genDef = Genome.default("mini")
-        #genDef.random_connexion(8)
 
-       #for i in range(Constantes.Cons.get("TAILLE_POPULATION")):
-            #g.random_connexion(5)
-         #   self.dictGenScore.update({genDef :0})
+        genDef = Genome.default()
 
         self.dictGenScore.update({genDef:0})
 
@@ -42,8 +37,6 @@ class ProgGlobal:
         print("GEN N°",len(self.listMeilleurScore)," Meilleur Score: ",self.listMeilleurScore[-1])
 
         self.generateurGenome.evaluer(self.dictGenScore)
-        if len(self.generateurGenome.get_listGenomes())!= Constantes.Cons.get("TAILLE_POPULATION"):
-            print("MEGA GROSSE ERREUR")
 
         for gen in self.generateurGenome.get_listGenomes():
             x = random.randint(190,210)
@@ -75,17 +68,10 @@ class ProgGlobal:
     def fin_cycle(self):
 
         for v in self.listVoiture:
-            #print(v.calculScore())
+
             score = v.calculScore()
 
             self.dictGenScore.update({v.genome : score})
-        #print(self.dictGenScore)
-
-
-       # for key, value in self.dictGenScore.items():
-        #    key.aff_genome()
-            #print("score: ", value)
-
 
         self.listMeilleurScore.append(max(self.dictGenScore.values()))
         self.listVoiture.clear()
@@ -96,7 +82,7 @@ class ProgGlobal:
             if v.vivant == True:
                 arret = False
 
-        #print("durActu: ",self.dureeCycle," const :",Constantes.Cons.get("DURREE_CYCLE_EN_S"))
+        
         if self.dureeCycle > Constantes.Cons.get("DURREE_CYCLE_EN_S"):
             print(self.dureeCycle)
             arret = True

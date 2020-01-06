@@ -1,11 +1,5 @@
 import pygame,sys
 from pygame.locals import *
-
-#from afficheGenome.afficheGenome import AfficheGenome
-#from IA.genome import Genome
-#from IA.noeudgene import NoeudGene
-#from IA.connexiongene import ConnexionGene
-#from Voiture.voiture import Voiture
 from Outil.outil import Constantes
 from ProgGlobal.progglobal import ProgGlobal
 import random
@@ -83,7 +77,7 @@ class Affichage:
 
         self.listRect = []
 
-        #load images
+        #charger images
         self.ImVoiture = pygame.image.load('../data/car.png')
         self.circuit = pygame.image.load('../data/course.png')
         self.imageBtn = pygame.image.load('../data/BtnVoirProgression.png')
@@ -137,20 +131,19 @@ class Affichage:
         if glob.listVoiture != []:
 
             for i in range(len(glob.listVoiture)):
-                #if glob.listVoiture[i].vivant == False:
-                #    continue
-
-                ImVoiture = pygame.transform.rotozoom(self.ImVoiture,glob.listVoiture[i].angle,0.05)
-
-                [x,y]=ImVoiture.get_rect().center
-
-                listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
-                #print("pos: ",listPosVoiture[i])
-
+                
                 if glob.listVoiture[i].vivant:
+                    ImVoiture = pygame.transform.rotozoom(self.ImVoiture,glob.listVoiture[i].angle,0.05)
+
+                    [x,y]=ImVoiture.get_rect().center
+
+                    listPosVoiture.append([glob.listVoiture[i].pos[0]-x,glob.listVoiture[i].pos[1]-y])
+
                     self.screen.blit(ImVoiture, listPosVoiture[i])
 
-                    #print("angle:",v.angle)
+                else:
+                    listPosVoiture.append(False)
+
                     """
                     pygame.draw.circle(self.screen,(255,0,0),glob.listVoiture[i].pos,3)
                     for capt in glob.listVoiture[i].listCapt:
@@ -166,7 +159,7 @@ class Affichage:
 
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
-        ########## AFFICHE GENOME ###########
+        ########## AFFICHE GENOME ##########################################################
 
         if self.boolAffGenome == True:
             pos = []
@@ -198,10 +191,7 @@ class Affichage:
                 pygame.draw.line(self.surf2,colc,posN.get(cin),posN.get(cout),connec.get_poids()*4)
                 self.screen.blit(self.surf2,(0,0))
 
-
-
-
-
+        # Affiche la courbe de progression du score
         if self.boolAffProgression == True:
             pygame.draw.line(self.surf, (0,0,0), (50, self.WINDOWHEIGHT),(50,0), 5)
             pygame.draw.line(self.surf, (0,0,0), (0, self.WINDOWHEIGHT - 20),(self.WINDOWWIDTH - 250, self.WINDOWHEIGHT - 20), 5)
@@ -337,8 +327,7 @@ class Affichage:
                         glob.update_once()
                         self.mainClock.tick(30)
 
-                    #if self.reset == True:
-                    #    ProgGlobal.__init__(glob)
+
                 self.surf2.fill((255,255,255))
                 glob.fin_cycle()
 

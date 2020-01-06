@@ -8,7 +8,7 @@ class Capteur:
     circuit = pygame.image.load("../data/course.png")
     circuit = pygame.transform.scale(circuit,(1000,650))
 
-    ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs
+    ## on recupere la position et l'angle de la voiture pour pouvoir faire les calculs ###########################################################################
 
 
 
@@ -29,7 +29,7 @@ class Capteur:
 
     ## fonction qui calcul la distance du mur le plus proche
     def checkMur(self): #regarde la position du mur le plus proche de chaque capteur
-        #return True #brainfuck du programme avant de corriger rotozoom
+
         self.posCapteur = self.posActuVoiture   #et calcul la distance entre la voiture et cette position
 
         self.CalcVecDir()
@@ -38,19 +38,6 @@ class Capteur:
 
             x = int(round(self.posCapteur[0]))
             y = int(round(self.posCapteur[1]))
-
-            assert x > 0 and x < 1000
-            assert y > 0 and y < 650
-            """
-            if x<0:
-                x=0
-            elif x>800:
-                x=800
-            elif y<0:
-                y=0
-            elif y>550:
-                y=550
-            """
 
 
             if self.circuit.get_at([x,y]) == (0,0,0): #on trouve du noir on sort de la boucle
