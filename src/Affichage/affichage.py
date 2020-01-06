@@ -46,7 +46,7 @@ class rectModifierVariables:
 
         Constantes.set_listConstantes(self.txtInit, tmp)
 
-    ## renvoie l'etat du rectant
+    ## renvoie l'etat du rectangle
     def getEtat(self):
         return self.__etat
 
@@ -66,9 +66,10 @@ class rectModifierVariables:
     def getValeur(self):
         return self.__valeur
 
-
+## classe Affichage qui gere tous les evenements d'affichage, la boucle du programme et les events
 class Affichage:
 
+    ## constructeur de la classe Affichage
     def __init__(self):
 
         pygame.init()
@@ -135,9 +136,7 @@ class Affichage:
             for j in range(self.WINDOWWIDTH-250):
                 Map.map[i][j] = self.circuit.get_at([j,i])
 
-
-
-
+    ## fonction qui gere l'affichage des differents elements du programme
     def draw(self,glob):
 
         listPosVoiture = []
@@ -207,10 +206,6 @@ class Affichage:
                     colc = [50,50,50]
                 pygame.draw.line(self.surf2,colc,posN.get(cin),posN.get(cout),connec.get_poids()*4)
                 self.screen.blit(self.surf2,(0,0))
-
-
-
-
 
         if self.boolAffProgression == True:
             pygame.draw.line(self.surf, (0,0,0), (50, self.WINDOWHEIGHT),(50,0), 5)
@@ -325,9 +320,7 @@ class Affichage:
                     self.demarrer = True
                     return True
 
-
-
-
+    ## fonction qui gere la boucle principale du programme
     def boucleAff(self, glob):
 
         while True:
