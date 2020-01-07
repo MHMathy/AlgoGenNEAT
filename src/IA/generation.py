@@ -21,7 +21,6 @@ class Generation:
 
     ## fonction evaluer, qui va gerer le classement entre especes des differents genomes
     def evaluer(self,dictScore):
-        print("commence evaluer")
 
         #Reinitialiser les dictionnaires
         for e in self.listEspeces:
@@ -37,15 +36,13 @@ class Generation:
         for key in dictScore.keys():
             self.listGenomes.append(key)
 
-        print("taille l gen", len(self.listGenomes))
-
         #Place les genomes dans des espèces
         for g in self.listGenomes:
 
             trouveEspece = False
             for e in self.listEspeces:
-                #Si le genome est proche de la mascotte d'une espèce, on l'ajoute à l'espèce
 
+                #Si le genome est proche de la mascotte d'une espèce, on l'ajoute à l'espèce
                 if Genome.calc_distance_compatibilite(g,e.mascotte)<Constantes.Cons.get("DISTANCE_MIN_ESPECE"):
                     e.membres.append(g)
                     self.lienGenomeEspece.update({g:e})
@@ -61,7 +58,8 @@ class Generation:
         for g in self.listGenomes:
             e = self.lienGenomeEspece.get(g)
 
-            score = dictScore.get(g)
+            score = abs(dictScore.get(g))
+
             scoreAjuster = score
             scoreAjuster=score/len(e.membres)
 
@@ -71,8 +69,7 @@ class Generation:
             if score>self.maxAptitude:
                 self.maxAptitude = score
 
-        #Enlève les espèces vides
-        #Mettre un print voir si ça s'active un jour
+        #Enlève les espèces avec uniquement la mascotte
         for e in self.listEspeces[:]:
             if len(e.membres)==1:
                 self.listEspeces.remove(e)
@@ -84,7 +81,6 @@ class Generation:
 
 
         #Generer le reste de la prochaine generation par mélange
-        print("l next", len(self.nextGenGenome))
         while len(self.nextGenGenome)<self.taillePopulation:
 
             e = self.get_random_espece()
@@ -109,6 +105,7 @@ class Generation:
 
             self.nextGenGenome.append(gfils)
 
+        #Le prochaine generation devient la generation actuelle
         self.listGenomes = list(self.nextGenGenome)
         self.nextGenGenome.clear()
         print("  Nombre especes: ",len(self.listEspeces))
@@ -122,7 +119,7 @@ class Generation:
     def get_listGenomes(self):
         return self.listGenomes
 
-    ## fonction qui retourne une espece aleatoire, selon l'aptitude maximale des differentes especes
+    ## fonction qui retourne une espece aleatoire, en favorisant les espèces avec un meilleur score
     def get_random_espece(self):
         maxApt = max(esp.aptitudeTotalAjuster for esp in self.listEspeces)
         r = random.random()*maxApt
@@ -132,7 +129,7 @@ class Generation:
             if conteApt >=r:
                 return e
 
-    ## fonction qui retourne un genome aleatoire, selon l'aptitude maximale des genomes
+    ## fonction qui retourne un genome aleatoire, favorisant les genomes avec un meilleur score
     def get_random_genome(self,esp):
         maxApt = max(gen.aptitude for gen in esp.aptitudePopulation)
         r = random.random()*maxApt

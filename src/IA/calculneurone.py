@@ -48,6 +48,7 @@ class CalculNeurone:
             self.listValeur[k] = False
 
         # les valeurs d'entrée sont assigné
+        self.listValeur['0'] = 1
         self.listValeur['3'] = inputVal["vitesse"]
         self.listValeur['4'] = inputVal["capteur0"]
         self.listValeur['5'] = inputVal["capteur45"]
@@ -62,11 +63,10 @@ class CalculNeurone:
         for k in OrderedDict(self.listValeur):
             tmp = 0
             if self.listValeur[k] == False:
-                # pour chaques neurones sans valeur on cherche les valeurs dont il dépend grace lisrLien
-                # et
+                # pour chaques neurones sans valeur on cherche les valeurs dont il dépend grace a listLien
+                # et on additionne toutes le valeurs puis on applique sigmoid sur cette somme
                 for connec in self.listLien[k]:
                     tmp+= (self.listValeur[connec[0]]*connec[1])
-                #tmp += 1 #bias  ###########################################################################################
                 self.listValeur[k] = CalculNeurone.sigmoid(tmp)
 
             else:
@@ -105,23 +105,7 @@ class CalculNeurone:
 
         G1 = Genome()
         l = []
-        """
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
-        """
-
+        
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))

@@ -104,9 +104,9 @@ class Voiture:
            elif valSortie.get("acc/fre")<0.6:
                self.freiner()
 
-           if valSortie.get("D/G")>0.7 and self.vitesse != 0:
+           if valSortie.get("D/G")>0.8 and self.vitesse != 0:
                self.tourne_droite()
-           elif valSortie.get("D/G")<0.3 and self.vitesse != 0:
+           elif valSortie.get("D/G")<0.2 and self.vitesse != 0:
                self.tourne_gauche()
 
 
@@ -123,7 +123,7 @@ class Voiture:
 
            if self.capteurCourant != 7:
                self.capteurSuivant = self.capteurCourant + 1
-               
+
            else:
                self.capteurSuivant = 0
 
@@ -140,7 +140,7 @@ class Voiture:
            if self.dureeVie > 1.5 and self.pos == [200,150]:
                self.meurt()
 
-        
+
 
     def meurt(self):
         self.vivant = False

@@ -36,7 +36,6 @@ class Constantes:
         "DISTANCE_C1": 1,
         "DISTANCE_C2": 1,
         "DISTANCE_C3": 0.4,
-        "DEFAULT_N_CONNEC": 3,
 
         "COEF_EXPO": 1
        }

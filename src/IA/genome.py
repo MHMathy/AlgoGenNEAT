@@ -17,6 +17,7 @@ class Genome:
     def default(type="normal"):
         l = []
         g = Genome()
+        l.append(NoeudGene("bias", 0))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("output",Innovation.get_new_innovation_noeud()))
         l.append(NoeudGene("input", Innovation.get_new_innovation_noeud()))
@@ -33,13 +34,15 @@ class Genome:
 
         g.ajout_connec(ConnexionGene(3,1,1,True,Innovation.get_new_innovation_connec(3,1)))
         g.ajout_connec(ConnexionGene(4,1,1,True,Innovation.get_new_innovation_connec(4,1)))
+        g.ajout_connec(ConnexionGene(0,1,1,True,Innovation.get_new_innovation_connec(0,1)))
 
+        g.ajout_connec(ConnexionGene(0,2,1,True,Innovation.get_new_innovation_connec(0,2)))
         g.ajout_connec(ConnexionGene(5,2,1,True,Innovation.get_new_innovation_connec(5,2)))
         g.ajout_connec(ConnexionGene(6,2,1,True,Innovation.get_new_innovation_connec(6,2)))
         #g.ajout_connec(ConnexionGene(7,2,1,True,Innovation.get_new_innovation_connec(7,2)))
         #g.ajout_connec(ConnexionGene(8,2,1,True,Innovation.get_new_innovation_connec(8,2)))
-        #g.ajout_connec(ConnexionGene(9,2,1,True,Innovation.get_new_innovation_connec(9,2)))
-        #g.ajout_connec(ConnexionGene(10,2,1,True,Innovation.get_new_innovation_connec(10,2)))
+        g.ajout_connec(ConnexionGene(9,2,1,True,Innovation.get_new_innovation_connec(9,2)))
+        g.ajout_connec(ConnexionGene(10,2,1,True,Innovation.get_new_innovation_connec(10,2)))
         #g.ajout_connec(ConnexionGene(11,1,1,True,Innovation.get_new_innovation_connec(11,1)))
 
         return g
@@ -139,7 +142,7 @@ class Genome:
             essai += 1
             while True:
                 noeud = random.sample(self.__listNoeuds,2) #noeud tire au hazard
-                if not(noeud[0].get_type() == noeud[1].get_type() and (noeud[0].get_type() == "input" or noeud[0].get_type() == "output")):
+                if not((noeud[0].get_type() == noeud[1].get_type() and (noeud[0].get_type() == "input" or noeud[0].get_type() == "output")) or (noeud[0].get_type() == "bias")):
                     break
 
 
@@ -173,21 +176,29 @@ class Genome:
 
     ## fonction qui ajoute un noeud a une mutation
     def ajout_noeud_mutation(self):
-        connec = random.choice(self.__listConnexions)
+        while True:
+            connec = random.choice(self.__listConnexions)
+            if self.get_noeud(connec.get_noeudin()) != 0:
+                break
+
         noeudin = self.get_noeud(connec.get_noeudin())
         noeudout = self.get_noeud(connec.get_noeudout())
 
+        # on desactive la connexion initiale pour evité
         connec.desactive()
 
         newNoeud = NoeudGene("hidden",Innovation.get_new_innovation_noeud())
 
+        # 3
         coInNew = ConnexionGene(noeudin.get_id(),newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(noeudin.get_id(),newNoeud.get_id()))
         coNewOut = ConnexionGene(newNoeud.get_id(),noeudout.get_id(),connec.get_poids(),True,Innovation.get_new_innovation_connec(newNoeud.get_id(),noeudout.get_id()))
+        coBiasNew = ConnexionGene(0,newNoeud.get_id(),1,True,Innovation.get_new_innovation_connec(0,newNoeud.get_id()))
 
         self.ajout_noeud(newNoeud)
 
         self.ajout_connec(coInNew)
         self.ajout_connec(coNewOut)
+        self.ajout_connec(coBiasNew)
 
     ## fonction qui renvoie une genome qui est le melange de deux autres genomes
     # @param genParent1 1er parent du genome qui sera retourne

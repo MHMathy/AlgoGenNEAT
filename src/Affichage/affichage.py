@@ -165,8 +165,8 @@ class Affichage:
 
             self.screen.blit(self.listRect[i].getTexte(), self.listRect[i].getRect())
 
-        ########## AFFICHE GENOME ##########################################################
 
+        # Affihe le réseau de neurone
         if self.boolAffGenome == True:
             self.screen.blit(self.surf2,(0,0))
 
@@ -202,6 +202,47 @@ class Affichage:
         pygame.display.update()
 
         listPosVoiture.clear()
+
+    ## fonction d'affichage du genome le plus performant lors de la derniere generation
+    def drawGenome(self,glob):
+
+        pos = []
+        posN = {}
+
+        for connec in glob.gmax.get_listConnexions():
+            cin = connec.get_noeudin()
+            cout = connec.get_noeudout()
+
+            for n in [cin,cout]:
+                if posN.get(n)==None:
+
+                    coln = [100,100,255]
+                    if glob.gmax.get_type_noeud(n) == "output":
+                        pos = [random.randint(100,900),random.randint(50,100)]
+
+                        coln = [100,255,100]
+                    elif glob.gmax.get_type_noeud(n) == "input":
+                        pos = [random.randint(100,900),random.randint(550,600)]
+                        coln = [255,100,100]
+                    elif glob.gmax.get_type_noeud(n) == "bias":
+                        pos = [random.randint(700,900),random.randint(400,450)]
+                        coln = [255,100,255]
+                    else:
+                        pos = [random.randint(100,900),random.randint(200,450)]
+
+                    posN.update({n:pos})
+                    pygame.draw.circle(self.surf2,coln, pos, 30)
+                    self.text(self.surf2,str(n),pos[0],pos[1]+20,self.police)
+            colc = [0,0,255]
+            if connec.get_poids()<0:
+                colc = [255,0,0]
+            if connec.get_actif() == False:
+                colc = [50,50,50]
+            pygame.draw.line(self.surf2,colc,posN.get(int(cin)),posN.get(int(cout)),abs(int(connec.get_poids()*2))+1)
+
+
+
+
 
     ## fonction qui quitte la SDL et ferme la fenetre python
     def quitter(self):
@@ -291,45 +332,6 @@ class Affichage:
         rect.center =(x,y)
         surface.blit(text,rect)
 
-    ## fonction d'affichage du genome le plus performant lors de la derniere generation
-    def drawGenome(self,glob):
-
-        pos = []
-        posN = {}
-        colc = [0,0,255]
-        for connec in glob.gmax.get_listConnexions():
-            cin = connec.get_noeudin()
-            cout = connec.get_noeudout()
-
-            for n in [cin,cout]:
-                if posN.get(n)==None:
-
-                    coln = [100,100,255]
-                    if glob.gmax.get_type_noeud(n) == "output":
-                        pos = [random.randint(100,900),random.randint(50,100)]
-
-                        coln = [100,255,100]
-                    elif glob.gmax.get_type_noeud(n) == "input":
-                        pos = [random.randint(100,900),random.randint(550,600)]
-                        coln = [255,100,100]
-                    elif glob.gmax.get_type_noeud(n) == "bias":
-                        pos = [random.randint(700,900),random.randint(400,450)]
-                        coln = [100,100,100]
-                    else:
-                        pos = [random.randint(100,900),random.randint(200,450)]
-
-                    posN.update({n:pos})
-                    pygame.draw.circle(self.surf2,coln, pos, 30)
-                    self.text(self.surf2,str(n),pos[0],pos[1]+20,self.police)
-            if connec.get_poids()<0:
-                colc = [255,0,0]
-            if connec.get_actif() == False:
-                colc = [50,50,50]
-            print("cin",cin,"    ",posN.get(cin)," cout",cout,"    ",posN.get(cout))
-            colc = [50,50,50]
-            pygame.draw.line(self.surf2,(0,0,0),posN.get(cin),posN.get(cout),int(connec.get_poids()*2)+1)
-            colc = [50,50,50]
-            pygame.draw.line(self.surf2,(0,0,0),posN.get(cout),posN.get(cin),int(connec.get_poids()*2)+1)
 
     ## fonction qui gere le deroulement global du programme
     def boucleAff(self, glob):
@@ -352,7 +354,7 @@ class Affichage:
                         self.mainClock.tick(30)
 
 
-                self.surf2.fill((255,255,255))
+                self.surf2.fill(self.WHITE)
                 glob.fin_cycle()
 
         self.quitter()
